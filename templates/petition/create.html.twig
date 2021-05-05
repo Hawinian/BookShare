@@ -1,0 +1,11 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_petition_create',
+    page_title_param: {'%id%': book.id},
+    attr: {
+        method: 'POST',
+        action: url('petition_create', {'id': book.id}),
+    },
+    form: form,
+    submit_label: 'action_create'|trans,
+    back_to_list_path: 'book_index',
+} %}

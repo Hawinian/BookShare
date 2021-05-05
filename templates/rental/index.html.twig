@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_rental_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_rental_list'|trans }}</h1>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'rental.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_date_of_rental'|trans, 'rental.date_of_rental') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_date_of_return'|trans, 'rental.date_of_rental') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_id'|trans, 'rental.book.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_title'|trans, 'rental.book.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_user'|trans, 'rental.user.id') }}</th>
+                <th>{{ 'label_return'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for rental in pagination.items %}
+                <tr>
+                    <td>{{ rental.id }}</td>
+                    <td>{{ rental.DateOfRental|format_date('long') }}</td>
+                    <td>{{ rental.DateOfReturn|format_date('long') }}</td>
+                    <td>{{ rental.book.id }}</td>
+                    <td>{{ rental.book.title }}</td>
+                    <td>{{ rental.user.id}}</td>
+                    <td>
+                        <a href="{{ url('rental_return', {id: rental.id}) }}" title="{{ 'rental_return'|trans }}">
+                            {{ 'rental_return'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

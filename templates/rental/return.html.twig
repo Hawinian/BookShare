@@ -1,0 +1,11 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_rental_create',
+    page_title_param: {'%id%': rental.id},
+    attr: {
+        method: 'POST',
+        action: url('rental_return', {'id': rental.id}),
+    },
+    form: form,
+    submit_label: 'rental_return'|trans,
+    back_to_list_path: 'rental_index',
+} %}

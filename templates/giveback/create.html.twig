@@ -1,0 +1,11 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_giveback_create',
+    page_title_param: {'%id%': giveback.id},
+    attr: {
+        method: 'POST',
+        action: url('giveback_create', {'id': giveback.id}),
+    },
+    form: form,
+    submit_label: 'action_create'|trans,
+    back_to_list_path: 'rental_index',
+} %}

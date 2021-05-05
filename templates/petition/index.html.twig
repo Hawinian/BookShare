@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_petition_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_petition_list'|trans }}</h1>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'petition.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_datetime'|trans, 'petition.date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_content'|trans, 'petition.content') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_id'|trans, 'petition.book.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_title'|trans, 'petition.book.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_user'|trans, 'petition.user.id') }}</th>
+                <th>{{ 'label_accept'|trans }}</th>
+                <th>{{ 'label_reject'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for petition in pagination.items %}
+                <tr>
+                    <td>{{ petition.id }}</td>
+                    <td>{{ petition.date|format_date('long') }}</td>
+                    <td>{{ petition.content }}</td>
+                    <td>{{ petition.book.id }}</td>
+                    <td>{{ petition.book.title }}</td>
+                    <td>{{ petition.user.id}}</td>
+                    <td>
+                        <a href="{{ url('petition_accept', {id: petition.id}) }}" title="{{ 'action_accept'|trans }}">
+                            {{ 'action_accept'|trans }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url('petition_reject', {id: petition.id}) }}" title="{{ 'action_reject'|trans }}">
+                            {{ 'action_reject'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

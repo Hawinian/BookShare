@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_giveback_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_giveback_list'|trans }}</h1>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'giveback.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_datetime'|trans, 'giveback.date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_content'|trans, 'giveback.content') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_id'|trans, 'giveback.book.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_title'|trans, 'giveback.book.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_user'|trans, 'giveback.user.id') }}</th>
+                <th>{{ 'label_accept'|trans }}</th>
+                <th>{{ 'label_reject'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for giveback in pagination.items %}
+                <tr>
+                    <td>{{ giveback.id }}</td>
+                    <td>{{ giveback.date|format_date('long') }}</td>
+                    <td>{{ giveback.content }}</td>
+                    <td>{{ giveback.rental.id }}</td>
+                    <td>{{ giveback.rental.book.id }}</td>
+                    <td>{{ giveback.rental.book.title }}</td>
+                    <td>{{ giveback.rental.user.id}}</td>
+                    <td>
+                        <a href="{{ url('giveback_accept', {id: giveback.id}) }}" title="{{ 'action_accept'|trans }}">
+                            {{ 'action_accept'|trans }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url('giveback_reject', {id: giveback.id}) }}" title="{{ 'action_reject'|trans }}">
+                            {{ 'action_reject'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
