@@ -32,11 +32,29 @@
             <dd>{{ book.language.name }}</dd>
             <dt>{{ 'label_description'|trans }}</dt>
             <dd>{{ book.description }}</dd>
-            <dt>{{ 'label_tags'|trans }}</dt>
-            {% for tag in book.tag %}
-                {{ tag.name }},
-            {% endfor %}
+            {% if book.image is defined  %}
+                <img class="nav-profile-img" src="{{ asset('uploads/images/'~ book.image) }}">
+            {% endif %}
 
+
+            <dt>{{ 'label_tags'|trans }}</dt>
+
+            {% if book.tag is defined and book.tag|length %}
+                {% for tag in book.tag %}
+                    <a href="{{ url('book_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.name }}">
+                        {{ tag.name }}
+                    </a>
+                {% endfor %}
+            {% else %}
+                &nbsp;
+            {% endif %}
+                {% if app.user %}
+                    <td>
+                    <a href="{{ url('vote_add', {id: book.id}) }}" title="{{ 'action_add'|trans }}">
+                        {{ 'action_add'|trans }}
+                    </a>
+                    </td>
+                {% endif %}
         </dl>
         <p>
             <a href="{{ url('book_index') }}" title="{{ 'action_back_to_list'|trans }}">

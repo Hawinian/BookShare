@@ -6,20 +6,59 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\Category;
+use App\Entity\Vote;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use App\Service\BookService;
+use App\Service\FileUploader;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class BookController.
- *
  */
 class BookController extends AbstractController
 {
+    /**
+     * Book service.
+     *
+     * @var \App\Service\BookService
+     */
+    private $bookService;
+
+    /**
+     * File uploader.
+     *
+     * @var \App\Service\FileUploader
+     */
+    private $fileUploader;
+
+    /**
+     * Filesystem component.
+     *
+     * @var \Symfony\Component\Filesystem\Filesystem
+     */
+    private $filesystem;
+
+    /**
+     * BookController constructor.
+     *
+     * @param \App\Service\BookService $bookService Book service
+     * @param \App\Service\FileUploader        $fileUploader     File uploader
+     * @param \Symfony\Component\Filesystem\Filesystem $filesystem       Filesystem component
+     */
+    public function __construct(BookService $bookService, FileUploader $fileUploader, Filesystem $filesystem)
+    {
+        $this->bookService = $bookService;
+        $this->fileUploader = $fileUploader;
+        $this->filesystem = $filesystem;
+    }
+
     /**
      * Index action.
      *
@@ -35,10 +74,74 @@ class BookController extends AbstractController
      *     name="book_index",
      * )
      */
-    public function index(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, BookService $bookService): Response
+    {
+        $filters = [];
+        $filters['category_id'] = $request->query->getInt('filters_category_id');
+        $filters['tag_id'] = $request->query->getInt('filters_tag_id');
+        #$filters['vote_average'] = $request->query->getInt('filters_vote_average');
+
+        $pagination = $this->bookService->createPaginatedList(
+            $request->query->getInt('page', 1),
+            $filters
+        );
+
+        return $this->render(
+            'book/index.html.twig',
+            ['pagination' => $pagination]
+        );
+    }
+
+    /**
+     *  action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP petition
+     * @param \App\Repository\BookRepository            $bookRepository Book repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/category/{id}",
+     *     methods={"GET"},
+     *     name="book_category",
+     *     requirements={"id": "[1-9]\d*"},
+     * )
+     */
+    public function showCategories(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, Category $category, string $id): Response
     {
         $pagination = $paginator->paginate(
-            $bookRepository->queryAll(),
+            $bookRepository->findByCategory($id),
+            $request->query->getInt('page', 1),
+            BookRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
+        return $this->render(
+            'book/index.html.twig',
+            ['pagination' => $pagination]
+        );
+    }
+
+    /**
+     *  action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP petition
+     * @param \App\Repository\BookRepository            $bookRepository Book repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/tag/{id}",
+     *     methods={"GET"},
+     *     name="book_tag",
+     *     requirements={"id": "[1-9]\d*"},
+     * )
+     */
+    public function showTags(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, string $id): Response
+    {
+        $pagination = $paginator->paginate(
+            $bookRepository->findByTag($id),
             $request->query->getInt('page', 1),
             BookRepository::PAGINATOR_ITEMS_PER_PAGE
         );
@@ -67,7 +170,7 @@ class BookController extends AbstractController
     {
         return $this->render(
             'book/show.html.twig',
-            ['book' => $book]
+            [   'book' => $book]
         );
     }
 
@@ -95,6 +198,10 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFilename = $this->fileUploader->upload(
+                $form->get('image')->getData()
+            );
+            $book->setImage($imageFilename);
             $bookRepository->save($book);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -133,6 +240,13 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->filesystem->remove(
+                $this->getParameter('images_directory').'/'.$book->getImage()
+            );
+            $imageFilename = $this->fileUploader->upload(
+                $form->get('image')->getData()
+            );
+            $book->setImage($imageFilename);
             $bookRepository->save($book);
 
             $this->addFlash('success', 'message_updated_successfully');

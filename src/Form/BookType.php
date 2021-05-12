@@ -15,10 +15,12 @@ use App\Entity\Status;
 use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 /**
  * Class BookType.
@@ -185,6 +187,28 @@ class BookType extends AbstractType
                 'label' => 'label_category',
                 'placeholder' => 'label_none',
                 'required' => true,
+            ]
+        );
+
+        $builder->add(
+            'image',
+            FileType::class,
+            [
+                'mapped' => false,
+                'label' => 'label_image',
+                'required' => true,
+                'constraints' => new Image(
+                    [
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpeg',
+                            'image/pjpeg',
+                            'image/jpeg',
+                            'image/pjpeg',
+                        ],
+                    ]
+                ),
             ]
         );
 

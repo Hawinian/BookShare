@@ -18,6 +18,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'book.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'book.author') }}</th>
+{#                <th>{{ knp_pagination_sortable(pagination, 'label_rate'|trans, 'avg_rate') }}</th>#}
                 <th>{{ knp_pagination_sortable(pagination, 'label_category'|trans, 'book.category') }}</th>
 
                 <th>{{ 'View details'|trans }}</th>
@@ -37,7 +38,10 @@
                     <td>{{ book.id }}</td>
                     <td>{{ book.title }}</td>
                     <td>{{ book.author.name }}</td>
-                    <td>{{ book.category.name }}</td>
+{#                    <td>{{ avg_rate }}</td>#}
+                    <td><a href="{{ url('book_index', {'filters.category_id' : book.category.id}) }}" title="{{ book.category.name }}">
+                            {{ book.category.name }}
+                        </a></td>
                     <td>
                         <a href="{{ url('book_show', {id: book.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}

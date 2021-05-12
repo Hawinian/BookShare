@@ -26,6 +26,7 @@
             </thead>
             <tbody>
             {% for rental in pagination.items %}
+                {% if rental.user.id == app.user.id or is_granted('ROLE_ADMIN')%}
                 <tr>
                     <td>{{ rental.id }}</td>
                     <td>{{ rental.DateOfRental|format_date('long') }}</td>
@@ -39,6 +40,7 @@
                         </a>
                     </td>
                 </tr>
+                {% endif %}
             {% endfor %}
             </tbody>
         </table>

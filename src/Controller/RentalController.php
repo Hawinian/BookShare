@@ -63,6 +63,7 @@ class RentalController extends AbstractController
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @Route(
      *     "/{id}/return",
      *     methods={"GET", "POST"},

@@ -6,6 +6,7 @@
 namespace App\Repository;
 
 use App\Entity\Rental;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 //use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
@@ -91,5 +92,22 @@ class RentalRepository extends ServiceEntityRepository
     {
         $this->_em->remove($rental);
         $this->_em->flush();
+    }
+
+    /**
+     * Query tasks by author.
+     *
+     * @param \App\Entity\User $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByAuthor(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('rental.user = :user')
+            ->setParameter('user', $user);
+
+        return $queryBuilder;
     }
 }

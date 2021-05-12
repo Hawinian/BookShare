@@ -133,6 +133,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found :(');
+        } elseif (300 === $user->getStatus()) {
+            throw new CustomUserMessageAuthenticationException('Your account is banned');
         }
 
         return $user;

@@ -68,6 +68,7 @@ class PetitionController extends AbstractController
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @Route(
      *     "/{id}/create",
      *     methods={"GET", "POST"},
@@ -110,6 +111,7 @@ class PetitionController extends AbstractController
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @Route(
      *     "/{id}/accept",
      *     methods={"GET", "POST"},
@@ -156,6 +158,7 @@ class PetitionController extends AbstractController
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @Route(
      *     "/{id}/reject",
      *     methods={"GET", "POST"},

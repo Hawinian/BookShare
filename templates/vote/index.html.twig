@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_vote_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_vote_list'|trans }}</h1>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'vote.id') }}</th>
+{#                <th>{{ knp_pagination_sortable(pagination, 'label_user_id'|trans, 'vote.user.id') }}</th>#}
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_id'|trans, 'vote.book.id') }}</th>
+{#                <th>{{ knp_pagination_sortable(pagination, 'label_book_title'|trans, 'vote.book.title') }}</th>#}
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_rate'|trans, 'vote.rate') }}</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for vote in pagination.items %}
+                {{ dump(vote) }}
+                <tr>
+                    <td>{{ vote.id }}</td>
+{#                    <td>{{ vote.user.id }}</td>#}
+{#                    <td>{{ vote.b.id }}</td>#}
+{#                    <td>{{ vote.book.title }}</td>#}
+{#                    <td>{{ vote.rate }}</td>#}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

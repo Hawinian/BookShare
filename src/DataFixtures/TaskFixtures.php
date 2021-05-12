@@ -21,7 +21,7 @@ class TaskFixtures extends AbstractBaseFixtures implements DependentFixtureInter
      */
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(100, 'tasks', function ($i) {
+        $this->createMany(1, 'tasks', function ($i) {
             $task = new Task();
             $task->setTitle($this->faker->sentence);
             $task->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));

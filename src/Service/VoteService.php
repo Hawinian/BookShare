@@ -1,27 +1,27 @@
 <?php
 /**
- * Book service.
+ * Vote service.
  */
 
 namespace App\Service;
 
 use App\Entity\Category;
-use App\Repository\BookRepository;
+use App\Repository\VoteRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class BookService.
+ * Class VoteService.
  */
-class BookService
+class VoteService
 {
     /**
-     * Book repository.
+     * Vote repository.
      *
-     * @var \App\Repository\BookRepository
+     * @var \App\Repository\VoteRepository
      */
-    private $bookRepository;
+    private $voteRepository;
 
     /**
      * Paginator.
@@ -45,14 +45,14 @@ class BookService
     private $tagService;
 
     /**
-     * BookService constructor.
+     * VoteService constructor.
      *
-     * @param \App\Repository\BookRepository          $bookRepository Book repository
+     * @param \App\Repository\VoteRepository          $voteRepository Vote repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator      Paginator
      */
-    public function __construct(BookRepository $bookRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
+    public function __construct(VoteRepository $voteRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
     {
-        $this->bookRepository = $bookRepository;
+        $this->voteRepository = $voteRepository;
         $this->paginator = $paginator;
         $this->categoryService = $categoryService;
         $this->tagService = $tagService;
@@ -92,18 +92,16 @@ class BookService
      *
      * @param int                                                 $page    Page number
      * @param \Symfony\Component\Security\Core\User\UserInterface $user    User entity
-     * @param array                                               $filters Filters array
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
-    public function createPaginatedList(int $page, array $filters = []): PaginationInterface
+    public function createPaginatedList(int $page): PaginationInterface
     {
-        $filters = $this->prepareFilters($filters);
 
         return $this->paginator->paginate(
-            $this->bookRepository->queryAll($filters),
+            $this->voteRepository->queryAll(),
             $page,
-            BookRepository::PAGINATOR_ITEMS_PER_PAGE
+            VoteRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
 
@@ -117,9 +115,9 @@ class BookService
     public function createPaginatedListCategory(int $page, Category $category): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->bookRepository->queryByCategory($category),
+            $this->voteRepository->queryByCategory($category),
             $page,
-            BookRepository::PAGINATOR_ITEMS_PER_PAGE
+            VoteRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
 }

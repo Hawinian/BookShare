@@ -6,6 +6,8 @@
 namespace App\Repository;
 
 use App\Entity\Book;
+use App\Entity\Category;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 //use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
@@ -42,15 +44,32 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+//    /**
+//     * Query all records.
+//     *
+//     * @return \Doctrine\ORM\QueryBuilder Query builder
+//     */
+//    public function queryAll(): QueryBuilder
+//    {
+//        return $this->getOrCreateQueryBuilder()
+//            ->orderBy('book.title', 'ASC');
+//    }
+
     /**
-     * Query all records.
+     * Query books by category.
+     *
+     * @param \App\Entity\Category $category Category entity
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryByCategory(Category $category): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
-            ->orderBy('book.title', 'ASC');
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('book.category = :category')
+            ->setParameter('category', $category);
+
+        return $queryBuilder;
     }
 
     /**
@@ -91,5 +110,110 @@ class BookRepository extends ServiceEntityRepository
     {
         $this->_em->remove($book);
         $this->_em->flush();
+    }
+
+    /**
+     * @param $value
+     *
+     * @return int|mixed|string
+     */
+    public function findByCategory($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.category = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param $value
+     *
+     * @return int|mixed|string
+     */
+    public function findByTag($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.tag = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Query all records.
+     *
+     * @param array $filters Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryAll(array $filters = []): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial book.{id, title, date, pages}',
+                'partial category.{id, name}',
+                'partial tags.{id, name}'
+
+            )
+            ->join('book.category', 'category')
+            ->leftJoin('book.tag', 'tags')
+            ->orderBy('book.title', 'ASC');
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+
+        return $queryBuilder;
+    }
+
+//    /**
+//     * Query all records.
+//     *
+//     * @param array $filters Filters array
+//     *
+//     * @return \Doctrine\ORM\QueryBuilder Query builder
+//     */
+//    public function queryAll(array $filters = []): QueryBuilder
+//    {
+//        $queryBuilder = $this->getOrCreateQueryBuilder()
+//            ->select(
+//                'partial book.{id, title, date, pages}',
+//                'partial category.{id, name}',
+//                'partial tags.{id, name}',
+//                'partial votes.{id, rate}',
+//                'avg(votes.rate) avg_rate'
+//            )
+//            ->join('book.category', 'category')
+//            ->leftJoin('book.tag', 'tags')
+//            ->leftJoin('book.votes', 'votes')
+//            ->orderBy('book.title', 'ASC')
+//            ->groupBy('book.id');
+//        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+//
+//        return $queryBuilder;
+//    }
+
+
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     * @param array                      $filters      Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['category']) && $filters['category'] instanceof Category) {
+            $queryBuilder->andWhere('category = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tags IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        return $queryBuilder;
     }
 }

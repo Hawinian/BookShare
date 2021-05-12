@@ -62,6 +62,7 @@ class GivebackController extends AbstractController
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @Route(
      *     "/{id}/accept",
      *     methods={"GET", "POST"},
@@ -91,6 +92,7 @@ class GivebackController extends AbstractController
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @Route(
      *     "/{id}/reject",
      *     methods={"GET", "POST"},

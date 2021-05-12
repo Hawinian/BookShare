@@ -73,6 +73,7 @@ class User implements UserInterface
      */
     private $email;
 
+
     /**
      * Roles.
      *
@@ -84,14 +85,31 @@ class User implements UserInterface
      * The hashed password.
      *
      * @var string
-     *
-     * @ORM\Column(type="string")
-
-     * @Assert\NotBlank
-     * @Assert\Type(type="string")
-     * @SecurityAssert\UserPassword
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $login;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
+
+    public function __construct()
+    {
+        $this->roles = array('ROLE_USER');
+    }
 
     /**
      * Getter for the Id.
@@ -111,6 +129,16 @@ class User implements UserInterface
     public function getEmail(): ?string
     {
         return $this->email;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     /**
@@ -162,6 +190,22 @@ class User implements UserInterface
     }
 
     /**
+     * Setter for the Roles.
+     *
+     *@param array $roles Roles
+     */
+    public function removeRole(array $roles): void
+    {
+        $val = 'ROLE_ADMIN';
+        if (($key = array_search($val, $roles)) !== false) {
+            unset($roles[$key]);
+        }
+        #$roles = array_diff($roles, array("ROLE_USER", "ROLE_ADMIN"));
+        $this->roles = $roles;
+    }
+
+
+    /**
      * Getter for the Password.
      *
      * @see UserInterface
@@ -183,6 +227,7 @@ class User implements UserInterface
         $this->password = $password;
     }
 
+
     /**
      * @see UserInterface
      */
@@ -199,4 +244,29 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getLogin(): ?string
+    {
+        return $this->login;
+    }
+
+    public function setLogin(string $login): self
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
 }

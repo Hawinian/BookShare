@@ -5,9 +5,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\Category;
+use App\Entity\Giveback;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Service\CategoryService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +24,23 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryController extends AbstractController
 {
+    /**
+     * Category service.
+     *
+     * @var \App\Service\CategoryService
+     */
+    private $categoryService;
+
+    /**
+     * CategoryController constructor.
+     *
+     * @param \App\Service\CategoryService $categoryService Category service
+     */
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     /**
      * Index action.
      *
@@ -38,11 +58,8 @@ class CategoryController extends AbstractController
      */
     public function index(Request $request, CategoryRepository $categoryRepository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $categoryRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->categoryService->createPaginatedList($page);
 
         return $this->render(
             'category/index.html.twig',
@@ -66,9 +83,13 @@ class CategoryController extends AbstractController
      */
     public function show(Category $category): Response
     {
+        $categoryId = $category->getId();
+        $repository = $this->getDoctrine()->getRepository(Book::class);
+        $allBooksInCategory = $repository->findBy(['category' => $categoryId]);
+
         return $this->render(
             'category/show.html.twig',
-            ['category' => $category]
+            ['category' => $allBooksInCategory]
         );
     }
 

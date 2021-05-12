@@ -21,11 +21,28 @@
                     {{ 'Home_page'|trans }}
                 </a>
             </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ url('category_index') }}" title="{{ 'Category_page'|trans }}">
+                    {{ 'Category_page'|trans }}
+                </a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ url('tag_index') }}" title="{{ 'Tag_page'|trans }}">
+                    {{ 'Tag_page'|trans }}
+                </a>
+            </li>
+
+            {% if is_granted('ROLE_USER') %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('rental_index') }}" title="{{ 'Rental_page'|trans }}">
                     {{ 'Rental_page'|trans }}
                 </a>
             </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('petition_index') }}" title="{{ 'Petition_page'|trans }}">
                     {{ 'Petition_page'|trans }}
@@ -36,25 +53,30 @@
                     {{ 'Giveback_page'|trans }}
                 </a>
             </li>
-            {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin_index') }}" title="{{ 'Admin_page'|trans }}">
                         {{ 'Admin_page'|trans }}
                     </a>
                 </li>
             {% endif %}
+
         </ul>
             <ul class="navbar-nav ml-auto">
                 <li>
-                {% if app.user %}
+                {% if app.user and app.user.status != 300 %}
                     <span class="navbar-text">
-                     Hello {{ app.user.email }}
+                     Hello {{ app.user.login }}
                         <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
                     </span>
                     {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('app_login') }}">
                         {{ 'action_login'|trans }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('user_register') }}">
+                        {{ 'action_register'|trans }}
                     </a>
                 </li>
                 {% endif %}
