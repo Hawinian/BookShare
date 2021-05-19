@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Entity\User;
+use App\Form\EditPasswordType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -124,6 +125,50 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+//            $userRepository->upgradePassword($user,$password);
+
+            $userRepository->save($user);
+
+            $this->addFlash('success', 'message_updated_successfully');
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render(
+            'user/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
+     * @param \App\Repository\UserRepository            $userRepository User repository
+     * @param int                                       $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit-password",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="edit_password",
+     * )
+     */
+    public function edit_password(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
+    {
+        $form = $this->createForm(EditPasswordType::class, $user, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $userRepository->upgradePassword($user,$password);
 
@@ -135,7 +180,7 @@ class UserController extends AbstractController
         }
 
         return $this->render(
-            'user/edit.html.twig',
+            'user/edit-password.html.twig',
             [
                 'form' => $form->createView(),
                 'user' => $user,

@@ -66,10 +66,12 @@ class AdminController extends AbstractController
      */
     public function edit_user(UserInterface $loggedUser, Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
     {
-        dump($loggedUser);
         $form = $this->createForm(UserEditAdminType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
+        $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
 
+        dump($user);
+        dump($password);
         if ($form->isSubmitted() && $form->isValid()) {
             $rol = $form->get('status')->getData();
 

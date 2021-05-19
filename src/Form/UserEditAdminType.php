@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -32,11 +33,12 @@ class UserEditAdminType extends AbstractType
             ->add('email', EmailType::class)
             ->add('login', TextType::class)
             ->add('status', IntegerType::class)
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
-            ])
+//            ->add('plainPassword', HiddenType::class)
+//            ->add('plainPassword', RepeatedType::class, [
+//                'type' => PasswordType::class,
+//                'first_options' => ['label' => 'Password'],
+//                'second_options' => ['label' => 'Repeat Password'],
+//            ])
         ;
     }
 
