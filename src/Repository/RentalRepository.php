@@ -31,7 +31,7 @@ class RentalRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 5;
+    const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * RentalRepository constructor.
@@ -48,9 +48,46 @@ class RentalRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
+    public function queryAllLateBooks(): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder()
+//            ->select(
+//                'rental.id, rental.date_of_return, rental.date_of_rental',
+//                'book.id, book.title'
+//            )
+            ->join('rental.book', 'book')
+            ->join('rental.user', 'user')
+            ->where('rental.date_of_return < CURRENT_DATE()')
+            ->orderBy('rental.date_of_rental', 'DESC');
+
+        return $queryBuilder;
+
+    }
+
+    /**
+     * Query all records.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->join('rental.book', 'book')
+            ->join('rental.user', 'user')
+            ->orderBy('rental.date_of_rental', 'DESC');
+    }
+
+    /**
+     * Query all records.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryAllInTimeBooks(): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->join('rental.book', 'book')
+            ->join('rental.user', 'user')
+            ->where('rental.date_of_return >= CURRENT_DATE()')
             ->orderBy('rental.date_of_rental', 'DESC');
     }
 

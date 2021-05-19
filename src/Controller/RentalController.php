@@ -41,13 +41,71 @@ class RentalController extends AbstractController
     public function index(Request $request, RentalRepository $rentalRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-            $rentalRepository->queryAll(),
+            $rentalRepository->queryByAuthor($this->getUser()),
             $request->query->getInt('page', 1),
             RentalRepository::PAGINATOR_ITEMS_PER_PAGE
         );
 
         return $this->render(
             'rental/index.html.twig',
+            ['pagination' => $pagination]
+        );
+    }
+
+    /**
+     * Index action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP rental
+     * @param \App\Repository\RentalRepository          $rentalRepository Rental repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/late_books",
+     *     methods={"GET"},
+     *     name="late_books",
+     * )
+     */
+    public function late_books(Request $request, RentalRepository $rentalRepository, PaginatorInterface $paginator): Response
+    {
+        $pagination = $paginator->paginate(
+            $rentalRepository->queryAllLateBooks(),
+            $request->query->getInt('page', 1),
+            RentalRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
+        return $this->render(
+            'rental/late-books.html.twig',
+            ['pagination' => $pagination]
+        );
+    }
+
+    /**
+     * Index action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP rental
+     * @param \App\Repository\RentalRepository          $rentalRepository Rental repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/in_time_books",
+     *     methods={"GET"},
+     *     name="in_time_books",
+     * )
+     */
+    public function in_time_books(Request $request, RentalRepository $rentalRepository, PaginatorInterface $paginator): Response
+    {
+        $pagination = $paginator->paginate(
+            $rentalRepository->queryAllInTimeBooks(),
+            $request->query->getInt('page', 1),
+            RentalRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
+        return $this->render(
+            'rental/in-time-books.html.twig',
             ['pagination' => $pagination]
         );
     }

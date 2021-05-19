@@ -21,7 +21,7 @@ class RentalFixtures extends AbstractBaseFixtures implements DependentFixtureInt
      */
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(1, 'rentals', function ($i) {
+        $this->createMany(100, 'rentals', function ($i) {
             $rental = new Rental();
             $rental->setDateOfRental($this->faker->dateTime($max = 'now'));
             $rental->setDateOfReturn($this->faker->dateTime($max = 'now'));

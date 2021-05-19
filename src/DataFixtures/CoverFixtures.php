@@ -22,7 +22,7 @@ class CoverFixtures extends AbstractBaseFixtures
     {
         $this->createMany(3, 'covers', function ($i) {
             $cover = new Cover();
-            $cover->setName($this->faker->word);
+            $cover->setName($this->faker->word());
 
             return $cover;
         });

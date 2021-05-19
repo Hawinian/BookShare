@@ -9,7 +9,10 @@ use App\Entity\Book;
 use App\Entity\Category;
 use App\Entity\Vote;
 use App\Form\BookType;
+use App\Form\SearchType;
+use App\Form\VoteType;
 use App\Repository\BookRepository;
+use App\Repository\VoteRepository;
 use App\Service\BookService;
 use App\Service\FileUploader;
 use Knp\Component\Pager\PaginatorInterface;
@@ -18,6 +21,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class BookController.
@@ -48,9 +52,9 @@ class BookController extends AbstractController
     /**
      * BookController constructor.
      *
-     * @param \App\Service\BookService $bookService Book service
-     * @param \App\Service\FileUploader        $fileUploader     File uploader
-     * @param \Symfony\Component\Filesystem\Filesystem $filesystem       Filesystem component
+     * @param \App\Service\BookService                 $bookService  Book service
+     * @param \App\Service\FileUploader                $fileUploader File uploader
+     * @param \Symfony\Component\Filesystem\Filesystem $filesystem   Filesystem component
      */
     public function __construct(BookService $bookService, FileUploader $fileUploader, Filesystem $filesystem)
     {
@@ -79,7 +83,8 @@ class BookController extends AbstractController
         $filters = [];
         $filters['category_id'] = $request->query->getInt('filters_category_id');
         $filters['tag_id'] = $request->query->getInt('filters_tag_id');
-        #$filters['vote_average'] = $request->query->getInt('filters_vote_average');
+        $filters['language_id'] = $request->query->getInt('filters_language_id');
+        $filters['author_id'] = $request->query->getInt('filters_author_id');
 
         $pagination = $this->bookService->createPaginatedList(
             $request->query->getInt('page', 1),
@@ -166,11 +171,25 @@ class BookController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(Book $book): Response
+    public function show(UserInterface $loggedUser, Book $book): Response
     {
+        if ($loggedUser) {
+            $bookId = $book->getId();
+            $userId = $loggedUser->getId();
+            $repository = $this->getDoctrine()->getRepository(Vote::class);
+            $existingRate = $repository->findOneBy(['book' => $bookId, 'user' => $userId]);
+
+            if ($existingRate) {
+                return $this->render(
+                    'book/show.html.twig',
+                    ['book' => $book, 'rate' => $existingRate]
+                );
+            }
+        }
+
         return $this->render(
             'book/show.html.twig',
-            [   'book' => $book]
+            ['book' => $book, 'rate' => null]
         );
     }
 
@@ -314,4 +333,163 @@ class BookController extends AbstractController
             ]
         );
     }
+
+    /**
+     * Index action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/search",
+     *     methods={"GET", "POST"},
+     *     name="book_search",
+     * )
+     */
+    public function search(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, BookService $bookService): Response
+    {
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repository = $this->getDoctrine()->getRepository(Book::class);
+            $title = $form->getData();
+            $title = array_shift($title);
+            $existingBook = $repository->findOneBy(['title' => $title]);
+
+            if ($existingBook) {
+                $book_id = $existingBook->getId();
+
+                return $this->redirectToRoute('book_show', ['id' => $book_id]);
+            } else {
+                $this->addFlash('success', 'cannot find this book');
+
+                return $this->redirectToRoute('book_search');
+            }
+        }
+
+        return $this->render(
+            'book/search.html.twig',
+            ['form' => $form->createView()]
+        );
+    }
+
+    /**
+     * Index action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/{id}/vote",
+     *     methods={"GET", "POST"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="add_vote",
+     * )
+     */
+    public function vote(UserInterface $loggedUser, Request $request, VoteRepository $voteRepository, Book $book, BookRepository $bookRepository): Response
+    {
+        $vote = new Vote();
+        $vote->setBook($book);
+        $vote->setRate(0);
+        $vote->setUser($loggedUser);
+
+        $form = $this->createForm(VoteType::class, $vote);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$vote->setRate('rate');
+            $userId = $loggedUser->getId();
+            $repository = $this->getDoctrine()->getRepository(Vote::class);
+            $allrates = $repository->findBy(['user' => $userId]);
+            foreach ($allrates as &$value) {
+                $voteRepository->delete($value);
+            }
+            $voteRepository->save($vote);
+
+            $this->addFlash('success', 'message_created_successfully');
+
+            return $this->redirectToRoute('book_index');
+        }
+
+        return $this->render(
+            'book/vote.html.twig',
+            ['form' => $form->createView(),
+            'vote' => $vote, ]
+        );
+    }
+
+    /**
+     * Index action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP petition
+     * @param \App\Repository\BookRepository            $bookRepository Book repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/ranking",
+     *     methods={"GET", "POST"},
+     *     name="book_ranking",
+     * )
+     */
+    public function ranking(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, BookService $bookService): Response
+    {
+        $filters = [];
+        $filters['category_id'] = $request->query->getInt('filters_category_id');
+        $filters['tag_id'] = $request->query->getInt('filters_tag_id');
+        $filters['language_id'] = $request->query->getInt('filters_language_id');
+        $pagination = $this->bookService->createPaginatedListForRanking(
+            $request->query->getInt('page', 1),
+            $filters
+        );
+
+        return $this->render(
+            'book/ranking.html.twig',
+            ['pagination' => $pagination]
+        );
+    }
+
+//    /**
+//     * Index action.
+//     *
+//     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
+//     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+//     *
+//     * @Route(
+//     *     "/{id}/vote",
+//     *     methods={"GET", "POST"},
+//     *     requirements={"id": "[1-9]\d*"},
+//     *     name="edit_vote",
+//     * )
+//     */
+//    public function edit_vote(UserInterface $loggedUser, Request $request, VoteRepository $voteRepository, Vote $vote, BookRepository $bookRepository): Response
+//    {
+//
+//        $form = $this->createForm(VoteType::class, $vote, ['method' => 'PUT']);
+//        $form->handleRequest($request);
+//
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            #$vote->setRate('rate');
+//            $voteRepository->save($vote);
+//
+//            $this->addFlash('success', 'message_created_successfully');
+//
+//            return $this->redirectToRoute('book_index');
+//        }
+//
+//        return $this->render(
+//            'book/vote.html.twig',
+//            ['form' => $form->createView(),
+//                'vote' => $vote, ]
+//        );
+//    }
 }

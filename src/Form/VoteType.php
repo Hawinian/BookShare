@@ -6,6 +6,7 @@
 namespace App\Form;
 
 use App\Entity\Vote;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,7 +33,7 @@ class VoteType extends AbstractType
     {
         $builder->add(
             'rate',
-            RangeType::class,
+            IntegerType::class,
             [
                 'label' => 'label.rate',
                 'required' => true,

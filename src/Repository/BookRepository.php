@@ -5,8 +5,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Author;
 use App\Entity\Book;
 use App\Entity\Category;
+use App\Entity\Language;
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 //use Doctrine\Common\Persistence\ManagerRegistry;
@@ -155,43 +157,44 @@ class BookRepository extends ServiceEntityRepository
             ->select(
                 'partial book.{id, title, date, pages}',
                 'partial category.{id, name}',
-                'partial tags.{id, name}'
-
+                'partial tags.{id, name}',
+                'partial language.{id, name}',
+                'partial author.{id, name}',
+                'partial votes.{id, rate}'
             )
             ->join('book.category', 'category')
+            ->join('book.language', 'language')
+            ->join('book.author', 'author')
             ->leftJoin('book.tag', 'tags')
+            ->leftJoin('book.votes', 'votes')
             ->orderBy('book.title', 'ASC');
         $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
 
         return $queryBuilder;
     }
 
-//    /**
-//     * Query all records.
-//     *
-//     * @param array $filters Filters array
-//     *
-//     * @return \Doctrine\ORM\QueryBuilder Query builder
-//     */
-//    public function queryAll(array $filters = []): QueryBuilder
-//    {
-//        $queryBuilder = $this->getOrCreateQueryBuilder()
-//            ->select(
-//                'partial book.{id, title, date, pages}',
-//                'partial category.{id, name}',
-//                'partial tags.{id, name}',
-//                'partial votes.{id, rate}',
-//                'avg(votes.rate) avg_rate'
-//            )
-//            ->join('book.category', 'category')
-//            ->leftJoin('book.tag', 'tags')
-//            ->leftJoin('book.votes', 'votes')
-//            ->orderBy('book.title', 'ASC')
-//            ->groupBy('book.id');
-//        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
-//
-//        return $queryBuilder;
-//    }
+    /**
+     * Query all records.
+     *
+     * @param array $filters Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryAllRanking(array $filters = []): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder()
+            ->select(
+                'book.id, book.title',
+                'coalesce(avg(v.rate),0) avg_rate'
+            )
+            ->leftJoin('book.votes', 'v')
+            ->orderBy('avg_rate', 'DESC')
+            ->groupBy('book.id');
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+
+        return $queryBuilder;
+    }
+
 
 
     /**
@@ -209,7 +212,22 @@ class BookRepository extends ServiceEntityRepository
                 ->setParameter('category', $filters['category']);
         }
 
+        if (isset($filters['language']) && $filters['language'] instanceof Language) {
+            $queryBuilder->andWhere('language = :language')
+                ->setParameter('language', $filters['language']);
+        }
+
+        if (isset($filters['author']) && $filters['author'] instanceof Author) {
+            $queryBuilder->andWhere('author = :author')
+                ->setParameter('author', $filters['author']);
+        }
+
         if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tags IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        if (isset($filters['book']) && $filters['book'] instanceof Book) {
             $queryBuilder->andWhere('tags IN (:tag)')
                 ->setParameter('tag', $filters['tag']);
         }

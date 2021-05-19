@@ -43,15 +43,15 @@ class SearchType extends AbstractType
         );
     }
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults(['data_class' => Book::class]);
-    }
+//    /**
+//     * Configures the options for this type.
+//     *
+//     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
+//     */
+//    public function configureOptions(OptionsResolver $resolver): void
+//    {
+//        $resolver->setDefaults(['data_class' => Book::class]);
+//    }
 
     /**
      * Returns the prefix of the template block name for this type.
@@ -63,6 +63,6 @@ class SearchType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'book';
+        return '';
     }
 }

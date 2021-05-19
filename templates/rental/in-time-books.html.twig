@@ -1,23 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_rental_list'|trans }}
+    {{ 'title_in_time_books'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_rental_list'|trans }}</h1>
+    <h1>{{ 'title_in_time_books'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
-        {% set isLate = 'False' %}
-        {% set lateBooks = 0 %}
-        {% for rental in pagination.items %}
-            {% if rental.DateOfReturn < date() %}
-                {% set isLate = 'True' %}
-                {% set lateBooks = lateBooks + 1%}
-            {% endif %}
-        {% endfor %}
-        {% if isLate == 'True' %}
-            <h1 style="color: red; text-align: center">You are late with returning {{ lateBooks }} books! Only on this page</h1>
-        {% endif %}
 
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
@@ -32,29 +21,17 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_book_id'|trans, 'book.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_book_title'|trans, 'book.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_user'|trans, 'user.id') }}</th>
-                <th>{{ 'label_return'|trans }}</th>
             </tr>
             </thead>
             <tbody>
-
-
             {% for rental in pagination.items %}
                 <tr>
                     <td>{{ rental.id }}</td>
                     <td>{{ rental.DateOfRental|format_date('long') }}</td>
-                    {% if rental.DateOfReturn < date() %}
-                    <td style="color:red">{{ rental.DateOfReturn|format_date('long') }}</td>
-                        {%  else %}
-                            <td style="color:green">{{ rental.DateOfReturn|format_date('long') }}</td>
-                            {% endif %}
+                    <td style="color:green">{{ rental.DateOfReturn|format_date('long') }}</td>
                     <td>{{ rental.book.id }}</td>
                     <td>{{ rental.book.title }}</td>
                     <td>{{ rental.user.id}}</td>
-                    <td>
-                        <a href="{{ url('rental_return', {id: rental.id}) }}" title="{{ 'rental_return'|trans }}">
-                            {{ 'rental_return'|trans }}
-                        </a>
-                    </td>
                 </tr>
 
             {% endfor %}

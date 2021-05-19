@@ -64,12 +64,28 @@ class AdminController extends AbstractController
      *     name="admin_user_edit",
      * )
      */
-    public function edit_user(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
+    public function edit_user(UserInterface $loggedUser, Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
     {
+        dump($loggedUser);
         $form = $this->createForm(UserEditAdminType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $rol = $form->get('status')->getData();
+
+            if (1 == $rol) {
+                $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+            } elseif (0 == $rol) {
+                $userId = $loggedUser->getId();
+                $petitionUser = $user->getId();
+                if ($userId == $petitionUser) {
+                    $this->addFlash('success', 'you cant deprive yourself');
+                } else {
+                    $user_roles = $user->getRoles();
+                    $user->removeRole($user_roles);
+                    //$user->setRoles(['ROLE_USER']);
+                }
+            }
             $userRepository->save($user);
 
             $this->addFlash('success', 'message_updated_successfully');

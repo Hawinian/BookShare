@@ -32,8 +32,28 @@
             <dd>{{ book.language.name }}</dd>
             <dt>{{ 'label_description'|trans }}</dt>
             <dd>{{ book.description }}</dd>
+            {% if app.user %}
+                {% if rate %}
+                    {{ rate.rate }}
+                    {% endif %}
+                <dt>{{ 'label_votes'|trans }}</dt>
+                <td>
+                    <a href="{{ url('add_vote', {id: book.id}) }}" title="{{ 'action_vote'|trans }}">
+                        {{ 'action_vote'|trans }}
+                    </a>
+                </td>
+            {% endif %}
+            <dt>{{ 'label_ask_for_rent'|trans }}</dt>
+        <td>
+            <a href="{{ url('petition_create', {id: book.id}) }}" title="{{ 'action_request'|trans }}">
+                {{ 'action_request'|trans }}
+            </a>
+        </td>
             {% if book.image is defined  %}
+                <dt>{{ 'label_image'|trans }}</dt>
+                <dd>
                 <img class="nav-profile-img" src="{{ asset('uploads/images/'~ book.image) }}">
+                </dd>
             {% endif %}
 
 
@@ -48,13 +68,7 @@
             {% else %}
                 &nbsp;
             {% endif %}
-                {% if app.user %}
-                    <td>
-                    <a href="{{ url('vote_add', {id: book.id}) }}" title="{{ 'action_add'|trans }}">
-                        {{ 'action_add'|trans }}
-                    </a>
-                    </td>
-                {% endif %}
+
         </dl>
         <p>
             <a href="{{ url('book_index') }}" title="{{ 'action_back_to_list'|trans }}">

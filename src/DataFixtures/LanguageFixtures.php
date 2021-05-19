@@ -22,7 +22,7 @@ class LanguageFixtures extends AbstractBaseFixtures
     {
         $this->createMany(10, 'languages', function ($i) {
             $language = new Language();
-            $language->setName($this->faker->country);
+            $language->setName($this->faker->country());
 
             return $language;
         });

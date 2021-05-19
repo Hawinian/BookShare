@@ -9,7 +9,6 @@ use App\Entity\Category;
 use App\Repository\BookRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class BookService.
@@ -38,6 +37,20 @@ class BookService
     private $categoryService;
 
     /**
+     * Author service.
+     *
+     * @var \App\Service\AuthorService
+     */
+    private $authorService;
+
+    /**
+     * Language service.
+     *
+     * @var \App\Service\LanguageService
+     */
+    private $languageService;
+
+    /**
      * Tag service.
      *
      * @var \App\Service\TagService
@@ -50,12 +63,14 @@ class BookService
      * @param \App\Repository\BookRepository          $bookRepository Book repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator      Paginator
      */
-    public function __construct(BookRepository $bookRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
+    public function __construct(BookRepository $bookRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService, LanguageService $languageService, AuthorService $authorService)
     {
         $this->bookRepository = $bookRepository;
         $this->paginator = $paginator;
         $this->categoryService = $categoryService;
         $this->tagService = $tagService;
+        $this->languageService = $languageService;
+        $this->authorService = $authorService;
     }
 
     /**
@@ -74,6 +89,22 @@ class BookService
             );
             if (null !== $category) {
                 $resultFilters['category'] = $category;
+            }
+        }
+        if (isset($filters['language_id']) && is_numeric($filters['language_id'])) {
+            $language = $this->languageService->findOneById(
+                $filters['language_id']
+            );
+            if (null !== $language) {
+                $resultFilters['language'] = $language;
+            }
+        }
+        if (isset($filters['author_id']) && is_numeric($filters['author_id'])) {
+            $author = $this->authorService->findOneById(
+                $filters['author_id']
+            );
+            if (null !== $author) {
+                $resultFilters['author'] = $author;
             }
         }
         if (isset($filters['tag_id']) && is_numeric($filters['tag_id'])) {
@@ -110,6 +141,26 @@ class BookService
     /**
      * Create paginated list.
      *
+     * @param int                                                 $page    Page number
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user    User entity
+     * @param array                                               $filters Filters array
+     *
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     */
+    public function createPaginatedListForRanking(int $page, array $filters = []): PaginationInterface
+    {
+        $filters = $this->prepareFilters($filters);
+
+        return $this->paginator->paginate(
+            $this->bookRepository->queryAllRanking($filters),
+            $page,
+            BookRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
+
+    /**
+     * Create paginated list.
+     *
      * @param int $page Page number
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
@@ -122,4 +173,5 @@ class BookService
             BookRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
+
 }

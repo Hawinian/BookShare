@@ -126,6 +126,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $userRepository->upgradePassword($user,$password);
+
             $userRepository->save($user);
 
             $this->addFlash('success', 'message_updated_successfully');
