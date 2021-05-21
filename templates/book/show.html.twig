@@ -34,6 +34,7 @@
             <dd>{{ book.description }}</dd>
             {% if app.user %}
                 {% if rate %}
+                    <dt>{{ 'your_vote'|trans }}</dt>
                     {{ rate.rate }}
                     {% endif %}
                 <dt>{{ 'label_votes'|trans }}</dt>
@@ -42,17 +43,19 @@
                         {{ 'action_vote'|trans }}
                     </a>
                 </td>
+                <dt>{{ 'label_ask_for_rent'|trans }}</dt>
+                <td>
+                    <a href="{{ url('petition_create', {id: book.id}) }}" title="{{ 'action_request'|trans }}">
+                        {{ 'action_request'|trans }}
+                    </a>
+                </td>
             {% endif %}
-            <dt>{{ 'label_ask_for_rent'|trans }}</dt>
-        <td>
-            <a href="{{ url('petition_create', {id: book.id}) }}" title="{{ 'action_request'|trans }}">
-                {{ 'action_request'|trans }}
-            </a>
-        </td>
-            {% if book.image is defined  %}
+
+            {% if book.image is defined %}
+                {% dump(book.image)  %}
                 <dt>{{ 'label_image'|trans }}</dt>
                 <dd>
-                <img class="nav-profile-img" src="{{ asset('uploads/images/'~ book.image) }}">
+                    <img class="img-thumbnail" src="{{ asset('uploads/images/'~ book.image) }}" alt="brak zdjęcia">
                 </dd>
             {% endif %}
 
@@ -66,7 +69,6 @@
                     </a>
                 {% endfor %}
             {% else %}
-                &nbsp;
             {% endif %}
 
         </dl>

@@ -7,15 +7,19 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Entity\User;
+use App\Form\EditDataType;
 use App\Form\EditPasswordType;
+use App\Form\UserEditAdminType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class UserController.
@@ -81,7 +85,6 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            $user->setIsActive(true);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -157,10 +160,58 @@ class UserController extends AbstractController
      * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
+     *     "/{id}/edit-data",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="edit_data",
+     * )
+     */
+    public function edit_data(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
+    {
+        $form = $this->createForm(EditDataType::class, $user, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+//            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+//            $userRepository->upgradePassword($user,$password);
+
+            $userRepository->save($user);
+
+            $this->addFlash('success', 'message_updated_successfully');
+
+            return $this->redirectToRoute('book_index');
+        }
+
+        return $this->render(
+            'user/edit-data.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
+     * @param \App\Repository\UserRepository            $userRepository User repository
+     * @param int                                       $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
      *     "/{id}/edit-password",
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="edit_password",
+     * )
+     * @IsGranted(
+     *     "USER",
+     *     subject="user",
      * )
      */
     public function edit_password(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
@@ -170,7 +221,67 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $userRepository->upgradePassword($user,$password);
+            $userRepository->upgradePassword($user, $password);
+
+            $userRepository->save($user);
+
+            $this->addFlash('success', 'message_updated_successfully');
+
+            return $this->redirectToRoute('book_index');
+        }
+
+        return $this->render(
+            'user/edit-password.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
+     * @param \App\Repository\UserRepository            $userRepository User repository
+     * @param int                                       $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/admin-edit-data",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="admin_edit_data",
+     * )
+     *
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function admin_edit_data(UserInterface $loggedUser, Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
+    {
+        $form = $this->createForm(UserEditAdminType::class, $user, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+//            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+//            $userRepository->upgradePassword($user,$password);
+            $userId = $loggedUser->getId();
+            $petitionUser = $user->getId();
+
+
+            if ($petitionUser == $userId) {
+                $this->addFlash('success', 'you cant deprive yourself');
+
+                return $this->redirectToRoute('user_index');
+            }
+            $rol = $form->get('roles')->getData();
+            if (in_array("ROLE_ADMIN", $rol))
+            {
+                $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+            }
 
             $userRepository->save($user);
 
@@ -180,7 +291,52 @@ class UserController extends AbstractController
         }
 
         return $this->render(
-            'user/edit-password.html.twig',
+            'user/admin-edit-data.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
+     * @param \App\Repository\UserRepository            $userRepository User repository
+     * @param int                                       $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/admin-edit-password",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="admin_edit_password",
+     * )
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function admin_edit_password(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
+    {
+        $form = $this->createForm(EditPasswordType::class, $user, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $userRepository->upgradePassword($user, $password);
+
+            $userRepository->save($user);
+
+            $this->addFlash('success', 'message_updated_successfully');
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render(
+            'user/admin-edit-password.html.twig',
             [
                 'form' => $form->createView(),
                 'user' => $user,

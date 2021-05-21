@@ -8,7 +8,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -73,7 +72,6 @@ class User implements UserInterface
      */
     private $email;
 
-
     /**
      * Roles.
      *
@@ -85,6 +83,7 @@ class User implements UserInterface
      * The hashed password.
      *
      * @var string
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $password;
@@ -104,10 +103,9 @@ class User implements UserInterface
      */
     private $status;
 
-
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->roles = ['ROLE_USER'];
     }
 
     /**
@@ -199,10 +197,9 @@ class User implements UserInterface
         if (($key = array_search($val, $roles)) !== false) {
             unset($roles[$key]);
         }
-        #$roles = array_diff($roles, array("ROLE_USER", "ROLE_ADMIN"));
+        // $roles = array_diff($roles, array("ROLE_USER", "ROLE_ADMIN"));
         $this->roles = $roles;
     }
-
 
     /**
      * Getter for the Password.
@@ -225,7 +222,6 @@ class User implements UserInterface
     {
         $this->password = $password;
     }
-
 
     /**
      * @see UserInterface
@@ -267,5 +263,4 @@ class User implements UserInterface
 
         return $this;
     }
-
 }

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_language_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_language_list'|trans }}</h1>
+    <a class="btn btn-primary" href="{{ url('language_create') }}" role="button">{{ 'action_create_language'|trans }}</a>
+    <br><br>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'language.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'language.name') }}</th>
+                <th>{{ 'edit_language'|trans }}</th>
+                <th>{{ 'delete_language'|trans }}</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for language in pagination.items %}
+                <tr>
+                    <td>{{ language.id }}</td>
+                    <td>{{ language.name }}</td>
+                    <td>
+                        <a href="{{ url('language_edit', {id: language.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{ 'action_edit'|trans }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url('language_delete', {id: language.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{ 'action_delete'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

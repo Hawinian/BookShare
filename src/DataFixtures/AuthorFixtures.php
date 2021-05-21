@@ -22,7 +22,7 @@ class AuthorFixtures extends AbstractBaseFixtures
     {
         $this->createMany(10, 'authors', function ($i) {
             $author = new Author();
-            $author->setName($this->faker->name);
+            $author->setName($this->faker->name());
 
             return $author;
         });

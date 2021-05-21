@@ -114,7 +114,6 @@ class BookService
             }
         }
 
-
         return $resultFilters;
     }
 
@@ -173,5 +172,4 @@ class BookService
             BookRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
-
 }

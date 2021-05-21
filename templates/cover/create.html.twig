@@ -1,0 +1,10 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_cover_create',
+    attr: {
+        method: 'POST',
+        action: url('cover_create')
+    },
+    form: form,
+    submit_label: 'action_create'|trans,
+    back_to_list_path: 'cover_index',
+} %}

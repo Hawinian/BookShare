@@ -1,0 +1,11 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_giveback_reject',
+    page_title_param: {'%id%': giveback.id},
+    attr: {
+        method: 'DELETE',
+        action: url('giveback_reject', {'id': giveback.id}),
+    },
+    form: form,
+    submit_label: 'action_reject'|trans,
+    back_to_list_path: 'giveback_index',
+} %}

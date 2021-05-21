@@ -5,15 +5,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
 use App\Entity\Tag;
-use App\Entity\Giveback;
-
-use App\Repository\RentalRepository;
+use App\Entity\Book;
+use App\Form\TagType;
 use App\Repository\TagRepository;
-
+use App\Service\TagService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,13 +24,29 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TagController extends AbstractController
 {
+    /**
+     * Tag service.
+     *
+     * @var \App\Service\TagService
+     */
+    private $tagService;
+
+    /**
+     * TagController constructor.
+     *
+     * @param \App\Service\TagService $tagService Tag service
+     */
+    public function __construct(TagService $tagService)
+    {
+        $this->tagService = $tagService;
+    }
 
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP petition
-     * @param \App\Repository\TagRepository             $tagRepository Tag repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator     Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
+     * @param \App\Repository\TagRepository          $tagRepository Tag repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -43,11 +58,8 @@ class TagController extends AbstractController
      */
     public function index(Request $request, TagRepository $tagRepository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $tagRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            RentalRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->tagService->createPaginatedList($page);
 
         return $this->render(
             'tag/index.html.twig',
@@ -56,36 +68,10 @@ class TagController extends AbstractController
     }
 
     /**
-     * Show action.
-     *
-     * @param \App\Entity\Tag $tag Tag entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="tag_show",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
-    public function show(Tag $tag): Response
-    {
-        $tagId = $tag->getId();
-        $repository = $this->getDoctrine()->getRepository(Book::class);
-        $allBooksInTag = $repository->findBy(['tag' => $tagId]);
-
-        return $this->render(
-            'tag/show.html.twig',
-            ['tag' => $allBooksInTag]
-        );
-    }
-
-    /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP petition
-     * @param \App\Repository\TagRepository             $tagRepository Tag repository
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
+     * @param \App\Repository\TagRepository          $tagRepository Tag repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -121,9 +107,9 @@ class TagController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP petition
-     * @param \App\Entity\Tag                           $tag           Tag entity
-     * @param \App\Repository\TagRepository             $tagRepository Tag repository
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
+     * @param \App\Entity\Tag                        $tag           Tag entity
+     * @param \App\Repository\TagRepository          $tagRepository Tag repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -163,8 +149,8 @@ class TagController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\Tag                           $tag        Tag entity
-     * @param \App\Repository\TagRepository             $repository Tag repository
+     * @param \App\Entity\Tag                        $tag     Tag entity
+     * @param \App\Repository\TagRepository          $repository Tag repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -180,8 +166,12 @@ class TagController extends AbstractController
      */
     public function delete(Request $request, Tag $tag, TagRepository $repository): Response
     {
-        if ($tag->getTasks()->count()) {
-            $this->addFlash('warning', 'message_tag_contains_tasks');
+        $tagId = $tag->getId();
+        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
+        $existingBook = $repositoryBook->findOneBy(['tag' => $tagId]);
+
+        if ($existingBook) {
+            $this->addFlash('warning', 'message_tag_contains_objects');
 
             return $this->redirectToRoute('tag_index');
         }

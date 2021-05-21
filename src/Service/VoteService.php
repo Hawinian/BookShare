@@ -9,7 +9,6 @@ use App\Entity\Category;
 use App\Repository\VoteRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class VoteService.
@@ -83,21 +82,19 @@ class VoteService
             }
         }
 
-
         return $resultFilters;
     }
 
     /**
      * Create paginated list.
      *
-     * @param int                                                 $page    Page number
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user    User entity
+     * @param int                                                 $page Page number
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user User entity
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
-
         return $this->paginator->paginate(
             $this->voteRepository->queryAll(),
             $page,

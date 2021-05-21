@@ -1,0 +1,11 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_giveback_accept',
+    page_title_param: {'%id%': giveback.id},
+    attr: {
+        method: 'PUT',
+        action: url('giveback_accept', {'id': giveback.id}),
+    },
+    form: form,
+    submit_label: 'action_accept'|trans,
+    back_to_list_path: 'giveback_index',
+} %}

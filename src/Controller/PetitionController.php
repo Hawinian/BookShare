@@ -15,6 +15,7 @@ use DateInterval;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -114,7 +115,7 @@ class PetitionController extends AbstractController
      *
      * @Route(
      *     "/{id}/accept",
-     *     methods={"GET", "POST"},
+     *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="petition_accept",
      * )
@@ -131,19 +132,32 @@ class PetitionController extends AbstractController
 
             return $this->redirectToRoute('petition_index');
         } else {
-            $rental = new Rental();
-            $rental->setDateOfRental((new \DateTime()));
-            $date = new \DateTime(); // Y-m-d
-            $date->add(new DateInterval('P30D'));
-            $rental->setDateOfReturn($date);
-            $rental->setUser($petition->getUser());
-            $rental->setBook($petition->getBook());
-            $rentalRepository->save($rental);
-            $petitionRepository->delete($petition);
+            $form = $this->createForm(FormType::class, $petition, ['method' => 'PUT']);
+            $form->handleRequest($request);
 
-            $this->addFlash('success', 'message_created_successfully');
+            if ($form->isSubmitted() && $form->isValid()) {
+                $rental = new Rental();
+                $rental->setDateOfRental((new \DateTime()));
+                $date = new \DateTime(); // Y-m-d
+                $date->add(new DateInterval('P30D'));
+                $rental->setDateOfReturn($date);
+                $rental->setUser($petition->getUser());
+                $rental->setBook($petition->getBook());
+                $rentalRepository->save($rental);
+                $petitionRepository->delete($petition);
 
-            return $this->redirectToRoute('petition_index');
+                $this->addFlash('success', 'message_created_successfully');
+
+                return $this->redirectToRoute('petition_index');
+            }
+
+            return $this->render(
+                'petition/accept.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'petition' => $petition,
+                ]
+            );
         }
     }
 
@@ -161,17 +175,33 @@ class PetitionController extends AbstractController
      *
      * @Route(
      *     "/{id}/reject",
-     *     methods={"GET", "POST"},
+     *     methods={"GET","DELETE"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="petition_reject",
      * )
      */
     public function reject(Request $request, Petition $petition, PetitionRepository $petitionRepository, string $id): Response
     {
-        $petitionRepository->delete($petition);
+        $form = $this->createForm(FormType::class, $petition, ['method' => 'DELETE']);
+        $form->handleRequest($request);
 
-        $this->addFlash('success', 'message_deleted_successfully');
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
 
-        return $this->redirectToRoute('petition_index');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $petitionRepository->delete($petition);
+            $this->addFlash('success', 'message_deleted_successfully');
+
+            return $this->redirectToRoute('petition_index');
+        }
+
+        return $this->render(
+            'petition/reject.html.twig',
+            [
+                'form' => $form->createView(),
+                'petition' => $petition,
+            ]
+        );
     }
 }

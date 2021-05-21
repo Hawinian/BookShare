@@ -1,0 +1,11 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_petition_accept',
+    page_title_param: {'%id%': petition.id},
+    attr: {
+        method: 'PUT',
+        action: url('petition_accept', {'id': petition.id}),
+    },
+    form: form,
+    submit_label: 'action_accept'|trans,
+    back_to_list_path: 'petition_index',
+} %}

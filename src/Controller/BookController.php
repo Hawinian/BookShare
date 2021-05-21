@@ -6,7 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\Category;
+use App\Entity\Rental;
 use App\Entity\Vote;
 use App\Form\BookType;
 use App\Form\SearchType;
@@ -15,12 +15,15 @@ use App\Repository\BookRepository;
 use App\Repository\VoteRepository;
 use App\Service\BookService;
 use App\Service\FileUploader;
+use App\Service\UserService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -34,6 +37,13 @@ class BookController extends AbstractController
      * @var \App\Service\BookService
      */
     private $bookService;
+
+    /**
+     * User service.
+     *
+     * @var \App\Service\UserService
+     */
+    private $userService;
 
     /**
      * File uploader.
@@ -56,9 +66,10 @@ class BookController extends AbstractController
      * @param \App\Service\FileUploader                $fileUploader File uploader
      * @param \Symfony\Component\Filesystem\Filesystem $filesystem   Filesystem component
      */
-    public function __construct(BookService $bookService, FileUploader $fileUploader, Filesystem $filesystem)
+    public function __construct(BookService $bookService, UserService $userService, FileUploader $fileUploader, Filesystem $filesystem)
     {
         $this->bookService = $bookService;
+        $this->userService = $userService;
         $this->fileUploader = $fileUploader;
         $this->filesystem = $filesystem;
     }
@@ -98,66 +109,6 @@ class BookController extends AbstractController
     }
 
     /**
-     *  action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP petition
-     * @param \App\Repository\BookRepository            $bookRepository Book repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/category/{id}",
-     *     methods={"GET"},
-     *     name="book_category",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
-    public function showCategories(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, Category $category, string $id): Response
-    {
-        $pagination = $paginator->paginate(
-            $bookRepository->findByCategory($id),
-            $request->query->getInt('page', 1),
-            BookRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-
-        return $this->render(
-            'book/index.html.twig',
-            ['pagination' => $pagination]
-        );
-    }
-
-    /**
-     *  action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP petition
-     * @param \App\Repository\BookRepository            $bookRepository Book repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/tag/{id}",
-     *     methods={"GET"},
-     *     name="book_tag",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
-    public function showTags(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, string $id): Response
-    {
-        $pagination = $paginator->paginate(
-            $bookRepository->findByTag($id),
-            $request->query->getInt('page', 1),
-            BookRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-
-        return $this->render(
-            'book/index.html.twig',
-            ['pagination' => $pagination]
-        );
-    }
-
-    /**
      * Show action.
      *
      * @param \App\Entity\Book $book Book entity
@@ -171,11 +122,14 @@ class BookController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(UserInterface $loggedUser, Book $book): Response
+    public function show(TokenStorageInterface $tokenStorage, Book $book): Response
     {
-        if ($loggedUser) {
+        //UserInterface $loggedUser,
+        $user = $tokenStorage->getToken() ? $tokenStorage->getToken()->getUser() : null;
+        if ($user != 'anon.') {
             $bookId = $book->getId();
-            $userId = $loggedUser->getId();
+            dump($user);
+            $userId = $user->getId();
             $repository = $this->getDoctrine()->getRepository(Vote::class);
             $existingRate = $repository->findOneBy(['book' => $bookId, 'user' => $userId]);
 
@@ -303,15 +257,19 @@ class BookController extends AbstractController
      */
     public function delete(Request $request, Book $book, BookRepository $repository): Response
     {
-        /*
-        if ($book->getTasks()->count()) {
-            $this->addFlash('warning', 'message_book_contains_tasks');
+        $bookId = $book->getId();
+        $repositoryRental = $this->getDoctrine()->getRepository(Rental::class);
+        $existingRental = $repositoryRental->findOneBy(['book' => $bookId]);
+        $repositoryPetition = $this->getDoctrine()->getRepository(Rental::class);
+        $existingPetition = $repositoryPetition->findOneBy(['book' => $bookId]);
+
+        if ($existingRental or $existingPetition) {
+            $this->addFlash('warning', 'message_book_contains_objects');
 
             return $this->redirectToRoute('book_index');
         }
-        */
 
-        $form = $this->createForm(BookType::class, $book, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $book, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {

@@ -1,0 +1,10 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_language_edit',
+    page_title_param: {'%id%': language.id},
+    attr: {
+        method: 'PUT',
+        action: url('language_edit', {'id': language.id}),
+    },
+    form: form,
+    back_to_list_path: 'language_index',
+} %}

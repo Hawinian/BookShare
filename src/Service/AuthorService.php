@@ -32,8 +32,8 @@ class AuthorService
     /**
      * AuthorService constructor.
      *
-     * @param \App\Repository\AuthorRepository      $authorRepository Author repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\AuthorRepository        $authorRepository Author repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
      */
     public function __construct(AuthorRepository $authorRepository, PaginatorInterface $paginator)
     {

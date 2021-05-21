@@ -21,7 +21,6 @@
                 <th>{{ 'Edit'|trans }}</th>
                 <th>{{ 'Edit_password'|trans }}</th>
                 <th>{{ 'Delete'|trans }}</th>
-                <th>{{ 'Roles'|trans }}</th>
 
             </tr>
             </thead>
@@ -32,12 +31,12 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.login}}</td>
                     <td>
-                        <a href="{{ url('admin_user_edit', {id: user.id}) }}" title="{{ 'action_edit'|trans }}">
+                        <a href="{{ url('admin_edit_data', {id: user.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{ 'action_edit'|trans }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ url('edit_password', {id: user.id}) }}" title="{{ 'action_edit_password'|trans }}">
+                        <a href="{{ url('admin_edit_password', {id: user.id}) }}" title="{{ 'action_edit_password'|trans }}">
                             {{ 'action_edit_password'|trans }}
                         </a>
                     </td>
@@ -46,19 +45,6 @@
                             {{ 'action_delete'|trans }}
                         </a>
                     </td>
-                    {% if 'ROLE_ADMIN' in user.roles  %}
-                    <td>
-                        <a href="{{ url('deprive_admin', {id: user.id}) }}" title="{{ 'action_deprive_admin'|trans }}">
-                            {{ 'action_deprive_admin'|trans }}
-                        </a>
-                    </td>
-                    {% else %}
-                        <td>
-                            <a href="{{ url('grant_admin', {id: user.id}) }}" title="{{ 'action_grant_admin'|trans }}">
-                                {{ 'action_grant_admin'|trans }}
-                            </a>
-                        </td>
-                    {% endif %}
 
                 </tr>
             {% endfor %}

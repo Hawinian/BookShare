@@ -5,14 +5,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
 use App\Entity\Category;
-use App\Entity\Giveback;
+use App\Entity\Book;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,9 +44,9 @@ class CategoryController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
-     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator          Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
+     * @param \App\Repository\CategoryRepository          $categoryRepository Category repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -68,36 +68,10 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * Show action.
-     *
-     * @param \App\Entity\Category $category Category entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="category_show",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
-    public function show(Category $category): Response
-    {
-        $categoryId = $category->getId();
-        $repository = $this->getDoctrine()->getRepository(Book::class);
-        $allBooksInCategory = $repository->findBy(['category' => $categoryId]);
-
-        return $this->render(
-            'category/show.html.twig',
-            ['category' => $allBooksInCategory]
-        );
-    }
-
-    /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
-     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
+     * @param \App\Repository\CategoryRepository          $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -133,9 +107,9 @@ class CategoryController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
-     * @param \App\Entity\Category                      $category           Category entity
-     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
+     * @param \App\Entity\Category                        $category           Category entity
+     * @param \App\Repository\CategoryRepository          $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -175,8 +149,8 @@ class CategoryController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\Category                      $category   Category entity
-     * @param \App\Repository\CategoryRepository        $repository Category repository
+     * @param \App\Entity\Category                        $category     Category entity
+     * @param \App\Repository\CategoryRepository          $repository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -192,8 +166,12 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category, CategoryRepository $repository): Response
     {
-        if ($category->getTasks()->count()) {
-            $this->addFlash('warning', 'message_category_contains_tasks');
+        $categoryId = $category->getId();
+        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
+        $existingBook = $repositoryBook->findOneBy(['category' => $categoryId]);
+
+        if ($existingBook) {
+            $this->addFlash('warning', 'message_category_contains_objects');
 
             return $this->redirectToRoute('category_index');
         }

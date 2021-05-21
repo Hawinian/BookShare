@@ -61,7 +61,6 @@ class RentalRepository extends ServiceEntityRepository
             ->orderBy('rental.date_of_rental', 'DESC');
 
         return $queryBuilder;
-
     }
 
     /**

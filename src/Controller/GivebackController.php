@@ -11,6 +11,7 @@ use App\Repository\GivebackRepository;
 use App\Repository\RentalRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -65,20 +66,32 @@ class GivebackController extends AbstractController
      *
      * @Route(
      *     "/{id}/accept",
-     *     methods={"GET", "POST"},
+     *     methods={"PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="giveback_accept",
      * )
      */
     public function accept(Request $request, Giveback $giveback, RentalRepository $rentalRepository, GivebackRepository $givebackRepository, string $id): Response
     {
-        $rental = $giveback->getRental();
-        $givebackRepository->delete($giveback);
-        $rentalRepository->delete($rental);
+        $form = $this->createForm(FormType::class, $giveback, ['method' => 'PUT']);
+        $form->handleRequest($request);
 
-        $this->addFlash('success', 'message_deleted_successfully');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rental = $giveback->getRental();
+            $givebackRepository->delete($giveback);
+            $rentalRepository->delete($rental);
 
-        return $this->redirectToRoute('giveback_index');
+            $this->addFlash('success', 'message_deleted_successfully');
+
+            return $this->redirectToRoute('giveback_index');
+        }
+        return $this->render(
+            'giveback/accept.html.twig',
+            [
+                'form' => $form->createView(),
+                'giveback' => $giveback,
+            ]
+        );
     }
 
     /**
@@ -95,17 +108,33 @@ class GivebackController extends AbstractController
      *
      * @Route(
      *     "/{id}/reject",
-     *     methods={"GET", "POST"},
+     *     methods={"GET","DELETE"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="giveback_reject",
      * )
      */
     public function reject(Request $request, Giveback $giveback, GivebackRepository $givebackRepository, string $id): Response
     {
-        //$givebackRepository->delete($giveback);
+        $form = $this->createForm(FormType::class, $giveback, ['method' => 'DELETE']);
+        $form->handleRequest($request);
 
-        $this->addFlash('success', 'message_rejected_successfully');
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
 
-        return $this->redirectToRoute('giveback_index');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $givebackRepository->delete($giveback);
+            $this->addFlash('success', 'message_deleted_successfully');
+
+            return $this->redirectToRoute('petition_index');
+        }
+
+        return $this->render(
+            'giveback/reject.html.twig',
+            [
+                'form' => $form->createView(),
+                'giveback' => $giveback,
+            ]
+        );
     }
 }

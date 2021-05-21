@@ -22,7 +22,7 @@ class AccountStatusFixtures extends AbstractBaseFixtures
     {
         $this->createMany(3, 'account_status', function ($i) {
             $account_status = new AccountStatus();
-            $account_status->setName($this->faker->word);
+            $account_status->setName($this->faker->word());
 
             return $account_status;
         });

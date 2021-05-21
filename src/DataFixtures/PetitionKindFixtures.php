@@ -22,7 +22,7 @@ class PetitionKindFixtures extends AbstractBaseFixtures
     {
         $this->createMany(3, 'petition_kinds', function ($i) {
             $petiton_kind = new PetitionKind();
-            $petiton_kind->setName($this->faker->word);
+            $petiton_kind->setName($this->faker->word());
 
             return $petiton_kind;
         });

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_cover_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_cover_list'|trans }}</h1>
+    <a class="btn btn-primary" href="{{ url('cover_create') }}" role="button">{{ 'action_create_cover'|trans }}</a>
+    <br><br>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'cover.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'cover.name') }}</th>
+                <th>{{ 'edit_cover'|trans }}</th>
+                <th>{{ 'delete_cover'|trans }}</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for cover in pagination.items %}
+                <tr>
+                    <td>{{ cover.id }}</td>
+                    <td>{{ cover.name }}</td>
+                    <td>
+                        <a href="{{ url('cover_edit', {id: cover.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{ 'action_edit'|trans }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url('cover_delete', {id: cover.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{ 'action_delete'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

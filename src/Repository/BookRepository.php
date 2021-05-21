@@ -195,8 +195,6 @@ class BookRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
-
-
     /**
      * Apply filters to paginated list.
      *

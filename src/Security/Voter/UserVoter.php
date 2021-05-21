@@ -1,32 +1,32 @@
 <?php
 /**
- * Task security voter.
+ * Admin voter.
  */
 
 namespace App\Security\Voter;
 
-use App\Entity\Task;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class TaskVoter.
+ * Class UserVoter.
  */
-class TaskVoter extends Voter
+class UserVoter extends Voter
 {
     /**
      * Security helper.
      *
-     * @var \Symfony\Component\Security\Core\Security
+     * @var Security
      */
     private $security;
 
     /**
      * OrderVoter constructor.
      *
-     * @param \Symfony\Component\Security\Core\Security $security Security helper
+     * @param Security $security Security helper
      */
     public function __construct(Security $security)
     {
@@ -43,21 +43,21 @@ class TaskVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        return in_array($attribute, ['VIEW', 'EDIT', 'DELETE'])
-            && $subject instanceof Task;
+        return in_array($attribute, ['USER'])
+            && $subject instanceof User;
     }
 
     /**
      * Perform a single access check operation on a given attribute, subject and token.
      * It is safe to assume that $attribute and $subject already passed the "supports()" method check.
      *
-     * @param string         $attribute Attribute
-     * @param mixed          $subject   Subject
-     * @param TokenInterface $token     Security token
+     * @param string         $attribute
+     * @param mixed          $subject
+     * @param TokenInterface $token
      *
-     * @return bool Result
+     * @return bool
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
@@ -67,10 +67,8 @@ class TaskVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case 'VIEW':
-            case 'EDIT':
-            case 'DELETE':
-                if ($subject->getAuthor() === $user) {
+            case 'USER':
+                if ($subject === $user) {
                     return true;
                 }
                 break;

@@ -1,0 +1,11 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_petition_reject',
+    page_title_param: {'%id%': petition.id},
+    attr: {
+        method: 'DELETE',
+        action: url('petition_reject', {'id': petition.id}),
+    },
+    form: form,
+    submit_label: 'action_reject'|trans,
+    back_to_list_path: 'petition_index',
+} %}

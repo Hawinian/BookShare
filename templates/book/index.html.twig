@@ -17,10 +17,9 @@
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'book.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_language'|trans, 'book.language') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'book.author') }}</th>
-{#                <th>{{ knp_pagination_sortable(pagination, 'label_rate'|trans, 'book.votes') }}</th>#}
                 <th>{{ knp_pagination_sortable(pagination, 'label_category'|trans, 'book.category') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_language'|trans, 'book.language') }}</th>
 
                 <th>{{ 'View details'|trans }}</th>
 
@@ -39,26 +38,15 @@
                     <td>{{ book.id }}</td>
                     <td>{{ book.title }}</td>
 
-                    <td><a href="{{ url('book_index', {'filters.language_id' : book.language.id}) }}" title="{{ book.language.name }}">
-                            {{ book.language.name }}
-                        </a></td>
-
                     <td><a href="{{ url('book_index', {'filters.author_id' : book.author.id}) }}" title="{{ book.author.name }}">
                             {{ book.author.name }}
                         </a></td>
 
-{#                    {% if book.votes|length != 0 %}#}
-{#                        {% set sumratings = 0 %}#}
-{#                        {% for vote in book.votes %}#}
-{#                            {% set sumratings = sumratings + vote.rate %}#}
-{#                        {% endfor %}#}
-{#                        <td>{{ sumratings / book.votes|length }}</td>#}
-{#                    {% else %}#}
-{#                        <td> {{ 'Brak ocen' }} </td>#}
-{#                    {% endif %}#}
-
                     <td><a href="{{ url('book_index', {'filters.category_id' : book.category.id}) }}" title="{{ book.category.name }}">
                             {{ book.category.name }}
+                        </a></td>
+                    <td><a href="{{ url('book_index', {'filters.language_id' : book.language.id}) }}" title="{{ book.language.name }}">
+                            {{ book.language.name }}
                         </a></td>
                     <td>
                         <a href="{{ url('book_show', {id: book.id}) }}" title="{{ 'action_view'|trans }}">
