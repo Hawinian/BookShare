@@ -49,7 +49,7 @@ class PetitionType extends AbstractType
                 'choice_label' => function ($petition_kind) {
                     return $petition_kind->getName();
                 },
-                'label' => 'label_petition_kins',
+                'label' => 'label_petition_kind',
                 'placeholder' => 'label_none',
                 'required' => true,
             ]

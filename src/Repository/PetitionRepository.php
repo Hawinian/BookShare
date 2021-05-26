@@ -50,6 +50,8 @@ class PetitionRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->join('petition.book', 'book')
+            ->join('petition.user', 'user')
             ->orderBy('petition.date', 'DESC');
     }
 

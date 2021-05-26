@@ -5,8 +5,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Book;
+use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
@@ -16,11 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class CategoryController.
  *
  * @Route("/category")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class CategoryController extends AbstractController
 {
@@ -44,14 +47,14 @@ class CategoryController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\CategoryRepository          $categoryRepository Category repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator          Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "",
      *     methods={"GET"},
      *     name="category_index",
      * )
@@ -70,8 +73,8 @@ class CategoryController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\CategoryRepository          $categoryRepository Category repository
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -107,9 +110,9 @@ class CategoryController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Entity\Category                        $category           Category entity
-     * @param \App\Repository\CategoryRepository          $categoryRepository Category repository
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
+     * @param \App\Entity\Category                      $category           Category entity
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -149,8 +152,8 @@ class CategoryController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\Category                        $category     Category entity
-     * @param \App\Repository\CategoryRepository          $repository Category repository
+     * @param \App\Entity\Category                      $category   Category entity
+     * @param \App\Repository\CategoryRepository        $repository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -166,11 +169,13 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category, CategoryRepository $repository): Response
     {
-        $categoryId = $category->getId();
-        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
-        $existingBook = $repositoryBook->findOneBy(['category' => $categoryId]);
+//        $categoryId = $category->getId();
+//        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
+//        $existingBook = $repositoryBook->findOneBy(['category' => $categoryId]);
 
-        if ($existingBook) {
+        $existingBook = $category->getBooks();
+
+        if (0 != count($existingBook)) {
             $this->addFlash('warning', 'message_category_contains_objects');
 
             return $this->redirectToRoute('category_index');

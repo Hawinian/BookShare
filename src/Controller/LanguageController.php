@@ -16,11 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class LanguageController.
  *
  * @Route("/language")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class LanguageController extends AbstractController
 {
@@ -51,7 +54,7 @@ class LanguageController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "",
      *     methods={"GET"},
      *     name="language_index",
      * )
@@ -166,11 +169,9 @@ class LanguageController extends AbstractController
      */
     public function delete(Request $request, Language $language, LanguageRepository $repository): Response
     {
-        $languageId = $language->getId();
-        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
-        $existingBook = $repositoryBook->findOneBy(['language' => $languageId]);
+        $existingBook = $language->getBooks();
 
-        if ($existingBook) {
+        if (0 != count($existingBook)) {
             $this->addFlash('warning', 'message_language_contains_objects');
 
             return $this->redirectToRoute('language_index');

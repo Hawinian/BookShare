@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PublisherRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +25,16 @@ class Publisher
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="publisher")
+     */
+    private $books;
+
+    public function __construct()
+    {
+        $this->publishers = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,5 +50,13 @@ class Publisher
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Book[]
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
     }
 }

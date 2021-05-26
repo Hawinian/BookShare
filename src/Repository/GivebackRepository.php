@@ -50,6 +50,9 @@ class GivebackRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->join('giveback.rental', 'rental')
+            ->join('rental.user', 'user')
+            ->join('rental.book', 'book')
             ->orderBy('giveback.date', 'DESC');
     }
 

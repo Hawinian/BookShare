@@ -68,4 +68,24 @@ class AuthorService
     {
         return $this->authorRepository->findOneById($id);
     }
+
+    /**
+     * @param Author $author
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Author $author): void
+    {
+        $this->authorRepository->save($author);
+    }
+
+    /**
+     * @param Author $author
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Author $author): void
+    {
+        $this->authorRepository->delete($author);
+    }
 }

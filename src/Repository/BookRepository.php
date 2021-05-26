@@ -46,33 +46,6 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-//    /**
-//     * Query all records.
-//     *
-//     * @return \Doctrine\ORM\QueryBuilder Query builder
-//     */
-//    public function queryAll(): QueryBuilder
-//    {
-//        return $this->getOrCreateQueryBuilder()
-//            ->orderBy('book.title', 'ASC');
-//    }
-
-    /**
-     * Query books by category.
-     *
-     * @param \App\Entity\Category $category Category entity
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    public function queryByCategory(Category $category): QueryBuilder
-    {
-        $queryBuilder = $this->queryAll();
-
-        $queryBuilder->andWhere('book.category = :category')
-            ->setParameter('category', $category);
-
-        return $queryBuilder;
-    }
 
     /**
      * Get or create new query builder.
@@ -112,36 +85,6 @@ class BookRepository extends ServiceEntityRepository
     {
         $this->_em->remove($book);
         $this->_em->flush();
-    }
-
-    /**
-     * @param $value
-     *
-     * @return int|mixed|string
-     */
-    public function findByCategory($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.category = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @param $value
-     *
-     * @return int|mixed|string
-     */
-    public function findByTag($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.tag = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->getQuery()
-            ->getResult();
     }
 
     /**

@@ -28,17 +28,23 @@ class Rental
      */
     private $date_of_return;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Book::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $book;
+//    /**
+//     * @ORM\ManyToOne(targetEntity=Book::class)
+//     * @ORM\JoinColumn(nullable=false)
+//     */
+//    private $book;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Book::class, inversedBy="rentals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $book;
 
     public function getId(): ?int
     {
@@ -69,17 +75,17 @@ class Rental
         return $this;
     }
 
-    public function getBook(): ?Book
-    {
-        return $this->book;
-    }
-
-    public function setBook(?Book $book): self
-    {
-        $this->book = $book;
-
-        return $this;
-    }
+//    public function getBook(): ?Book
+//    {
+//        return $this->book;
+//    }
+//
+//    public function setBook(?Book $book): self
+//    {
+//        $this->book = $book;
+//
+//        return $this;
+//    }
 
     public function getUser(): ?User
     {
@@ -92,4 +98,18 @@ class Rental
 
         return $this;
     }
+
+    public function getBook(): ?Book
+    {
+        return $this->book;
+    }
+
+    public function setBook(?Book $book): self
+    {
+        $this->book = $book;
+
+        return $this;
+    }
+
+
 }

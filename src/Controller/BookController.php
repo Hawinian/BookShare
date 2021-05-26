@@ -6,7 +6,6 @@
 namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\Rental;
 use App\Entity\Vote;
 use App\Form\BookType;
 use App\Form\SearchType;
@@ -122,21 +121,31 @@ class BookController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(TokenStorageInterface $tokenStorage, Book $book): Response
+    public function show(UserInterface $userInterface, TokenStorageInterface $tokenStorage, Book $book): Response
     {
         //UserInterface $loggedUser,
         $user = $tokenStorage->getToken() ? $tokenStorage->getToken()->getUser() : null;
-        if ($user != 'anon.') {
-            $bookId = $book->getId();
-            dump($user);
-            $userId = $user->getId();
-            $repository = $this->getDoctrine()->getRepository(Vote::class);
-            $existingRate = $repository->findOneBy(['book' => $bookId, 'user' => $userId]);
+        if ('anon.' != $user) {
+//            $bookId = $book->getId();
+//            $userId = $user->getId();
+//            $repository = $this->getDoctrine()->getRepository(Vote::class);
+            $existingRate = $book->getVotes();
+//            dump($existingVotes);
+            ////            $existingRate = $repository->findOneBy(['book' => $bookId, 'user' => $userId]);
+//            $existingRate = $existingVotes->findOneBy(['book' => $bookId, 'user' => $userId]);
+            $userId = $userInterface->getId();
 
-            if ($existingRate) {
+//           $keys= $existingRate->getValues();
+            foreach ($existingRate as $value) {
+                $us = $value->getUser()->getId();
+                if ($us == $userId) {
+                    $exRate = $value->getRate();
+                }
+            }
+            if (isset($exRate)) {
                 return $this->render(
                     'book/show.html.twig',
-                    ['book' => $book, 'rate' => $existingRate]
+                    ['book' => $book, 'rate' => $exRate]
                 );
             }
         }
@@ -175,7 +184,7 @@ class BookController extends AbstractController
                 $form->get('image')->getData()
             );
             $book->setImage($imageFilename);
-            $bookRepository->save($book);
+            $this->bookService->save($book);
 
             $this->addFlash('success', 'message_created_successfully');
 
@@ -220,7 +229,7 @@ class BookController extends AbstractController
                 $form->get('image')->getData()
             );
             $book->setImage($imageFilename);
-            $bookRepository->save($book);
+            $this->bookService->save($book);
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -239,9 +248,8 @@ class BookController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\Book                          $book       Book entity
-     * @param \App\Repository\BookRepository            $repository Book repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP petition
+     * @param \App\Entity\Book                          $book    Book entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -255,15 +263,12 @@ class BookController extends AbstractController
      *     name="book_delete",
      * )
      */
-    public function delete(Request $request, Book $book, BookRepository $repository): Response
+    public function delete(Request $request, Book $book): Response
     {
-        $bookId = $book->getId();
-        $repositoryRental = $this->getDoctrine()->getRepository(Rental::class);
-        $existingRental = $repositoryRental->findOneBy(['book' => $bookId]);
-        $repositoryPetition = $this->getDoctrine()->getRepository(Rental::class);
-        $existingPetition = $repositoryPetition->findOneBy(['book' => $bookId]);
+        $existingPetition = $book->getRentals();
+        $existingRental = $book->getPetitions();
 
-        if ($existingRental or $existingPetition) {
+        if (0 != count($existingRental) or 0 != count($existingPetition)) {
             $this->addFlash('warning', 'message_book_contains_objects');
 
             return $this->redirectToRoute('book_index');
@@ -277,7 +282,7 @@ class BookController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $repository->delete($book);
+            $this->bookService->delete($book);
             $this->addFlash('success', 'message_deleted_successfully');
 
             return $this->redirectToRoute('book_index');
@@ -316,13 +321,12 @@ class BookController extends AbstractController
             $title = $form->getData();
             $title = array_shift($title);
             $existingBook = $repository->findOneBy(['title' => $title]);
-
             if ($existingBook) {
                 $book_id = $existingBook->getId();
 
                 return $this->redirectToRoute('book_show', ['id' => $book_id]);
             } else {
-                $this->addFlash('success', 'cannot find this book');
+                $this->addFlash('warning', 'cannot find this book');
 
                 return $this->redirectToRoute('book_search');
             }
@@ -353,19 +357,19 @@ class BookController extends AbstractController
     {
         $vote = new Vote();
         $vote->setBook($book);
-        $vote->setRate(0);
-        $vote->setUser($loggedUser);
 
         $form = $this->createForm(VoteType::class, $vote);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$vote->setRate('rate');
+            $vote->setUser($this->getUser());
             $userId = $loggedUser->getId();
-            $repository = $this->getDoctrine()->getRepository(Vote::class);
-            $allrates = $repository->findBy(['user' => $userId]);
-            foreach ($allrates as &$value) {
-                $voteRepository->delete($value);
+            $existingRates = $book->getVotes();
+            foreach ($existingRates as $value) {
+                $us = $value->getUser()->getId();
+                if ($us == $userId) {
+                    $voteRepository->delete($value);
+                }
             }
             $voteRepository->save($vote);
 
@@ -412,42 +416,4 @@ class BookController extends AbstractController
             ['pagination' => $pagination]
         );
     }
-
-//    /**
-//     * Index action.
-//     *
-//     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
-//     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-//     *
-//     * @Route(
-//     *     "/{id}/vote",
-//     *     methods={"GET", "POST"},
-//     *     requirements={"id": "[1-9]\d*"},
-//     *     name="edit_vote",
-//     * )
-//     */
-//    public function edit_vote(UserInterface $loggedUser, Request $request, VoteRepository $voteRepository, Vote $vote, BookRepository $bookRepository): Response
-//    {
-//
-//        $form = $this->createForm(VoteType::class, $vote, ['method' => 'PUT']);
-//        $form->handleRequest($request);
-//
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            #$vote->setRate('rate');
-//            $voteRepository->save($vote);
-//
-//            $this->addFlash('success', 'message_created_successfully');
-//
-//            return $this->redirectToRoute('book_index');
-//        }
-//
-//        return $this->render(
-//            'book/vote.html.twig',
-//            ['form' => $form->createView(),
-//                'vote' => $vote, ]
-//        );
-//    }
 }

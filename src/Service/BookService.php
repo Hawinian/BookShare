@@ -5,10 +5,14 @@
 
 namespace App\Service;
 
+use App\Entity\Book;
 use App\Entity\Category;
+use App\Entity\User;
+use App\Entity\Vote;
 use App\Repository\BookRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class BookService.
@@ -158,18 +162,24 @@ class BookService
     }
 
     /**
-     * Create paginated list.
-     *
-     * @param int $page Page number
-     *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @param Book $book
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function createPaginatedListCategory(int $page, Category $category): PaginationInterface
+    public function save(Book $book): void
     {
-        return $this->paginator->paginate(
-            $this->bookRepository->queryByCategory($category),
-            $page,
-            BookRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $this->bookRepository->save($book);
     }
+
+    /**
+     * @param Book $book
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Book $book): void
+    {
+        $this->bookRepository->delete($book);
+    }
+
+
 }

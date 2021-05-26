@@ -16,11 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class PublisherController.
  *
  * @Route("/publisher")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class PublisherController extends AbstractController
 {
@@ -51,7 +54,7 @@ class PublisherController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "",
      *     methods={"GET"},
      *     name="publisher_index",
      * )

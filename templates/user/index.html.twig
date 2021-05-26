@@ -18,9 +18,9 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'user.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'user.email') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_login'|trans, 'user.login') }}</th>
-                <th>{{ 'Edit'|trans }}</th>
-                <th>{{ 'Edit_password'|trans }}</th>
-                <th>{{ 'Delete'|trans }}</th>
+                <th>{{ 'label_edit_data'|trans }}</th>
+                <th>{{ 'label_edit_password'|trans }}</th>
+                <th>{{ 'label_delete'|trans }}</th>
 
             </tr>
             </thead>
@@ -32,7 +32,7 @@
                     <td>{{ user.login}}</td>
                     <td>
                         <a href="{{ url('admin_edit_data', {id: user.id}) }}" title="{{ 'action_edit'|trans }}">
-                            {{ 'action_edit'|trans }}
+                            {{ 'action_edit_data'|trans }}
                         </a>
                     </td>
                     <td>

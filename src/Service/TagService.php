@@ -68,4 +68,24 @@ class TagService
     {
         return $this->tagRepository->findOneById($id);
     }
+
+    /**
+     * @param Tag $tag
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Tag $tag): void
+    {
+        $this->tagRepository->save($tag);
+    }
+
+    /**
+     * @param Tag $tag
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Tag $tag): void
+    {
+        $this->tagRepository->delete($tag);
+    }
 }

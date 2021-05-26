@@ -6,36 +6,26 @@
                 <source>label_actions</source>
                 <target>Akcje</target>
             </trans-unit>
-
             <trans-unit id="label_id">
                 <source>label_id</source>
                 <target>Id</target>
             </trans-unit>
-
             <trans-unit id="label_title">
                 <source>label_title</source>
                 <target>Tytuł</target>
             </trans-unit>
-
             <trans-unit id="label_content">
                 <source>label_content</source>
                 <target>Zawartość</target>
             </trans-unit>
-
             <trans-unit id="label_tags">
                 <source>label_tags</source>
                 <target>Tagi</target>
             </trans-unit>
-
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
                 <target>Pusta lista.</target>
             </trans-unit>
-            <trans-unit id="title_record_list">
-                <source>title_record_list</source>
-                <target>Lista rekordów</target>
-            </trans-unit>
-
             <trans-unit id="label_author">
                 <source>label_author</source>
                 <target>Autor</target>
@@ -46,6 +36,509 @@
                 <target>Lista książek</target>
             </trans-unit>
 
+            <trans-unit id="action_create">
+                <source>action_create</source>
+                <target>stwórz</target>
+            </trans-unit>
+
+            <trans-unit id="action_delete">
+                <source>action_delete</source>
+                <target>usuń</target>
+            </trans-unit>
+
+            <trans-unit id="title_author_list">
+                <source>title_author_list</source>
+                <target>Lista książek</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_author">
+                <source>action_create_author</source>
+                <target>Dodaj autora</target>
+            </trans-unit>
+
+            <trans-unit id="label_name">
+                <source>label_name</source>
+                <target>Nazwa</target>
+            </trans-unit>
+
+
+            <trans-unit id="action_edit">
+                <source>action_edit</source>
+                <target>edytuj</target>
+            </trans-unit>
+
+            <trans-unit id="Home_page">
+                <source>Home_page</source>
+                <target>Strona główna</target>
+            </trans-unit>
+
+            <trans-unit id="Search_page">
+                <source>Search_page</source>
+                <target>Wyszukiwarka</target>
+            </trans-unit>
+
+            <trans-unit id="Ranking_page">
+                <source>Ranking_page</source>
+                <target>Ranking</target>
+            </trans-unit>
+
+            <trans-unit id="Rental_page">
+                <source>Rental_page</source>
+                <target>Wypożyczenia</target>
+            </trans-unit>
+
+            <trans-unit id="Petition_page">
+                <source>Petition_page</source>
+                <target>Prośby</target>
+            </trans-unit>
+
+            <trans-unit id="Giveback_page">
+                <source>Giveback_page</source>
+                <target>Zwroty</target>
+            </trans-unit>
+
+            <trans-unit id="Admin_page">
+                <source>Admin_page</source>
+                <target>Panel admina</target>
+            </trans-unit>
+
+            <trans-unit id="edit_password">
+                <source>edit_password</source>
+                <target>Edytuj hasło</target>
+            </trans-unit>
+
+            <trans-unit id="edit_data">
+                <source>edit_data</source>
+                <target>Edytuj dane</target>
+            </trans-unit>
+
+            <trans-unit id="action_logout">
+                <source>action_logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+
+            <trans-unit id="action_login">
+                <source>action_login</source>
+                <target>Zaloguj</target>
+            </trans-unit>
+
+            <trans-unit id="action_register">
+                <source>action_register</source>
+                <target>Zarejestruj</target>
+            </trans-unit>
+
+            <trans-unit id="label_category">
+                <source>label_category</source>
+                <target>Kategoria</target>
+            </trans-unit>
+
+            <trans-unit id="label_language">
+                <source>label_language</source>
+                <target>Język</target>
+            </trans-unit>
+
+            <trans-unit id="action_view">
+                <source>action_view</source>
+                <target>zobacz</target>
+            </trans-unit>
+
+            <trans-unit id="action_request">
+                <source>action_request</source>
+                <target>wyślij prośbę</target>
+            </trans-unit>
+
+            <trans-unit id="action_petition">
+                <source>action_petition</source>
+                <target>prośba</target>
+            </trans-unit>
+
+            <trans-unit id="label_vote_id">
+                <source>label_vote_id</source>
+                <target>Głos id</target>
+            </trans-unit>
+
+            <trans-unit id="action_search">
+                <source>action_search</source>
+                <target>Wyszukaj</target>
+            </trans-unit>
+
+            <trans-unit id="label_date">
+                <source>label_date</source>
+                <target>Data</target>
+            </trans-unit>
+
+            <trans-unit id="label_publisher">
+                <source>label_publisher</source>
+                <target>Wydawca</target>
+            </trans-unit>
+
+            <trans-unit id="label_cover">
+                <source>label_cover</source>
+                <target>Okładka</target>
+            </trans-unit>
+
+            <trans-unit id="label_pages">
+                <source>label_pages</source>
+                <target>Liczba stron</target>
+            </trans-unit>
+
+            <trans-unit id="label_description">
+                <source>label_description</source>
+                <target>Opis</target>
+            </trans-unit>
+
+            <trans-unit id=" your_vote">
+                <source>label_your_vote</source>
+                <target>Twój głos</target>
+            </trans-unit>
+
+            <trans-unit id="action_vote">
+                <source>action_vote</source>
+                <target>Oceń</target>
+            </trans-unit>
+
+            <trans-unit id="label_image">
+                <source>label_image</source>
+                <target>Obraz</target>
+            </trans-unit>
+
+            <trans-unit id="action_back_to_list">
+                <source>action_back_to_list</source>
+                <target>Wróć do listy</target>
+            </trans-unit>
+
+            <trans-unit id="message_item_not_found">
+                <source>message_item_not_found</source>
+                <target>Rzecz nie znaleziona.</target>
+            </trans-unit>
+
+            <trans-unit id="title_category_list">
+                <source>title_category_list</source>
+                <target>Lista kategorii</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_category">
+                <source>action_create_category</source>
+                <target>Dodaj kategorię</target>
+            </trans-unit>
+
+            <trans-unit id="title_cover_list">
+                <source>title_cover_list</source>
+                <target>Lista okładek</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_cover">
+                <source>action_create_cover</source>
+                <target>Dodaj okładkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_language_list">
+                <source>title_language_list</source>
+                <target>Lista języków</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_language">
+                <source>action_create_language</source>
+                <target>Dodaj język</target>
+            </trans-unit>
+
+            <trans-unit id="title_publisher_list">
+                <source>title_publisher_list</source>
+                <target>Lista wydawców</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_publisher">
+                <source>action_create_publisher</source>
+                <target>Dodaj wydawcę</target>
+            </trans-unit>
+
+            <trans-unit id="title_tag_list">
+                <source>title_tag_list</source>
+                <target>Lista tagów</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_tag">
+                <source>action_create_tag</source>
+                <target>Dodaj tag</target>
+            </trans-unit>
+
+            <trans-unit id="message_form_error">
+                <source>message_form_error</source>
+                <target>Błąd formularza</target>
+            </trans-unit>
+
+            <trans-unit id="action_save">
+                <source>action_save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+
+            <trans-unit id="action_accept">
+                <source>action_accept</source>
+                <target>Zaakceptuj</target>
+            </trans-unit>
+
+            <trans-unit id="action_reject">
+                <source>action_reject</source>
+                <target>Odrzuć</target>
+            </trans-unit>
+
+            <trans-unit id="title_giveback_list">
+                <source>title_giveback_list</source>
+                <target>Lista zwrotów</target>
+            </trans-unit>
+
+            <trans-unit id="label_datetime">
+                <source>label_datetime</source>
+                <target>Data</target>
+            </trans-unit>
+
+            <trans-unit id="label_rental_id ">
+                <source>label_rental_id </source>
+                <target>Wypożyczenie id</target>
+            </trans-unit>
+
+            <trans-unit id="label_book_id">
+                <source>label_book_id</source>
+                <target>Książka id</target>
+            </trans-unit>
+
+            <trans-unit id="label_book_title">
+                <source>label_book_title</source>
+                <target>Tytuł książki</target>
+            </trans-unit>
+
+            <trans-unit id="label_user_id">
+                <source>label_user_id</source>
+                <target>Użytkownik id</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_list">
+                <source>title_petition_list</source>
+                <target>Lista próśb</target>
+            </trans-unit>
+
+            <trans-unit id="title_in_time_books">
+                <source>title_in_time_books</source>
+                <target>Lista książek w terminie</target>
+            </trans-unit>
+
+            <trans-unit id="label_date_of_rental">
+                <source>label_date_of_rental</source>
+                <target>Data wypożyczenia</target>
+            </trans-unit>
+
+            <trans-unit id="label_date_of_return">
+                <source>label_date_of_return</source>
+                <target>Data zwrotu</target>
+            </trans-unit>
+
+            <trans-unit id="title_rental_list">
+                <source>title_rental_list</source>
+                <target>Lista wypożyczeń</target>
+            </trans-unit>
+
+            <trans-unit id="label_return">
+                <source>label_return</source>
+                <target>Zwrot</target>
+            </trans-unit>
+
+            <trans-unit id="title_late_books">
+                <source>title_late_books</source>
+                <target>Lista książek po terminie</target>
+            </trans-unit>
+
+            <trans-unit id="title_admin_panel">
+                <source>title_admin_panel</source>
+                <target>Panel administratora</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_book">
+                <source>action_create_book</source>
+                <target>Dodaj książkę</target>
+            </trans-unit>
+
+            <trans-unit id="action_user_index">
+                <source>action_user_index</source>
+                <target>Indeks użytkowników</target>
+            </trans-unit>
+
+            <trans-unit id="action_index_late_books">
+                <source>action_index_late_books</source>
+                <target>Indeks książek po terminie</target>
+            </trans-unit>
+
+            <trans-unit id="action_index_in_time_books">
+                <source>action_index_in_time_books</source>
+                <target>Indeks książek w terminie</target>
+            </trans-unit>
+
+            <trans-unit id="action_author_index">
+                <source>action_author_index</source>
+                <target>Indeks autorów</target>
+            </trans-unit>
+
+            <trans-unit id="action_cover_index">
+                <source>action_cover_index</source>
+                <target>Indeks okładek</target>
+            </trans-unit>
+
+            <trans-unit id="action_category_index">
+                <source>action_category_index</source>
+                <target>Indeks kategorii</target>
+            </trans-unit>
+
+            <trans-unit id="action_publisher_index">
+                <source>action_publisher_index</source>
+                <target>Indeks wydawców</target>
+            </trans-unit>
+
+            <trans-unit id="action_language_index">
+                <source>action_language_index</source>
+                <target>Indeks języków</target>
+            </trans-unit>
+
+            <trans-unit id="action_tag_index">
+                <source>action_tag_index</source>
+                <target>Ideks tagów</target>
+            </trans-unit>
+
+            <trans-unit id="title_user_list">
+                <source>title_user_list</source>
+                <target>Lista użytkowników</target>
+            </trans-unit>
+
+            <trans-unit id="label_email">
+                <source>label_email</source>
+                <target>Email</target>
+            </trans-unit>
+
+            <trans-unit id="label_login">
+                <source>label_login</source>
+                <target>Login</target>
+            </trans-unit>
+
+            <trans-unit id="action_edit_password">
+                <source>action_edit_password</source>
+                <target>Edytuj hasło</target>
+            </trans-unit>
+
+            <trans-unit id="action_edit_data">
+                <source>action_edit_data</source>
+                <target>Edytuj dane</target>
+            </trans-unit>
+
+            <trans-unit id="title_book_details">
+                <source>title_book_details</source>
+                <target>Szczegóły książek</target>
+            </trans-unit>
+
+            <trans-unit id="label_status">
+                <source>label_status</source>
+                <target>Status</target>
+            </trans-unit>
+
+            <trans-unit id="label_vote">
+                <source>label_vote</source>
+                <target>Ocena</target>
+            </trans-unit>
+
+            <trans-unit id="label_ask_for_rent">
+                <source>label_ask_for_rent</source>
+                <target>Prośba o wypożyczenie</target>
+            </trans-unit>
+
+            <trans-unit id="title_search_index">
+                <source>title_search_index</source>
+                <target>Wyszukiwarka</target>
+            </trans-unit>
+
+            <trans-unit id="title_ranking_book_list">
+                <source>title_ranking_book_list</source>
+                <target>Ranking książek</target>
+            </trans-unit>
+
+
+            <trans-unit id="rental_return">
+                <source>rental_return</source>
+                <target>Zwróc</target>
+            </trans-unit>
+
+            <trans-unit id="label_average_rate">
+                <source>label_average_rate</source>
+                <target>Średnia ocen</target>
+            </trans-unit>
+
+            <trans-unit id="label_rental_id">
+                <source>label_rental_id</source>
+                <target>Wypożyczenie id</target>
+            </trans-unit>
+
+            <trans-unit id="label_accept">
+                <source>label_accept</source>
+                <target>Akceptacja</target>
+            </trans-unit>
+
+            <trans-unit id="label_reject">
+                <source>label_reject</source>
+                <target>Odrzucenie</target>
+            </trans-unit>
+
+            <trans-unit id="label_petition_kind">
+                <source>label_petition_kind</source>
+                <target>Rodzaj prośby</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_create">
+                <source>title_petition_create</source>
+                <target>Dodaj prośbę</target>
+            </trans-unit>
+
+            <trans-unit id="label_none">
+                <source>label_none</source>
+                <target>Brak</target>
+            </trans-unit>
+
+            <trans-unit id="label_delete">
+                <source>label_delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+
+            <trans-unit id="label_edit_data">
+                <source>label_edit_data</source>
+                <target>Edytuj dane użytkownika</target>
+            </trans-unit>
+
+            <trans-unit id="label_edit_password">
+                <source>label_edit_password</source>
+                <target>Edytuj hasło użytkownika</target>
+            </trans-unit>
+
+            <trans-unit id="label_view">
+                <source>label_view</source>
+                <target>Zobacz</target>
+            </trans-unit>
+
+            <trans-unit id="label_petition">
+                <source>label_petition</source>
+                <target>Prośba</target>
+            </trans-unit>
+
+            <trans-unit id="label_edit">
+                <source>label_edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+
+            <trans-unit id="label_edition">
+                <source>label_edition</source>
+                <target>Edycja</target>
+            </trans-unit>
+
+            <trans-unit id="label_deletion">
+                <source>label_deletion</source>
+                <target>Usuwanie</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
+

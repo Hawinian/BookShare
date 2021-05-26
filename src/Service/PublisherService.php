@@ -20,7 +20,7 @@ class PublisherService
      *
      * @var \App\Repository\PublisherRepository
      */
-    private $authorRepository;
+    private $publisherRepository;
 
     /**
      * Paginator.
@@ -32,12 +32,12 @@ class PublisherService
     /**
      * PublisherService constructor.
      *
-     * @param \App\Repository\PublisherRepository        $authorRepository Publisher repository
+     * @param \App\Repository\PublisherRepository        $publisherRepository Publisher repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
      */
-    public function __construct(PublisherRepository $authorRepository, PaginatorInterface $paginator)
+    public function __construct(PublisherRepository $publisherRepository, PaginatorInterface $paginator)
     {
-        $this->authorRepository = $authorRepository;
+        $this->publisherRepository = $publisherRepository;
         $this->paginator = $paginator;
     }
 
@@ -51,14 +51,14 @@ class PublisherService
     public function createPaginatedList(int $page): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->authorRepository->queryAll(),
+            $this->publisherRepository->queryAll(),
             $page,
             PublisherRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
 
     /**
-     * Find author by Id.
+     * Find publisher by Id.
      *
      * @param int $id Publisher Id
      *
@@ -66,6 +66,26 @@ class PublisherService
      */
     public function findOneById(int $id): ?Publisher
     {
-        return $this->authorRepository->findOneById($id);
+        return $this->publisherRepository->findOneById($id);
+    }
+
+    /**
+     * @param Publisher $publisher
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Publisher $publisher): void
+    {
+        $this->publisherRepository->save($publisher);
+    }
+
+    /**
+     * @param Publisher $publisher
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Publisher $publisher): void
+    {
+        $this->publisherRepository->delete($publisher);
     }
 }

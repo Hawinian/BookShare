@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Book;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -67,5 +68,25 @@ class CategoryService
     public function findOneById(int $id): ?Category
     {
         return $this->categoryRepository->findOneById($id);
+    }
+
+    /**
+     * @param Category $category
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Category $category): void
+    {
+        $this->categoryRepository->save($category);
+    }
+
+    /**
+     * @param Category $category
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Category $category): void
+    {
+        $this->categoryRepository->delete($category);
     }
 }

@@ -71,8 +71,8 @@
                     Hello {{ app.user.login }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url('edit_password', {id: app.user.id}) }}">{{ 'edit_password'|trans }}</a>
-                    <a class="dropdown-item" href="{{ url('edit_data', {id: app.user.id}) }}">{{ 'edit_data'|trans }}</a>
+                    <a class="dropdown-item" href="{{ url('edit_password', {id: app.user.id}) }}">{{ 'action_edit_password'|trans }}</a>
+                    <a class="dropdown-item" href="{{ url('edit_data', {id: app.user.id}) }}">{{ 'action_edit_data'|trans }}</a>
                 </div>
             </li>
             <li class="nav-item">

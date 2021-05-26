@@ -16,11 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class AuthorController.
  *
  * @Route("/author")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class AuthorController extends AbstractController
 {
@@ -45,18 +48,16 @@ class AuthorController extends AbstractController
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\AuthorRepository          $authorRepository Author repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "",
      *     methods={"GET"},
      *     name="author_index",
      * )
      */
-    public function index(Request $request, AuthorRepository $authorRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
         $pagination = $this->authorService->createPaginatedList($page);
@@ -166,11 +167,9 @@ class AuthorController extends AbstractController
      */
     public function delete(Request $request, Author $author, AuthorRepository $repository): Response
     {
-        $authorId = $author->getId();
-        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
-        $existingBook = $repositoryBook->findOneBy(['author' => $authorId]);
+        $existingBook = $author->getBooks();
 
-        if ($existingBook) {
+        if (0 != count($existingBook)) {
             $this->addFlash('warning', 'message_author_contains_objects');
 
             return $this->redirectToRoute('author_index');

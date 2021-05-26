@@ -99,10 +99,22 @@ class Book
      */
     private $votes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rental::class, mappedBy="book", orphanRemoval=true)
+     */
+    private $rentals;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Petition::class, mappedBy="book", orphanRemoval=true)
+     */
+    private $petitions;
+
     public function __construct()
     {
         $this->tag = new ArrayCollection();
         $this->votes = new ArrayCollection();
+        $this->rentals = new ArrayCollection();
+        $this->petitions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -307,4 +319,65 @@ class Book
 
         return $this;
     }
+
+    /**
+     * @return Collection|Rental[]
+     */
+    public function getRentals(): Collection
+    {
+        return $this->rentals;
+    }
+
+    public function addRental(Rental $rental): self
+    {
+        if (!$this->rentals->contains($rental)) {
+            $this->rentals[] = $rental;
+            $rental->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRental(Rental $rental): self
+    {
+        if ($this->rentals->removeElement($rental)) {
+            // set the owning side to null (unless already changed)
+            if ($rental->getBook() === $this) {
+                $rental->setBook(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Petition[]
+     */
+    public function getPetitions(): Collection
+    {
+        return $this->petitions;
+    }
+
+    public function addPetition(Petition $petition): self
+    {
+        if (!$this->petitions->contains($petition)) {
+            $this->petitions[] = $petition;
+            $petition->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removePetition(Petition $petition): self
+    {
+        if ($this->petitions->removeElement($petition)) {
+            // set the owning side to null (unless already changed)
+            if ($petition->getBook() === $this) {
+                $petition->setBook(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

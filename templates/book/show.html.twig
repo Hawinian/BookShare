@@ -34,10 +34,11 @@
             <dd>{{ book.description }}</dd>
             {% if app.user %}
                 {% if rate %}
-                    <dt>{{ 'your_vote'|trans }}</dt>
-                    {{ rate.rate }}
+                    <dt>{{ 'label_your_vote'|trans }}</dt>
+                    {% dump(rate) %}
+                    {{ rate }}
                     {% endif %}
-                <dt>{{ 'label_votes'|trans }}</dt>
+                <dt>{{ 'label_vote'|trans }}</dt>
                 <td>
                     <a href="{{ url('add_vote', {id: book.id}) }}" title="{{ 'action_vote'|trans }}">
                         {{ 'action_vote'|trans }}

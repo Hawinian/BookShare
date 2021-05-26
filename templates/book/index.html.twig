@@ -17,17 +17,17 @@
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'book.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'book.author') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_category'|trans, 'book.category') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_language'|trans, 'book.language') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'author.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_category'|trans, 'category.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_language'|trans, 'language.name') }}</th>
 
-                <th>{{ 'View details'|trans }}</th>
+                <th>{{ 'label_view'|trans }}</th>
 
                 {% if app.user %}
-                <th>{{ 'Petition'|trans }}</th>
+                <th>{{ 'label_petition'|trans }}</th>
                     {% if is_granted('ROLE_ADMIN') %}
-                <th>{{ 'Edit'|trans }}</th>
-                <th>{{ 'Delete'|trans }}</th>
+                <th>{{ 'label_edit'|trans }}</th>
+                <th>{{ 'label_delete'|trans }}</th>
                         {% endif %}
                 {% endif %}
             </tr>

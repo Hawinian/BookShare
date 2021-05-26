@@ -68,4 +68,24 @@ class LanguageService
     {
         return $this->languageRepository->findOneById($id);
     }
+
+    /**
+     * @param Language $language
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Language $language): void
+    {
+        $this->languageRepository->save($language);
+    }
+
+    /**
+     * @param Language $language
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Language $language): void
+    {
+        $this->languageRepository->delete($language);
+    }
 }

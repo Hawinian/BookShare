@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LanguageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +25,16 @@ class Language
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="language")
+     */
+    private $books;
+
+    public function __construct()
+    {
+        $this->languages = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -39,4 +51,14 @@ class Language
 
         return $this;
     }
+
+    /**
+     * @return Collection|Book[]
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+
 }

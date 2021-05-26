@@ -28,11 +28,11 @@ class Petition
      */
     private $content;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Book::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $book;
+//    /**
+//     * @ORM\ManyToOne(targetEntity=Book::class)
+//     * @ORM\JoinColumn(nullable=false)
+//     */
+//    private $book;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -45,6 +45,12 @@ class Petition
      * @ORM\JoinColumn(nullable=false)
      */
     private $petition_kind;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Book::class, inversedBy="petitions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $book;
 
     public function getId(): ?int
     {
@@ -75,17 +81,17 @@ class Petition
         return $this;
     }
 
-    public function getBook(): ?Book
-    {
-        return $this->book;
-    }
-
-    public function setBook(?Book $book): self
-    {
-        $this->book = $book;
-
-        return $this;
-    }
+//    public function getBook(): ?Book
+//    {
+//        return $this->book;
+//    }
+//
+//    public function setBook(?Book $book): self
+//    {
+//        $this->book = $book;
+//
+//        return $this;
+//    }
 
     public function getUser(): ?User
     {
@@ -107,6 +113,18 @@ class Petition
     public function setPetitionKind(?PetitionKind $petition_kind): self
     {
         $this->petition_kind = $petition_kind;
+
+        return $this;
+    }
+
+    public function getBook(): ?Book
+    {
+        return $this->book;
+    }
+
+    public function setBook(?Book $book): self
+    {
+        $this->book = $book;
 
         return $this;
     }

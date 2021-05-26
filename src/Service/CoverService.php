@@ -68,4 +68,24 @@ class CoverService
     {
         return $this->coverRepository->findOneById($id);
     }
+
+    /**
+     * @param Cover $cover
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Cover $cover): void
+    {
+        $this->coverRepository->save($cover);
+    }
+
+    /**
+     * @param Cover $cover
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Cover $cover): void
+    {
+        $this->coverRepository->delete($cover);
+    }
 }

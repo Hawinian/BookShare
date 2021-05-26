@@ -18,9 +18,8 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'petition.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_datetime'|trans, 'petition.date') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_content'|trans, 'petition.content') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_book_id'|trans, 'petition.book.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_book_title'|trans, 'petition.book.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_user'|trans, 'petition.user.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_id'|trans, 'book.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_title'|trans, 'book.title') }}</th>
                 <th>{{ 'label_accept'|trans }}</th>
                 <th>{{ 'label_reject'|trans }}</th>
             </tr>
@@ -33,7 +32,6 @@
                     <td>{{ petition.content }}</td>
                     <td>{{ petition.book.id }}</td>
                     <td>{{ petition.book.title }}</td>
-                    <td>{{ petition.user.id}}</td>
                     <td>
                         <a href="{{ url('petition_accept', {id: petition.id}) }}" title="{{ 'action_accept'|trans }}">
                             {{ 'action_accept'|trans }}

@@ -271,15 +271,13 @@ class UserController extends AbstractController
             $userId = $loggedUser->getId();
             $petitionUser = $user->getId();
 
-
             if ($petitionUser == $userId) {
-                $this->addFlash('success', 'you cant deprive yourself');
+                $this->addFlash('warning', 'you cant deprive yourself');
 
                 return $this->redirectToRoute('user_index');
             }
             $rol = $form->get('roles')->getData();
-            if (in_array("ROLE_ADMIN", $rol))
-            {
+            if (in_array('ROLE_ADMIN', $rol)) {
                 $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
             }
 
@@ -393,6 +391,27 @@ class UserController extends AbstractController
                 'form' => $form->createView(),
                 'user' => $user,
             ]
+        );
+    }
+
+    /**
+     * Index action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP petition
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/admin",
+     *     methods={"GET"},
+     *     name="admin_index",
+     * )
+     */
+    public function admin_index(Request $request, PaginatorInterface $paginator): Response
+    {
+        return $this->render(
+            'user/admin-index.html.twig'
         );
     }
 }

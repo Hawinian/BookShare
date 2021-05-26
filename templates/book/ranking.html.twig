@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_book_list'|trans }}</h1>
+    <h1>{{ 'title_ranking_book_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">
@@ -17,7 +17,7 @@
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'book.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_vote_id'|trans, 'avg_rate') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_average_rate'|trans, 'avg_rate') }}</th>
 
             </tr>
             </thead>

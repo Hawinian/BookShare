@@ -16,11 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class CoverController.
  *
  * @Route("/cover")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class CoverController extends AbstractController
 {
@@ -51,7 +54,7 @@ class CoverController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "",
      *     methods={"GET"},
      *     name="cover_index",
      * )
@@ -166,11 +169,9 @@ class CoverController extends AbstractController
      */
     public function delete(Request $request, Cover $cover, CoverRepository $repository): Response
     {
-        $coverId = $cover->getId();
-        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
-        $existingBook = $repositoryBook->findOneBy(['cover' => $coverId]);
+        $existingBook = $cover->getBooks();
 
-        if ($existingBook) {
+        if (0 != count($existingBook)) {
             $this->addFlash('warning', 'message_cover_contains_objects');
 
             return $this->redirectToRoute('cover_index');

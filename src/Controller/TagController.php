@@ -16,11 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class TagController.
  *
  * @Route("/tag")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class TagController extends AbstractController
 {
@@ -51,7 +54,7 @@ class TagController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "",
      *     methods={"GET"},
      *     name="tag_index",
      * )
@@ -166,11 +169,9 @@ class TagController extends AbstractController
      */
     public function delete(Request $request, Tag $tag, TagRepository $repository): Response
     {
-        $tagId = $tag->getId();
-        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
-        $existingBook = $repositoryBook->findOneBy(['tag' => $tagId]);
+        $existingBook = $tag->getBooks();
 
-        if ($existingBook) {
+        if (0 != count($existingBook)) {
             $this->addFlash('warning', 'message_tag_contains_objects');
 
             return $this->redirectToRoute('tag_index');
