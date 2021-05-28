@@ -6,17 +6,15 @@
 namespace App\Controller;
 
 use App\Entity\PetitionKind;
-use App\Entity\Book;
 use App\Form\PetitionKindType;
 use App\Repository\PetitionKindRepository;
 use App\Service\PetitionKindService;
-use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class PetitionKindController.
@@ -47,7 +45,7 @@ class PetitionKindController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP petition
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -71,8 +69,8 @@ class PetitionKindController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\PetitionKindRepository          $petition_kindRepository PetitionKind repository
+     * @param \Symfony\Component\HttpFoundation\Request $request                 HTTP petition
+     * @param \App\Repository\PetitionKindRepository    $petition_kindRepository PetitionKind repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -108,9 +106,9 @@ class PetitionKindController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Entity\PetitionKind                        $petition_kind           PetitionKind entity
-     * @param \App\Repository\PetitionKindRepository          $petition_kindRepository PetitionKind repository
+     * @param \Symfony\Component\HttpFoundation\Request $request                 HTTP petition
+     * @param \App\Entity\PetitionKind                  $petition_kind           PetitionKind entity
+     * @param \App\Repository\PetitionKindRepository    $petition_kindRepository PetitionKind repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -149,9 +147,9 @@ class PetitionKindController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\PetitionKind                        $petition_kind     PetitionKind entity
-     * @param \App\Repository\PetitionKindRepository          $repository PetitionKind repository
+     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP petition
+     * @param \App\Entity\PetitionKind                  $petition_kind PetitionKind entity
+     * @param \App\Repository\PetitionKindRepository    $repository    PetitionKind repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

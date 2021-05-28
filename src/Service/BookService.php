@@ -8,11 +8,9 @@ namespace App\Service;
 use App\Entity\Book;
 use App\Entity\Category;
 use App\Entity\User;
-use App\Entity\Vote;
 use App\Repository\BookRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class BookService.
@@ -162,7 +160,6 @@ class BookService
     }
 
     /**
-     * @param Book $book
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -172,7 +169,6 @@ class BookService
     }
 
     /**
-     * @param Book $book
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -181,5 +177,15 @@ class BookService
         $this->bookRepository->delete($book);
     }
 
-
+    /**
+     * Find book by Id.
+     *
+     * @param int $id Book Id
+     *
+     * @return \App\Entity\Book|null Book entity
+     */
+    public function findOneById(int $id): ?Book
+    {
+        return $this->bookRepository->findOneById($id);
+    }
 }

@@ -155,5 +155,4 @@ class StatusServiceTest extends KernelTestCase
         $this->assertEquals($expectedResultSize, $result->count());
     }
 
-    // other tests for paginated list
 }

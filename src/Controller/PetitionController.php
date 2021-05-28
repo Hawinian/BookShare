@@ -11,6 +11,8 @@ use App\Entity\Rental;
 use App\Form\PetitionType;
 use App\Repository\PetitionRepository;
 use App\Repository\RentalRepository;
+use App\Service\PetitionKindService;
+use App\Service\PetitionService;
 use DateInterval;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,9 +26,28 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class PetitionController.
  *
  * @Route("/petition")
+ *
+ * @IsGranted("ROLE_USER")
  */
 class PetitionController extends AbstractController
 {
+    /**
+     * Petition service.
+     *
+     * @var \App\Service\PetitionService
+     */
+    private $petitionService;
+
+    /**
+     * PetitionController constructor.
+     *
+     * @param \App\Service\PetitionService $petitionService Petition service
+     */
+    public function __construct(PetitionService $petitionService)
+    {
+        $this->petitionService = $petitionService;
+    }
+
     /**
      * Index action.
      *
@@ -39,18 +60,15 @@ class PetitionController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "",
      *     methods={"GET"},
      *     name="petition_index",
      * )
      */
     public function index(Request $request, PetitionRepository $petitionRepository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $petitionRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            PetitionRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->petitionService->createPaginatedList($page);
 
         return $this->render(
             'petition/index.html.twig',
@@ -119,46 +137,51 @@ class PetitionController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="petition_accept",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function accept(Request $request, Petition $petition, RentalRepository $rentalRepository, PetitionRepository $petitionRepository, string $id): Response
     {
-        $bookId = $petition->getBook()->getId();
+//        $bookId = $petition->getBook()->getId();
+//
+//        $repository = $this->getDoctrine()->getRepository(Rental::class);
+//        $book = $repository->findOneBy(['book' => $bookId]);
+//
+//        $petition->getBook()->getRentals();
+        $existingRental = $petition->getBook()->getRentals();
 
-        $repository = $this->getDoctrine()->getRepository(Rental::class);
-        $book = $repository->findOneBy(['book' => $bookId]);
-
-        if ($book) {
-            $this->addFlash('alert', 'you cannot rent this book');
+        if (0 != count($existingRental)) {
+            $this->addFlash('warning', 'message_book_already_rented');
 
             return $this->redirectToRoute('petition_index');
-        } else {
-            $form = $this->createForm(FormType::class, $petition, ['method' => 'PUT']);
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $rental = new Rental();
-                $rental->setDateOfRental((new \DateTime()));
-                $date = new \DateTime(); // Y-m-d
-                $date->add(new DateInterval('P30D'));
-                $rental->setDateOfReturn($date);
-                $rental->setUser($petition->getUser());
-                $rental->setBook($petition->getBook());
-                $rentalRepository->save($rental);
-                $petitionRepository->delete($petition);
-
-                $this->addFlash('success', 'message_created_successfully');
-
-                return $this->redirectToRoute('petition_index');
-            }
-
-            return $this->render(
-                'petition/accept.html.twig',
-                [
-                    'form' => $form->createView(),
-                    'petition' => $petition,
-                ]
-            );
         }
+
+        $form = $this->createForm(FormType::class, $petition, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rental = new Rental();
+            $rental->setDateOfRental((new \DateTime()));
+            $date = new \DateTime(); // Y-m-d
+            $date->add(new DateInterval('P30D'));
+            $rental->setDateOfReturn($date);
+            $rental->setUser($petition->getUser());
+            $rental->setBook($petition->getBook());
+            $rentalRepository->save($rental);
+            $petitionRepository->delete($petition);
+
+            $this->addFlash('success', 'message_created_successfully');
+
+            return $this->redirectToRoute('petition_index');
+        }
+
+        return $this->render(
+            'petition/accept.html.twig',
+            [
+                'form' => $form->createView(),
+                'petition' => $petition,
+            ]
+        );
     }
 
     /**
@@ -179,6 +202,8 @@ class PetitionController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="petition_reject",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function reject(Request $request, Petition $petition, PetitionRepository $petitionRepository, string $id): Response
     {

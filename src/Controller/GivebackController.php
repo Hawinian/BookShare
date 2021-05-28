@@ -15,11 +15,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class GivebackController.
  *
  * @Route("/giveback")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class GivebackController extends AbstractController
 {
@@ -33,7 +36,7 @@ class GivebackController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "",
      *     methods={"GET"},
      *     name="giveback_index",
      * )
@@ -66,7 +69,7 @@ class GivebackController extends AbstractController
      *
      * @Route(
      *     "/{id}/accept",
-     *     methods={"PUT"},
+     *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="giveback_accept",
      * )
@@ -85,6 +88,7 @@ class GivebackController extends AbstractController
 
             return $this->redirectToRoute('giveback_index');
         }
+
         return $this->render(
             'giveback/accept.html.twig',
             [

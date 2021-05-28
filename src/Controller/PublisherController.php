@@ -5,18 +5,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Publisher;
 use App\Entity\Book;
+use App\Entity\Publisher;
 use App\Form\PublisherType;
 use App\Repository\PublisherRepository;
 use App\Service\PublisherService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class PublisherController.
@@ -47,9 +47,9 @@ class PublisherController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\PublisherRepository          $publisherRepository Publisher repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request             HTTP petition
+     * @param \App\Repository\PublisherRepository       $publisherRepository Publisher repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator           Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -73,8 +73,8 @@ class PublisherController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\PublisherRepository          $publisherRepository Publisher repository
+     * @param \Symfony\Component\HttpFoundation\Request $request             HTTP petition
+     * @param \App\Repository\PublisherRepository       $publisherRepository Publisher repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -110,9 +110,9 @@ class PublisherController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Entity\Publisher                        $publisher           Publisher entity
-     * @param \App\Repository\PublisherRepository          $publisherRepository Publisher repository
+     * @param \Symfony\Component\HttpFoundation\Request $request             HTTP petition
+     * @param \App\Entity\Publisher                     $publisher           Publisher entity
+     * @param \App\Repository\PublisherRepository       $publisherRepository Publisher repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -152,8 +152,8 @@ class PublisherController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\Publisher                        $publisher     Publisher entity
-     * @param \App\Repository\PublisherRepository          $repository Publisher repository
+     * @param \App\Entity\Publisher                     $publisher  Publisher entity
+     * @param \App\Repository\PublisherRepository       $repository Publisher repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -169,11 +169,9 @@ class PublisherController extends AbstractController
      */
     public function delete(Request $request, Publisher $publisher, PublisherRepository $repository): Response
     {
-        $publisherId = $publisher->getId();
-        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
-        $existingBook = $repositoryBook->findOneBy(['publisher' => $publisherId]);
+        $existingBook = $publisher->getBooks();
 
-        if ($existingBook) {
+        if (0 != count($existingBook)) {
             $this->addFlash('warning', 'message_publisher_contains_objects');
 
             return $this->redirectToRoute('publisher_index');

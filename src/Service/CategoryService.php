@@ -5,7 +5,6 @@
 
 namespace App\Service;
 
-use App\Entity\Book;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -71,7 +70,6 @@ class CategoryService
     }
 
     /**
-     * @param Category $category
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -81,7 +79,6 @@ class CategoryService
     }
 
     /**
-     * @param Category $category
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

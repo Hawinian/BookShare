@@ -6,17 +6,16 @@
 namespace App\Controller;
 
 use App\Entity\Language;
-use App\Entity\Book;
 use App\Form\LanguageType;
 use App\Repository\LanguageRepository;
 use App\Service\LanguageService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class LanguageController.
@@ -47,9 +46,9 @@ class LanguageController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\LanguageRepository          $languageRepository Language repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
+     * @param \App\Repository\LanguageRepository        $languageRepository Language repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator          Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -73,8 +72,8 @@ class LanguageController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\LanguageRepository          $languageRepository Language repository
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
+     * @param \App\Repository\LanguageRepository        $languageRepository Language repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -110,9 +109,9 @@ class LanguageController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Entity\Language                        $language           Language entity
-     * @param \App\Repository\LanguageRepository          $languageRepository Language repository
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
+     * @param \App\Entity\Language                      $language           Language entity
+     * @param \App\Repository\LanguageRepository        $languageRepository Language repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -152,8 +151,8 @@ class LanguageController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\Language                        $language     Language entity
-     * @param \App\Repository\LanguageRepository          $repository Language repository
+     * @param \App\Entity\Language                      $language   Language entity
+     * @param \App\Repository\LanguageRepository        $repository Language repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

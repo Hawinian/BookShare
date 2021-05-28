@@ -10,13 +10,12 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
-use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class CategoryController.
@@ -47,9 +46,7 @@ class CategoryController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
-     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator          Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP petition
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -59,7 +56,7 @@ class CategoryController extends AbstractController
      *     name="category_index",
      * )
      */
-    public function index(Request $request, CategoryRepository $categoryRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
         $pagination = $this->categoryService->createPaginatedList($page);

@@ -32,8 +32,8 @@ class PublisherService
     /**
      * PublisherService constructor.
      *
-     * @param \App\Repository\PublisherRepository        $publisherRepository Publisher repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
+     * @param \App\Repository\PublisherRepository     $publisherRepository Publisher repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator           Paginator
      */
     public function __construct(PublisherRepository $publisherRepository, PaginatorInterface $paginator)
     {
@@ -70,7 +70,6 @@ class PublisherService
     }
 
     /**
-     * @param Publisher $publisher
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -80,7 +79,6 @@ class PublisherService
     }
 
     /**
-     * @param Publisher $publisher
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

@@ -6,17 +6,16 @@
 namespace App\Controller;
 
 use App\Entity\Tag;
-use App\Entity\Book;
 use App\Form\TagType;
 use App\Repository\TagRepository;
 use App\Service\TagService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class TagController.
@@ -47,9 +46,9 @@ class TagController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\TagRepository          $tagRepository Tag repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP petition
+     * @param \App\Repository\TagRepository             $tagRepository Tag repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator     Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -73,8 +72,8 @@ class TagController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\TagRepository          $tagRepository Tag repository
+     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP petition
+     * @param \App\Repository\TagRepository             $tagRepository Tag repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -110,9 +109,9 @@ class TagController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Entity\Tag                        $tag           Tag entity
-     * @param \App\Repository\TagRepository          $tagRepository Tag repository
+     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP petition
+     * @param \App\Entity\Tag                           $tag           Tag entity
+     * @param \App\Repository\TagRepository             $tagRepository Tag repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -152,8 +151,8 @@ class TagController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\Tag                        $tag     Tag entity
-     * @param \App\Repository\TagRepository          $repository Tag repository
+     * @param \App\Entity\Tag                           $tag        Tag entity
+     * @param \App\Repository\TagRepository             $repository Tag repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

@@ -18,11 +18,11 @@ class Giveback
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Rental::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $rental;
+//    /**
+//     * @ORM\ManyToOne(targetEntity=Rental::class)
+//     * @ORM\JoinColumn(nullable=false)
+//     */
+//    private $rental;
 
     /**
      * @ORM\Column(type="text")
@@ -34,22 +34,28 @@ class Giveback
      */
     private $date;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Rental::class, inversedBy="giveback")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $rental;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getRental(): ?Rental
-    {
-        return $this->rental;
-    }
-
-    public function setRental(?Rental $rental): self
-    {
-        $this->rental = $rental;
-
-        return $this;
-    }
+//    public function getRental(): ?Rental
+//    {
+//        return $this->rental;
+//    }
+//
+//    public function setRental(?Rental $rental): self
+//    {
+//        $this->rental = $rental;
+//
+//        return $this;
+//    }
 
     public function getContent(): ?string
     {
@@ -71,6 +77,18 @@ class Giveback
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getRental(): ?Rental
+    {
+        return $this->rental;
+    }
+
+    public function setRental(Rental $rental): self
+    {
+        $this->rental = $rental;
 
         return $this;
     }

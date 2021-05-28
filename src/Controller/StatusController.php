@@ -6,17 +6,15 @@
 namespace App\Controller;
 
 use App\Entity\Status;
-use App\Entity\Book;
 use App\Form\StatusType;
 use App\Repository\StatusRepository;
 use App\Service\StatusService;
-use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class StatusController.
@@ -47,7 +45,7 @@ class StatusController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP petition
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

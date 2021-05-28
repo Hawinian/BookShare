@@ -5,7 +5,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
 use App\Entity\User;
 use App\Form\EditDataType;
 use App\Form\EditPasswordType;
@@ -38,10 +37,12 @@ class UserController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/index",
+     *     "",
      *     methods={"GET"},
      *     name="user_index",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
@@ -74,9 +75,14 @@ class UserController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="user_register",
      * )
+     *
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $requestRepository): Response
     {
+        if ( $this->getUser() )
+        {
+            return $this->redirectToRoute('book_index');
+        }
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -85,6 +91,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+            $user->setStatus(100);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -103,49 +110,50 @@ class UserController extends AbstractController
         );
     }
 
-    /**
-     * Edit action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
-     * @param \App\Repository\UserRepository            $userRepository User repository
-     * @param int                                       $id
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/edit",
-     *     methods={"GET", "PUT"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="user_edit",
-     * )
-     */
-    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
-    {
-        $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-//            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-//            $userRepository->upgradePassword($user,$password);
-
-            $userRepository->save($user);
-
-            $this->addFlash('success', 'message_updated_successfully');
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render(
-            'user/edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'user' => $user,
-            ]
-        );
-    }
+//    /**
+//     * Edit action.
+//     *
+//     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
+//     * @param \App\Repository\UserRepository            $userRepository User repository
+//     * @param int                                       $id
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+//     *
+//     * @throws \Doctrine\ORM\ORMException
+//     * @throws \Doctrine\ORM\OptimisticLockException
+//     *
+//     * @Route(
+//     *     "/{id}/edit",
+//     *     methods={"GET", "PUT"},
+//     *     requirements={"id": "[1-9]\d*"},
+//     *     name="user_edit",
+//     * )
+//     * @IsGranted("ROLE_USER")
+//     */
+//    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
+//    {
+//        $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+    ////            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+    ////            $userRepository->upgradePassword($user,$password);
+//
+//            $userRepository->save($user);
+//
+//            $this->addFlash('success', 'message_updated_successfully');
+//
+//            return $this->redirectToRoute('user_index');
+//        }
+//
+//        return $this->render(
+//            'user/edit.html.twig',
+//            [
+//                'form' => $form->createView(),
+//                'user' => $user,
+//            ]
+//        );
+//    }
 
     /**
      * Edit action.
@@ -164,6 +172,11 @@ class UserController extends AbstractController
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="edit_data",
+     * )
+     *
+     * @IsGranted(
+     *     "USER",
+     *     subject="user",
      * )
      */
     public function edit_data(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
@@ -242,15 +255,15 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
-     * @param \App\Repository\UserRepository            $userRepository User repository
-     * @param int                                       $id
-     *
+     * @param UserInterface $loggedUser
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP user
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param \App\Repository\UserRepository $userRepository User repository
+     * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
-     *
      * @Route(
      *     "/{id}/admin-edit-data",
      *     methods={"GET", "PUT"},
@@ -260,7 +273,7 @@ class UserController extends AbstractController
      *
      * @IsGranted("ROLE_ADMIN")
      */
-    public function admin_edit_data(UserInterface $loggedUser, Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
+    public function admin_edit_data(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
     {
         $form = $this->createForm(UserEditAdminType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -268,14 +281,16 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 //            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
 //            $userRepository->upgradePassword($user,$password);
-            $userId = $loggedUser->getId();
+            $userId = $this->getUser()->getId();
             $petitionUser = $user->getId();
 
-            if ($petitionUser == $userId) {
+            if ($petitionUser == $userId)
+            {
                 $this->addFlash('warning', 'you cant deprive yourself');
 
                 return $this->redirectToRoute('user_index');
             }
+
             $rol = $form->get('roles')->getData();
             if (in_array('ROLE_ADMIN', $rol)) {
                 $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
@@ -360,17 +375,11 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="user_delete",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, User $user, UserRepository $repository): Response
     {
-        /*
-        if ($book->getTasks()->count()) {
-            $this->addFlash('warning', 'message_book_contains_tasks');
-
-            return $this->redirectToRoute('book_index');
-        }
-        */
-
         $form = $this->createForm(UserType::class, $user, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
@@ -407,6 +416,8 @@ class UserController extends AbstractController
      *     methods={"GET"},
      *     name="admin_index",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function admin_index(Request $request, PaginatorInterface $paginator): Response
     {

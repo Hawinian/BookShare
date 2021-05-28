@@ -32,8 +32,8 @@ class PetitionKindService
     /**
      * PetitionKindService constructor.
      *
-     * @param \App\Repository\PetitionKindRepository        $petition_kindRepository PetitionKind repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
+     * @param \App\Repository\PetitionKindRepository  $petition_kindRepository PetitionKind repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator               Paginator
      */
     public function __construct(PetitionKindRepository $petition_kindRepository, PaginatorInterface $paginator)
     {
@@ -70,7 +70,6 @@ class PetitionKindService
     }
 
     /**
-     * @param PetitionKind $petition_kind
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -80,7 +79,6 @@ class PetitionKindService
     }
 
     /**
-     * @param PetitionKind $petition_kind
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

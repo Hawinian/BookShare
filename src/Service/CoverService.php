@@ -32,8 +32,8 @@ class CoverService
     /**
      * CoverService constructor.
      *
-     * @param \App\Repository\CoverRepository        $coverRepository Cover repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
+     * @param \App\Repository\CoverRepository         $coverRepository Cover repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator       Paginator
      */
     public function __construct(CoverRepository $coverRepository, PaginatorInterface $paginator)
     {
@@ -70,7 +70,6 @@ class CoverService
     }
 
     /**
-     * @param Cover $cover
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -80,7 +79,6 @@ class CoverService
     }
 
     /**
-     * @param Cover $cover
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

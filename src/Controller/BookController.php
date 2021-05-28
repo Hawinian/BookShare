@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class BookController.
@@ -172,6 +173,8 @@ class BookController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="book_create",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function create(Request $request, BookRepository $bookRepository): Response
     {
@@ -215,6 +218,8 @@ class BookController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="book_edit",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
     {
@@ -262,6 +267,8 @@ class BookController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="book_delete",
      * )
+     *
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Book $book): Response
     {
@@ -338,52 +345,54 @@ class BookController extends AbstractController
         );
     }
 
-    /**
-     * Index action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/{id}/vote",
-     *     methods={"GET", "POST"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="add_vote",
-     * )
-     */
-    public function vote(UserInterface $loggedUser, Request $request, VoteRepository $voteRepository, Book $book, BookRepository $bookRepository): Response
-    {
-        $vote = new Vote();
-        $vote->setBook($book);
-
-        $form = $this->createForm(VoteType::class, $vote);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $vote->setUser($this->getUser());
-            $userId = $loggedUser->getId();
-            $existingRates = $book->getVotes();
-            foreach ($existingRates as $value) {
-                $us = $value->getUser()->getId();
-                if ($us == $userId) {
-                    $voteRepository->delete($value);
-                }
-            }
-            $voteRepository->save($vote);
-
-            $this->addFlash('success', 'message_created_successfully');
-
-            return $this->redirectToRoute('book_index');
-        }
-
-        return $this->render(
-            'book/vote.html.twig',
-            ['form' => $form->createView(),
-            'vote' => $vote, ]
-        );
-    }
+//    /**
+//     * Index action.
+//     *
+//     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
+//     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+//     *
+//     * @Route(
+//     *     "/{id}/vote",
+//     *     methods={"GET", "POST"},
+//     *     requirements={"id": "[1-9]\d*"},
+//     *     name="add_vote",
+//     * )
+//     *
+//     *  * @IsGranted("ROLE_USER")
+//     */
+//    public function vote(UserInterface $loggedUser, Request $request, VoteRepository $voteRepository, Book $book, BookRepository $bookRepository): Response
+//    {
+//        $vote = new Vote();
+//        $vote->setBook($book);
+//
+//        $form = $this->createForm(VoteType::class, $vote);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $vote->setUser($this->getUser());
+//            $userId = $loggedUser->getId();
+//            $existingRates = $book->getVotes();
+//            foreach ($existingRates as $value) {
+//                $us = $value->getUser()->getId();
+//                if ($us == $userId) {
+//                    $voteRepository->delete($value);
+//                }
+//            }
+//            $voteRepository->save($vote);
+//
+//            $this->addFlash('success', 'message_created_successfully');
+//
+//            return $this->redirectToRoute('book_index');
+//        }
+//
+//        return $this->render(
+//            'book/vote.html.twig',
+//            ['form' => $form->createView(),
+//            'vote' => $vote, ]
+//        );
+//    }
 
     /**
      * Index action.

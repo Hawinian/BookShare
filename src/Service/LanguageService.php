@@ -70,7 +70,6 @@ class LanguageService
     }
 
     /**
-     * @param Language $language
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -80,7 +79,6 @@ class LanguageService
     }
 
     /**
-     * @param Language $language
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

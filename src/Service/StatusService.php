@@ -70,7 +70,6 @@ class StatusService
     }
 
     /**
-     * @param Status $status
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -80,7 +79,6 @@ class StatusService
     }
 
     /**
-     * @param Status $status
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

@@ -269,17 +269,17 @@
 
             <trans-unit id="action_save">
                 <source>action_save</source>
-                <target>Zapisz</target>
+                <target>zapisz</target>
             </trans-unit>
 
             <trans-unit id="action_accept">
                 <source>action_accept</source>
-                <target>Zaakceptuj</target>
+                <target>zaakceptuj</target>
             </trans-unit>
 
             <trans-unit id="action_reject">
                 <source>action_reject</source>
-                <target>Odrzuć</target>
+                <target>odrzuć</target>
             </trans-unit>
 
             <trans-unit id="title_giveback_list">
@@ -460,7 +460,7 @@
 
             <trans-unit id="rental_return">
                 <source>rental_return</source>
-                <target>Zwróc</target>
+                <target>zwróć</target>
             </trans-unit>
 
             <trans-unit id="label_average_rate">
@@ -536,6 +536,71 @@
             <trans-unit id="label_deletion">
                 <source>label_deletion</source>
                 <target>Usuwanie</target>
+            </trans-unit>
+
+            <trans-unit id="message_category_contains_objects">
+                <source>message_category_contains_objects</source>
+                <target>Kategoria zawiera inne obiekty</target>
+            </trans-unit>
+
+            <trans-unit id="message_deleted_successfully">
+                <source>message_deleted_successfully</source>
+                <target>Usuwanie powiodło się</target>
+            </trans-unit>
+
+            <trans-unit id="message_updated_successfully">
+                <source>message_updated_successfully</source>
+                <target>Aktualizacja powiodła się</target>
+            </trans-unit>
+
+            <trans-unit id="message_created_successfully">
+                <source>message_created_successfully</source>
+                <target>Dodawanie powiodło się</target>
+            </trans-unit>
+
+            <trans-unit id="message_author_contains_objects">
+                <source>message_author_contains_objects</source>
+                <target>Autor zawiera inne obiekty</target>
+            </trans-unit>
+
+            <trans-unit id="message_status_contains_objects">
+                <source>message_status_contains_objects</source>
+                <target>Status zawiera inne obiekty</target>
+            </trans-unit>
+
+            <trans-unit id="message_cover_contains_objects">
+                <source>message_cover_contains_objects</source>
+                <target>Okładka zawiera inne obiekty</target>
+            </trans-unit>
+
+            <trans-unit id="message_language_contains_objects">
+                <source>message_language_contains_objects</source>
+                <target>Język zawiera inne obiekty</target>
+            </trans-unit>
+
+            <trans-unit id="message_publisher_contains_objects">
+                <source>message_publisher_contains_objects</source>
+                <target>Wydawca zawiera inne obiekty</target>
+            </trans-unit>
+
+            <trans-unit id="message_tag_contains_objects">
+                <source>message_tag_contains_objects</source>
+                <target>Tag zawiera inne obiekty</target>
+            </trans-unit>
+
+            <trans-unit id="message_book_contains_objects">
+                <source>message_book_contains_objects</source>
+                <target>Książka jest wypożyczona lub zarezerwowana</target>
+            </trans-unit>
+
+            <trans-unit id="message_book_already_rented">
+                <source>message_book_already_rented</source>
+                <target>Książka jest wypożyczona</target>
+            </trans-unit>
+
+            <trans-unit id="message_book_already_sent_to_return">
+                <source>message_book_already_sent_to_return</source>
+                <target>Książka została już wysłana do zwrotu</target>
             </trans-unit>
 
         </body>

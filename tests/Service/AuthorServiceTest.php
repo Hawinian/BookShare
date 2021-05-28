@@ -6,8 +6,8 @@
 namespace App\Tests\Service;
 
 use App\Entity\Author;
-use App\Repository\BookRepository;
 use App\Repository\AuthorRepository;
+use App\Repository\BookRepository;
 use App\Service\AuthorService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

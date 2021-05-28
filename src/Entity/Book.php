@@ -54,40 +54,46 @@ class Book
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Author::class)
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="books")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cover::class)
+     * @ORM\ManyToOne(targetEntity=Cover::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
     private $cover;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Publisher::class)
+     * @ORM\ManyToOne(targetEntity=Publisher::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
     private $publisher;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Language::class)
+     * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
     private $language;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Status::class)
+     * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Category::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $category;
+//    /**
+//     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="books")
+//     * @ORM\JoinColumn(nullable=false)
+//     */
+//    private $category;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books")
@@ -108,6 +114,8 @@ class Book
      * @ORM\OneToMany(targetEntity=Petition::class, mappedBy="book", orphanRemoval=true)
      */
     private $petitions;
+
+
 
     public function __construct()
     {
@@ -194,6 +202,18 @@ class Book
         return $this;
     }
 
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
     public function getAuthor(): ?Author
     {
         return $this->author;
@@ -254,17 +274,17 @@ class Book
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
+//    public function getCategory(): ?Category
+//    {
+//        return $this->category;
+//    }
+//
+//    public function setCategory(?Category $category): self
+//    {
+//        $this->category = $category;
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection|Tag[]
@@ -379,5 +399,6 @@ class Book
 
         return $this;
     }
+
 
 }

@@ -541,6 +541,72 @@
                 <target>Deletion</target>
             </trans-unit>
 
+            <trans-unit id="message_deleted_successfully">
+                <source>message_deleted_successfully</source>
+                <target>Deleted successfully</target>
+            </trans-unit>
+
+            <trans-unit id="message_updated_successfully">
+                <source>message_updated_successfully</source>
+                <target>Updated successfully</target>
+            </trans-unit>
+
+            <trans-unit id="message_category_contains_objects">
+                <source>message_category_contains_objects</source>
+                <target>Category contains other objects</target>
+            </trans-unit>
+
+            <trans-unit id="message_created_successfully">
+                <source>message_created_successfully</source>
+                <target>Created successfully</target>
+            </trans-unit>
+
+            <trans-unit id="message_author_contains_objects">
+                <source>message_author_contains_objects</source>
+                <target>Author contains other objects</target>
+            </trans-unit>
+
+            <trans-unit id="message_status_contains_objects">
+                <source>message_status_contains_objects</source>
+                <target>Status contains other objects</target>
+            </trans-unit>
+
+            <trans-unit id="message_cover_contains_objects">
+                <source>message_cover_contains_objects</source>
+                <target>Cover contains other objects</target>
+            </trans-unit>
+
+            <trans-unit id="message_language_contains_objects">
+                <source>message_language_contains_objects</source>
+                <target>Language contains other objects</target>
+            </trans-unit>
+
+            <trans-unit id="message_publisher_contains_objects">
+                <source>message_publisher_contains_objects</source>
+                <target>Publisher contains other objects</target>
+            </trans-unit>
+
+            <trans-unit id="message_tag_contains_objects">
+                <source>message_tag_contains_objects</source>
+                <target>Tag contains other objects</target>
+            </trans-unit>
+
+            <trans-unit id="message_book_contains_objects">
+                <source>message_book_contains_objects</source>
+                <target>Book is used somewhere else</target>
+            </trans-unit>
+
+            <trans-unit id="message_book_already_rented">
+                <source>message_book_already_rented</source>
+                <target>Book is already rented</target>
+            </trans-unit>
+
+            <trans-unit id="message_book_already_sent_to_return">
+                <source>message_book_already_sent_to_return</source>
+                <target>Book already sent to return</target>
+            </trans-unit>
+
+
         </body>
     </file>
 </xliff>

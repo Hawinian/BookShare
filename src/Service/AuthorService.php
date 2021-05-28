@@ -70,7 +70,6 @@ class AuthorService
     }
 
     /**
-     * @param Author $author
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -80,7 +79,6 @@ class AuthorService
     }
 
     /**
-     * @param Author $author
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

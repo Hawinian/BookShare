@@ -46,7 +46,6 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-
     /**
      * Get or create new query builder.
      *

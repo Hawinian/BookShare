@@ -33,6 +33,7 @@ class Publisher
     public function __construct()
     {
         $this->publishers = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,5 +59,27 @@ class Publisher
     public function getBooks(): Collection
     {
         return $this->books;
+    }
+
+    public function addBook(Book $book): self
+    {
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->setPublisher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->removeElement($book)) {
+            // set the owning side to null (unless already changed)
+            if ($book->getPublisher() === $this) {
+                $book->setPublisher(null);
+            }
+        }
+
+        return $this;
     }
 }

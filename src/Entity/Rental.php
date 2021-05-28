@@ -46,6 +46,11 @@ class Rental
      */
     private $book;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Giveback::class, mappedBy="rental", cascade={"persist", "remove"})
+     */
+    private $giveback;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,5 +116,20 @@ class Rental
         return $this;
     }
 
+    public function getGiveback(): ?Giveback
+    {
+        return $this->giveback;
+    }
 
+    public function setGiveback(Giveback $giveback): self
+    {
+        // set the owning side of the relation if necessary
+        if ($giveback->getRental() !== $this) {
+            $giveback->setRental($this);
+        }
+
+        $this->giveback = $giveback;
+
+        return $this;
+    }
 }

@@ -6,17 +6,16 @@
 namespace App\Controller;
 
 use App\Entity\Cover;
-use App\Entity\Book;
 use App\Form\CoverType;
 use App\Repository\CoverRepository;
 use App\Service\CoverService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class CoverController.
@@ -47,9 +46,9 @@ class CoverController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\CoverRepository          $coverRepository Cover repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP petition
+     * @param \App\Repository\CoverRepository           $coverRepository Cover repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator       Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -73,8 +72,8 @@ class CoverController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Repository\CoverRepository          $coverRepository Cover repository
+     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP petition
+     * @param \App\Repository\CoverRepository           $coverRepository Cover repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -110,9 +109,9 @@ class CoverController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP petition
-     * @param \App\Entity\Cover                        $cover           Cover entity
-     * @param \App\Repository\CoverRepository          $coverRepository Cover repository
+     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP petition
+     * @param \App\Entity\Cover                         $cover           Cover entity
+     * @param \App\Repository\CoverRepository           $coverRepository Cover repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -152,8 +151,8 @@ class CoverController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\Cover                        $cover     Cover entity
-     * @param \App\Repository\CoverRepository          $repository Cover repository
+     * @param \App\Entity\Cover                         $cover      Cover entity
+     * @param \App\Repository\CoverRepository           $repository Cover repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
