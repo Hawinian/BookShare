@@ -1,5 +1,5 @@
 {% include 'default/_form.html.twig' with {
-    page_title: 'title_tag_edit',
+    page_title: 'title_tag_edit'| trans,
     page_title_param: {'%id%': tag.id},
     attr: {
         method: 'PUT',

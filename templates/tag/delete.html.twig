@@ -1,5 +1,5 @@
 {% include 'default/_form.html.twig' with {
-    page_title: 'title_tag_delete',
+    page_title: 'title_tag_delete'| trans,
     page_title_param: {'%id%': tag.id},
     attr: {
         method: 'DELETE',

@@ -1,5 +1,5 @@
 {% include 'default/_form.html.twig' with {
-    page_title: 'title_vote_add',
+    page_title: 'title_vote_add'| trans,
     page_title_param: {'%id%': vote.book.id},
     attr: {
         method: 'POST',

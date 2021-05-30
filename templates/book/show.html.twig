@@ -35,7 +35,6 @@
             {% if app.user %}
                 {% if rate %}
                     <dt>{{ 'label_your_vote'|trans }}</dt>
-                    {% dump(rate) %}
                     {{ rate }}
                     {% endif %}
                 <dt>{{ 'label_vote'|trans }}</dt>
@@ -53,7 +52,6 @@
             {% endif %}
 
             {% if book.image is defined %}
-                {% dump(book.image)  %}
                 <dt>{{ 'label_image'|trans }}</dt>
                 <dd>
                     <img class="img-thumbnail" src="{{ asset('uploads/images/'~ book.image) }}" alt="brak zdjęcia">

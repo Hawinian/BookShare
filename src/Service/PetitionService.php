@@ -32,8 +32,8 @@ class PetitionService
     /**
      * PetitionService constructor.
      *
-     * @param \App\Repository\PetitionRepository     $petitionRepository Petition repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator           Paginator
+     * @param \App\Repository\PetitionRepository      $petitionRepository Petition repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
      */
     public function __construct(PetitionRepository $petitionRepository, PaginatorInterface $paginator)
     {

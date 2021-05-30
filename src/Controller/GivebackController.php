@@ -9,13 +9,14 @@ use App\Entity\Giveback;
 use App\Entity\Rental;
 use App\Repository\GivebackRepository;
 use App\Repository\RentalRepository;
+use App\Service\GivebackService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class GivebackController.
@@ -26,6 +27,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class GivebackController extends AbstractController
 {
+    /**
+     * Giveback service.
+     *
+     * @var \App\Service\GivebackService
+     */
+    private $givebackService;
+
+    /**
+     * GivebackController constructor.
+     *
+     * @param \App\Service\GivebackService $givebackService Giveback service
+     */
+    public function __construct(GivebackService $givebackService)
+    {
+        $this->givebackService = $givebackService;
+    }
+
     /**
      * Index action.
      *
@@ -43,11 +61,8 @@ class GivebackController extends AbstractController
      */
     public function index(Request $request, GivebackRepository $givebackRepository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $givebackRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            GivebackRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->givebackService->createPaginatedList($page);
 
         return $this->render(
             'giveback/index.html.twig',

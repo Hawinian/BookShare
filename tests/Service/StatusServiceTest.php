@@ -154,5 +154,4 @@ class StatusServiceTest extends KernelTestCase
         // then
         $this->assertEquals($expectedResultSize, $result->count());
     }
-
 }

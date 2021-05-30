@@ -166,9 +166,6 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category, CategoryRepository $repository): Response
     {
-//        $categoryId = $category->getId();
-//        $repositoryBook = $this->getDoctrine()->getRepository(Book::class);
-//        $existingBook = $repositoryBook->findOneBy(['category' => $categoryId]);
 
         $existingBook = $category->getBooks();
 

@@ -11,7 +11,6 @@ use App\Entity\Rental;
 use App\Form\PetitionType;
 use App\Repository\PetitionRepository;
 use App\Repository\RentalRepository;
-use App\Service\PetitionKindService;
 use App\Service\PetitionService;
 use DateInterval;
 use Knp\Component\Pager\PaginatorInterface;
@@ -142,12 +141,6 @@ class PetitionController extends AbstractController
      */
     public function accept(Request $request, Petition $petition, RentalRepository $rentalRepository, PetitionRepository $petitionRepository, string $id): Response
     {
-//        $bookId = $petition->getBook()->getId();
-//
-//        $repository = $this->getDoctrine()->getRepository(Rental::class);
-//        $book = $repository->findOneBy(['book' => $bookId]);
-//
-//        $petition->getBook()->getRentals();
         $existingRental = $petition->getBook()->getRentals();
 
         if (0 != count($existingRental)) {

@@ -42,24 +42,24 @@ class VoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Vote::class);
     }
 
-    /**
-     * Query all records.
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    public function queryAll(): QueryBuilder
-    {
-        $queryBuilder = $this->getOrCreateQueryBuilder()
-            ->select(
-                'b.id',
-                'avg(vote.rate) avg_rate'
-            )
-            ->leftJoin('vote.book', 'b')
-            ->orderBy('b.id', 'ASC')
-            ->groupBy('b.id');
-
-        return $queryBuilder;
-    }
+//    /**
+//     * Query all records.
+//     *
+//     * @return \Doctrine\ORM\QueryBuilder Query builder
+//     */
+//    public function queryAll(): QueryBuilder
+//    {
+//        $queryBuilder = $this->getOrCreateQueryBuilder()
+//            ->select(
+//                'b.id',
+//                'avg(vote.rate) avg_rate'
+//            )
+//            ->leftJoin('vote.book', 'b')
+//            ->orderBy('b.id', 'ASC')
+//            ->groupBy('b.id');
+//
+//        return $queryBuilder;
+//    }
 
     /**
      * Get or create new query builder.
@@ -101,18 +101,18 @@ class VoteRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-    /**
-     * @param $book_id
-     *
-     * @return int|mixed|string
-     */
-    public function countAverage($book_id)
-    {
-        return $this->createQueryBuilder('v')
-            ->select('avg(v.rate)')
-            ->andWhere('v.book.id = :bok')
-            ->setParameter('bok', $book_id)
-            ->getQuery()
-            ->getResult();
-    }
+//    /**
+//     * @param $book_id
+//     *
+//     * @return int|mixed|string
+//     */
+//    public function countAverage($book_id)
+//    {
+//        return $this->createQueryBuilder('v')
+//            ->select('avg(v.rate)')
+//            ->andWhere('v.book.id = :bok')
+//            ->setParameter('bok', $book_id)
+//            ->getQuery()
+//            ->getResult();
+//    }
 }

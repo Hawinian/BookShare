@@ -221,6 +221,7 @@ class BookControllerTest extends WebTestCase
         $form['book[language]']->select($language->getId());
         $form['book[cover]']->select($cover->getId());
         $form['book[author]']->select($author->getId());
+        $form['book[tag]']->setValue('nowy, tag, testowy');
         $this->httpClient->submit($form);
         $this->httpClient->followRedirect();
 

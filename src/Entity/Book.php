@@ -115,8 +115,6 @@ class Book
      */
     private $petitions;
 
-
-
     public function __construct()
     {
         $this->tag = new ArrayCollection();
@@ -399,6 +397,4 @@ class Book
 
         return $this;
     }
-
-
 }

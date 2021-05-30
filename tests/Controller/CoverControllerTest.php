@@ -6,17 +6,17 @@
 namespace App\Tests\Controller;
 
 use App\Entity\Author;
-use App\Entity\Cover;
 use App\Entity\Book;
 use App\Entity\Category;
+use App\Entity\Cover;
 use App\Entity\Language;
 use App\Entity\Publisher;
 use App\Entity\Status;
 use App\Entity\User;
 use App\Repository\AuthorRepository;
-use App\Repository\CoverRepository;
 use App\Repository\BookRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\CoverRepository;
 use App\Repository\LanguageRepository;
 use App\Repository\PublisherRepository;
 use App\Repository\StatusRepository;
@@ -95,7 +95,6 @@ class CoverControllerTest extends WebTestCase
         // then
         $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
-
 
     /**
      * Test create cover for user.
@@ -326,8 +325,6 @@ class CoverControllerTest extends WebTestCase
 
     /**
      * Create Status.
-     *
-     * @return Status
      */
     private function createStatus(): Status
     {
@@ -341,8 +338,6 @@ class CoverControllerTest extends WebTestCase
 
     /**
      * Create Publisher.
-     *
-     * @return Publisher
      */
     private function createPublisher(): Publisher
     {
@@ -356,8 +351,6 @@ class CoverControllerTest extends WebTestCase
 
     /**
      * Create Category.
-     *
-     * @return Category
      */
     private function createCategory(): Category
     {
@@ -371,8 +364,6 @@ class CoverControllerTest extends WebTestCase
 
     /**
      * Create Language.
-     *
-     * @return Language
      */
     private function createLanguage(): Language
     {
@@ -386,8 +377,6 @@ class CoverControllerTest extends WebTestCase
 
     /**
      * Create Auhtor.
-     *
-     * @return Author
      */
     private function createAuthor(): Author
     {
@@ -398,6 +387,4 @@ class CoverControllerTest extends WebTestCase
 
         return $author;
     }
-
-
 }

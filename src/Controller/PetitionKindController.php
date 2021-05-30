@@ -165,9 +165,9 @@ class PetitionKindController extends AbstractController
      */
     public function delete(Request $request, PetitionKind $petition_kind, PetitionKindRepository $repository): Response
     {
-        $existingBook = $petition_kind->getBooks();
+        $existingPetition = $petition_kind->getPetitions();
 
-        if (0 != count($existingBook)) {
+        if (0 != count($existingPetition)) {
             $this->addFlash('warning', 'message_petition_kind_contains_objects');
 
             return $this->redirectToRoute('petition_kind_index');

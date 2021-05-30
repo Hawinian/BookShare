@@ -96,11 +96,8 @@ class RentalController extends AbstractController
      */
     public function late_books(Request $request, RentalRepository $rentalRepository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $rentalRepository->queryAllLateBooks(),
-            $request->query->getInt('page', 1),
-            RentalRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->rentalService->createPaginatedListLateBooks($page);
 
         return $this->render(
             'rental/late-books.html.twig',
@@ -127,11 +124,8 @@ class RentalController extends AbstractController
      */
     public function in_time_books(Request $request, RentalRepository $rentalRepository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $rentalRepository->queryAllInTimeBooks(),
-            $request->query->getInt('page', 1),
-            RentalRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->rentalService->createPaginatedListInTimeBooks($page);
 
         return $this->render(
             'rental/in-time-books.html.twig',
@@ -162,14 +156,9 @@ class RentalController extends AbstractController
      */
     public function return(Request $request, Rental $rental, GivebackRepository $givebackRepository, RentalRepository $rentalRepository): Response
     {
-//        $rentalId = $rental->getId();
-//        $repository = $this->getDoctrine()->getRepository(Giveback::class);
-//        $existingRental = $repository->findOneBy(['rental' => $rentalId]);
-
         $existingRental = $rental->getGiveback();
 
-        if ($existingRental)
-        {
+        if ($existingRental) {
             $this->addFlash('warning', 'message_book_already_sent_to_return');
 
             return $this->redirectToRoute('rental_index');

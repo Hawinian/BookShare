@@ -10,17 +10,37 @@ use App\Entity\Vote;
 use App\Form\VoteType;
 use App\Repository\BookRepository;
 use App\Repository\VoteRepository;
+use App\Service\VoteService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class BookController.
+ * Class VoteController.
+ *
+ * @IsGranted("ROLE_USER")
  */
 class VoteController extends AbstractController
 {
+    /**
+     * Vote service.
+     *
+     * @var \App\Service\VoteService
+     */
+    private $voteService;
+
+    /**
+     * VoteController constructor.
+     *
+     * @param \App\Service\VoteService $voteService Vote service
+     */
+    public function __construct(VoteService $voteService)
+    {
+        $this->voteService = $voteService;
+    }
+
     /**
      * Index action.
      *
@@ -36,10 +56,9 @@ class VoteController extends AbstractController
      *     name="add_vote",
      * )
      */
-    public function vote(UserInterface $loggedUser, Request $request, VoteRepository $voteRepository, Book $book, BookRepository $bookRepository): Response
+    public function vote(Request $request, VoteRepository $voteRepository, Book $book, BookRepository $bookRepository): Response
     {
         $vote = new Vote();
-        //$vote->setBook($book);
 
         $form = $this->createForm(VoteType::class, $vote);
         $form->handleRequest($request);
@@ -47,7 +66,7 @@ class VoteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $vote->setUser($this->getUser());
             $vote->setBook($book);
-            $userId = $loggedUser->getId();
+            $userId = $this->getUser()->getId();
             $existingRates = $book->getVotes();
             foreach ($existingRates as $value) {
                 $us = $value->getUser()->getId();
@@ -59,7 +78,7 @@ class VoteController extends AbstractController
 
             $this->addFlash('success', 'message_created_successfully');
 
-            return $this->redirectToRoute('book_index');
+            return $this->redirectToRoute('book_show', ['id' => $vote->getBook()->getId()]);
         }
 
         return $this->render(

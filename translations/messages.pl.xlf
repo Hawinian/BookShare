@@ -603,6 +603,239 @@
                 <target>Książka została już wysłana do zwrotu</target>
             </trans-unit>
 
+            <trans-unit id="message_logout_successfully">
+                <source>message_logout_successfully</source>
+                <target>Wylogowano</target>
+            </trans-unit>
+
+            <trans-unit id="message_petition_kind_contains_objects">
+                <source>message_petition_kind_contains_objects</source>
+                <target>Ten rodzaj prośby jest używany</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_kind_list">
+                <source>title_petition_kind_list</source>
+                <target>Lista rodzajów próśb</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_petition_kind">
+                <source>action_create_petition_kind</source>
+                <target>Dodaj rodzaj prośby</target>
+            </trans-unit>
+
+            <trans-unit id="title_status_list">
+                <source>title_status_list</source>
+                <target>Lista statusów</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_status">
+                <source>action_create_status</source>
+                <target>Dodaj status</target>
+            </trans-unit>
+
+            <trans-unit id="action_status_index">
+                <source>action_status_index</source>
+                <target>Indeks statusów</target>
+            </trans-unit>
+
+            <trans-unit id="action_petition_kind_index">
+                <source>action_petition_kind_index</source>
+                <target>Indeks rodzajów prósb</target>
+            </trans-unit>
+
+
+            <trans-unit id="title_book_create">
+                <source>title_book_create</source>
+                <target>Dodaj książkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_book_delete">
+                <source>title_book_delete</source>
+                <target>Usuń książkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_book_edit">
+                <source>title_book_edit</source>
+                <target>Edytuj książkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_vote_add">
+                <source>title_vote_add</source>
+                <target>Oceń książkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_category_create">
+                <source>title_category_create</source>
+                <target>Dodaj kategorię</target>
+            </trans-unit>
+
+            <trans-unit id="title_category_delete">
+                <source>title_category_delete</source>
+                <target>Usuń kategorię</target>
+            </trans-unit>
+
+            <trans-unit id="title_category_edit">
+                <source>title_category_edit</source>
+                <target>Edytuj kategorię</target>
+            </trans-unit>
+
+            <trans-unit id="title_cover_create">
+                <source>title_cover_create</source>
+                <target>Dodaj okładkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_cover_delete">
+                <source>title_cover_delete</source>
+                <target>Usuń okładkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_cover_edit">
+                <source>title_cover_edit</source>
+                <target>Edytuj okładkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_giveback_accept">
+                <source>title_giveback_accept</source>
+                <target>Zaakceptuj zwrot</target>
+            </trans-unit>
+
+            <trans-unit id="title_giveback_create">
+                <source>title_giveback_create</source>
+                <target>Zwrot książki</target>
+            </trans-unit>
+
+            <trans-unit id="title_giveback_reject">
+                <source>title_giveback_reject</source>
+                <target>Odrzuć zwrot</target>
+            </trans-unit>
+
+            <trans-unit id="title_language_create">
+                <source>title_language_create</source>
+                <target>Dodaj język</target>
+            </trans-unit>
+
+            <trans-unit id="title_language_delete">
+                <source>title_language_delete</source>
+                <target>Usuń język</target>
+            </trans-unit>
+
+            <trans-unit id="title_language_edit">
+                <source>title_language_edit</source>
+                <target>Edytuj język</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_accept">
+                <source>title_petition_accept</source>
+                <target>Zaakcetpuj prośbę</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_reject">
+                <source>title_petition_reject</source>
+                <target>Odrzuć prośbę</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_kind_create">
+                <source>title_petition_kind_create</source>
+                <target>Dodaj rodzaj prośby</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_kind_delete">
+                <source>title_petition_kind_delete</source>
+                <target>Usuń rodzaj prośby</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_kind_edit">
+                <source>title_petition_kind_edit</source>
+                <target>Edytuj rodzaj prośby</target>
+            </trans-unit>
+
+            <trans-unit id="title_publisher_create">
+                <source>title_publisher_create</source>
+                <target>Dodaj wydawcę</target>
+            </trans-unit>
+
+            <trans-unit id="title_publisher_delete">
+                <source>title_publisher_delete</source>
+                <target>Usuń wydawcę</target>
+            </trans-unit>
+
+            <trans-unit id="title_publisher_edit">
+                <source>title_publisher_edit</source>
+                <target>Edytuj wydawcę</target>
+            </trans-unit>
+
+            <trans-unit id="title_rental_return">
+                <source>title_rental_return</source>
+                <target>Zwróć książkę</target>
+            </trans-unit>
+
+            <trans-unit id="title_status_create">
+                <source>title_status_create</source>
+                <target>Dodaj status</target>
+            </trans-unit>
+
+            <trans-unit id="title_status_delete">
+                <source>title_status_delete</source>
+                <target>Usuń status</target>
+            </trans-unit>
+
+            <trans-unit id="title_status_edit">
+                <source>title_status_edit</source>
+                <target>Edytuj status</target>
+            </trans-unit>
+
+            <trans-unit id="title_tag_create">
+                <source>title_tag_create</source>
+                <target>Dodaj tag</target>
+            </trans-unit>
+
+            <trans-unit id="title_tag_delete">
+                <source>title_tag_delete</source>
+                <target>Usuń tag</target>
+            </trans-unit>
+
+            <trans-unit id="title_tag_edit">
+                <source>title_tag_edit</source>
+                <target>Edytuj tag</target>
+            </trans-unit>
+
+            <trans-unit id="label_year">
+                <source>label_year</source>
+                <target>Rok wydania</target>
+            </trans-unit>
+
+            <trans-unit id="title_admin_edit_data">
+                <source>title_admin_edit_data</source>
+                <target>Edytuj dane użytkownika przez Admina</target>
+            </trans-unit>
+
+            <trans-unit id="title_admin_edit_password">
+                <source>title_admin_edit_password</source>
+                <target>Edytuj hasło użytkownika przez Admina</target>
+            </trans-unit>
+
+            <trans-unit id="title_user_delete">
+                <source>title_user_delete</source>
+                <target>Usuń użytkownika</target>
+            </trans-unit>
+
+            <trans-unit id="title_edit_data">
+                <source>title_edit_data</source>
+                <target>Edytuj swoje dane</target>
+            </trans-unit>
+
+            <trans-unit id="title_edit_password">
+                <source>title_edit_password</source>
+                <target>Edytuj hasło</target>
+            </trans-unit>
+
+
+            <trans-unit id="title_user_register">
+                <source>title_user_register</source>
+                <target>Zarejestruj się!</target>
+            </trans-unit>
+
+
         </body>
     </file>
 </xliff>

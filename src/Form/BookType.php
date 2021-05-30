@@ -96,15 +96,15 @@ class BookType extends AbstractType
             ]
         );
 
-        $builder->add(
-            'image',
-            TextType::class,
-            [
-                'label' => 'label_image',
-                'required' => true,
-                'attr' => ['max_length' => 500],
-            ]
-        );
+//        $builder->add(
+//            'image',
+//            TextType::class,
+//            [
+//                'label' => 'label_image',
+//                'required' => true,
+//                'attr' => ['max_length' => 500],
+//            ]
+//        );
 
         $builder->add(
             'author',

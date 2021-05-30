@@ -1,5 +1,5 @@
 {% include 'default/_form.html.twig' with {
-    page_title: 'title_petition_accept',
+    page_title: 'title_petition_accept'| trans,
     page_title_param: {'%id%': petition.id},
     attr: {
         method: 'PUT',

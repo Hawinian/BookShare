@@ -96,7 +96,6 @@ class CategoryControllerTest extends WebTestCase
         $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
 
-
     /**
      * Test create category for user.
      */
@@ -326,8 +325,6 @@ class CategoryControllerTest extends WebTestCase
 
     /**
      * Create Status.
-     *
-     * @return Status
      */
     private function createStatus(): Status
     {
@@ -341,8 +338,6 @@ class CategoryControllerTest extends WebTestCase
 
     /**
      * Create Publisher.
-     *
-     * @return Publisher
      */
     private function createPublisher(): Publisher
     {
@@ -356,8 +351,6 @@ class CategoryControllerTest extends WebTestCase
 
     /**
      * Create Auhtor.
-     *
-     * @return Author
      */
     private function createAuthor(): Author
     {
@@ -371,8 +364,6 @@ class CategoryControllerTest extends WebTestCase
 
     /**
      * Create Language.
-     *
-     * @return Language
      */
     private function createLanguage(): Language
     {
@@ -386,8 +377,6 @@ class CategoryControllerTest extends WebTestCase
 
     /**
      * Create Cover.
-     *
-     * @return Cover
      */
     private function createCover(): Cover
     {
@@ -398,6 +387,4 @@ class CategoryControllerTest extends WebTestCase
 
         return $cover;
     }
-
-
 }

@@ -5,28 +5,11 @@
 
 namespace App\Tests\Controller;
 
-use App\Entity\Author;
-use App\Entity\Book;
-use App\Entity\Category;
-use App\Entity\Cover;
-use App\Entity\Language;
 use App\Entity\User;
-use App\Entity\Publisher;
-use App\Entity\Rental;
-use App\Entity\Status;
-use App\Repository\AuthorRepository;
-use App\Repository\BookRepository;
-use App\Repository\CategoryRepository;
-use App\Repository\CoverRepository;
-use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
-use App\Repository\PublisherRepository;
-use App\Repository\RentalRepository;
-use App\Repository\StatusRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
@@ -289,7 +272,6 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
 
-
     /**
      * Test create user for admin.
      */
@@ -367,7 +349,7 @@ class UserControllerTest extends WebTestCase
     {
         // given
         $expectedStatusCode = 200;
-        $adminUser = $this->createAdmin([User::ROLE_USER,User::ROLE_ADMIN]);
+        $adminUser = $this->createAdmin([User::ROLE_USER, User::ROLE_ADMIN]);
         $this->logIn($adminUser);
         $user = $this->createUser([User::ROLE_USER]);
 
@@ -390,7 +372,7 @@ class UserControllerTest extends WebTestCase
     {
         // given
         $expectedStatusCode = 200;
-        $adminUser = $this->createAdmin([User::ROLE_USER,User::ROLE_ADMIN]);
+        $adminUser = $this->createAdmin([User::ROLE_USER, User::ROLE_ADMIN]);
         $this->logIn($adminUser);
         $user = $this->createUser([User::ROLE_USER]);
 
@@ -413,7 +395,7 @@ class UserControllerTest extends WebTestCase
     {
         // given
         $expectedStatusCode = 200;
-        $adminUser = $this->createAdmin([User::ROLE_USER,User::ROLE_ADMIN]);
+        $adminUser = $this->createAdmin([User::ROLE_USER, User::ROLE_ADMIN]);
         $this->logIn($adminUser);
         $user = $this->createUser([User::ROLE_USER]);
 
@@ -502,5 +484,4 @@ class UserControllerTest extends WebTestCase
 
         return $user;
     }
-
 }

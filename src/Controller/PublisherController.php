@@ -5,7 +5,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
 use App\Entity\Publisher;
 use App\Form\PublisherType;
 use App\Repository\PublisherRepository;

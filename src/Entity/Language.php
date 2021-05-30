@@ -61,25 +61,26 @@ class Language
         return $this->books;
     }
 
-    public function addBook(Book $book): self
-    {
-        if (!$this->books->contains($book)) {
-            $this->books[] = $book;
-            $book->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBook(Book $book): self
-    {
-        if ($this->books->removeElement($book)) {
-            // set the owning side to null (unless already changed)
-            if ($book->getAuthor() === $this) {
-                $book->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
+//
+//    public function addBook(Book $book): self
+//    {
+//        if (!$this->books->contains($book)) {
+//            $this->books[] = $book;
+//            $book->setAuthor($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeBook(Book $book): self
+//    {
+//        if ($this->books->removeElement($book)) {
+//            // set the owning side to null (unless already changed)
+//            if ($book->getAuthor() === $this) {
+//                $book->setAuthor(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 }

@@ -33,8 +33,8 @@ class RentalService
     /**
      * RentalService constructor.
      *
-     * @param \App\Repository\RentalRepository     $rentalRepository Rental repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator           Paginator
+     * @param \App\Repository\RentalRepository        $rentalRepository Rental repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
      */
     public function __construct(RentalRepository $rentalRepository, PaginatorInterface $paginator)
     {
@@ -53,6 +53,38 @@ class RentalService
     {
         return $this->paginator->paginate(
             $this->rentalRepository->queryByAuthor($user),
+            $page,
+            RentalRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
+
+    /**
+     * Create paginated list.
+     *
+     * @param int $page Page number
+     *
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     */
+    public function createPaginatedListLateBooks(int $page): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->rentalRepository->queryAllLateBooks(),
+            $page,
+            RentalRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
+
+    /**
+     * Create paginated list.
+     *
+     * @param int $page Page number
+     *
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     */
+    public function createPaginatedListInTimeBooks(int $page): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->rentalRepository->queryAllInTimeBooks(),
             $page,
             RentalRepository::PAGINATOR_ITEMS_PER_PAGE
         );

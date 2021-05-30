@@ -11,6 +11,7 @@ use App\Form\EditPasswordType;
 use App\Form\UserEditAdminType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\UserService;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +28,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserController extends AbstractController
 {
+    /**
+     * User service.
+     *
+     * @var \App\Service\UserService
+     */
+    private $userService;
+
+    /**
+     * UserController constructor.
+     *
+     * @param \App\Service\UserService $userService User service
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Index action.
      *
@@ -46,11 +64,8 @@ class UserController extends AbstractController
      */
     public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $userRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            UserRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->userService->createPaginatedList($page);
 
         return $this->render(
             'user/index.html.twig',
@@ -75,12 +90,10 @@ class UserController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="user_register",
      * )
-     *
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $requestRepository): Response
     {
-        if ( $this->getUser() )
-        {
+        if ($this->getUser()) {
             return $this->redirectToRoute('book_index');
         }
         $user = new User();
@@ -109,51 +122,6 @@ class UserController extends AbstractController
             ]
         );
     }
-
-//    /**
-//     * Edit action.
-//     *
-//     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
-//     * @param \App\Repository\UserRepository            $userRepository User repository
-//     * @param int                                       $id
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-//     *
-//     * @throws \Doctrine\ORM\ORMException
-//     * @throws \Doctrine\ORM\OptimisticLockException
-//     *
-//     * @Route(
-//     *     "/{id}/edit",
-//     *     methods={"GET", "PUT"},
-//     *     requirements={"id": "[1-9]\d*"},
-//     *     name="user_edit",
-//     * )
-//     * @IsGranted("ROLE_USER")
-//     */
-//    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, User $user): Response
-//    {
-//        $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-    ////            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-    ////            $userRepository->upgradePassword($user,$password);
-//
-//            $userRepository->save($user);
-//
-//            $this->addFlash('success', 'message_updated_successfully');
-//
-//            return $this->redirectToRoute('user_index');
-//        }
-//
-//        return $this->render(
-//            'user/edit.html.twig',
-//            [
-//                'form' => $form->createView(),
-//                'user' => $user,
-//            ]
-//        );
-//    }
 
     /**
      * Edit action.
@@ -185,8 +153,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-//            $userRepository->upgradePassword($user,$password);
 
             $userRepository->save($user);
 
@@ -255,15 +221,15 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param UserInterface $loggedUser
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP user
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param \App\Repository\UserRepository $userRepository User repository
-     * @param User $user
+     * @param UserInterface                             $loggedUser
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
+     * @param \App\Repository\UserRepository            $userRepository User repository
+     *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @Route(
      *     "/{id}/admin-edit-data",
      *     methods={"GET", "PUT"},
@@ -279,13 +245,10 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-//            $userRepository->upgradePassword($user,$password);
             $userId = $this->getUser()->getId();
             $petitionUser = $user->getId();
 
-            if ($petitionUser == $userId)
-            {
+            if ($petitionUser == $userId) {
                 $this->addFlash('warning', 'you cant deprive yourself');
 
                 return $this->redirectToRoute('user_index');

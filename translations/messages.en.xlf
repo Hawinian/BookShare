@@ -606,6 +606,274 @@
                 <target>Book already sent to return</target>
             </trans-unit>
 
+            <trans-unit id="message_logout_successfully">
+                <source>message_logout_successfully</source>
+                <target>Logout successfully</target>
+            </trans-unit>
+
+            <trans-unit id="message_petition_kind_contains_objects">
+                <source>message_petition_kind_contains_objects</source>
+                <target>Petition kind contains objects</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_kind_list">
+                <source>title_petition_kind_list</source>
+                <target>List of petition kinds</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_petition_kind">
+                <source>action_create_petition_kind</source>
+                <target>Create petition kind</target>
+            </trans-unit>
+
+            <trans-unit id="title_status_list">
+                <source>title_status_list</source>
+                <target>List of status</target>
+            </trans-unit>
+
+            <trans-unit id="action_create_status">
+                <source>action_create_status</source>
+                <target>Create status</target>
+            </trans-unit>
+
+            <trans-unit id="action_status_index">
+                <source>action_status_index</source>
+                <target>Index status</target>
+            </trans-unit>
+
+            <trans-unit id="action_petition_kind_index">
+                <source>action_petition_kind_index</source>
+                <target>Index petition kind</target>
+            </trans-unit>
+
+
+            <trans-unit id="title_book_create">
+                <source>title_book_create</source>
+                <target>Create book</target>
+            </trans-unit>
+
+            <trans-unit id="title_book_delete">
+                <source>title_book_delete</source>
+                <target>Delete book</target>
+            </trans-unit>
+
+            <trans-unit id="title_book_edit">
+                <source>title_book_edit</source>
+                <target>Edit book</target>
+            </trans-unit>
+
+            <trans-unit id="title_vote_add">
+                <source>title_vote_add</source>
+                <target>Rate book</target>
+            </trans-unit>
+
+            <trans-unit id="title_category_create">
+                <source>title_category_create</source>
+                <target>Create category</target>
+            </trans-unit>
+
+            <trans-unit id="title_category_delete">
+                <source>title_category_delete</source>
+                <target>Delete category</target>
+            </trans-unit>
+
+            <trans-unit id="title_category_edit">
+                <source>title_category_edit</source>
+                <target>Edit category</target>
+            </trans-unit>
+
+            <trans-unit id="title_cover_create">
+                <source>title_cover_create</source>
+                <target>Create cover</target>
+            </trans-unit>
+
+            <trans-unit id="title_cover_delete">
+                <source>title_cover_delete</source>
+                <target>Delete cover</target>
+            </trans-unit>
+
+            <trans-unit id="title_cover_edit">
+                <source>title_cover_edit</source>
+                <target>Edit cover</target>
+            </trans-unit>
+
+            <trans-unit id="title_giveback_accept">
+                <source>title_giveback_accept</source>
+                <target>Accept giveback</target>
+            </trans-unit>
+
+            <trans-unit id="title_giveback_create">
+                <source>title_giveback_create</source>
+                <target>Create giveback</target>
+            </trans-unit>
+
+            <trans-unit id="title_giveback_reject">
+                <source>title_giveback_reject</source>
+                <target>Reject giveback</target>
+            </trans-unit>
+
+            <trans-unit id="title_language_create">
+                <source>title_language_create</source>
+                <target>Create language</target>
+            </trans-unit>
+
+            <trans-unit id="title_language_delete">
+                <source>title_language_delete</source>
+                <target>Delete language</target>
+            </trans-unit>
+
+            <trans-unit id="title_language_edit">
+                <source>title_language_edit</source>
+                <target>Edit language</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_accept">
+                <source>title_petition_accept</source>
+                <target>Accept petition</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_reject">
+                <source>title_petition_reject</source>
+                <target>Reject petition</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_kind_create">
+                <source>title_petition_kind_create</source>
+                <target>Create petition kind</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_kind_delete">
+                <source>title_petition_kind_delete</source>
+                <target>Delete petition kind</target>
+            </trans-unit>
+
+            <trans-unit id="title_petition_kind_edit">
+                <source>title_petition_kind_edit</source>
+                <target>Edit petition kind</target>
+            </trans-unit>
+
+            <trans-unit id="title_publisher_create">
+                <source>title_publisher_create</source>
+                <target>Create publisher</target>
+            </trans-unit>
+
+            <trans-unit id="title_publisher_delete">
+                <source>title_publisher_delete</source>
+                <target>Delete publisher</target>
+            </trans-unit>
+
+            <trans-unit id="title_publisher_edit">
+                <source>title_publisher_edit</source>
+                <target>Edit publisher</target>
+            </trans-unit>
+
+            <trans-unit id="title_rental_return">
+                <source>title_rental_return</source>
+                <target>Return rental</target>
+            </trans-unit>
+
+            <trans-unit id="title_status_create">
+                <source>title_status_create</source>
+                <target>Create status</target>
+            </trans-unit>
+
+            <trans-unit id="title_status_delete">
+                <source>title_status_delete</source>
+                <target>Delete status</target>
+            </trans-unit>
+
+            <trans-unit id="title_status_edit">
+                <source>title_status_edit</source>
+                <target>Edit status</target>
+            </trans-unit>
+
+            <trans-unit id="title_tag_create">
+                <source>title_tag_create</source>
+                <target>Create tag</target>
+            </trans-unit>
+
+            <trans-unit id="title_tag_delete">
+                <source>title_tag_delete</source>
+                <target>Delete tag</target>
+            </trans-unit>
+
+            <trans-unit id="title_tag_edit">
+                <source>title_tag_edit</source>
+                <target>Edit tag</target>
+            </trans-unit>
+
+            <trans-unit id="label_year">
+                <source>label_year</source>
+                <target>Year</target>
+            </trans-unit>
+
+            <trans-unit id="title_admin_edit_data">
+                <source>title_admin_edit_data</source>
+                <target>Edit user data for Admins</target>
+            </trans-unit>
+
+            <trans-unit id="title_admin_edit_password">
+                <source>title_admin_edit_password</source>
+                <target>Edit user password for Admins</target>
+            </trans-unit>
+
+            <trans-unit id="title_user_delete">
+                <source>title_user_delete</source>
+                <target>Delete user</target>
+            </trans-unit>
+
+            <trans-unit id="title_edit_password">
+                <source>title_edit_password</source>
+                <target>Edit password</target>
+            </trans-unit>
+
+            <trans-unit id="title_edit_data">
+                <source>title_edit_data</source>
+                <target>Edit data</target>
+            </trans-unit>
+
+            <trans-unit id="title_user_register">
+                <source>title_user_register</source>
+                <target>Register</target>
+            </trans-unit>
+
+
+
+<!--            <trans-unit id="">-->
+<!--                <source></source>-->
+<!--                <target></target>-->
+<!--            </trans-unit>-->
+
+<!--            <trans-unit id="">-->
+<!--                <source></source>-->
+<!--                <target></target>-->
+<!--            </trans-unit>-->
+
+<!--            <trans-unit id="">-->
+<!--                <source></source>-->
+<!--                <target></target>-->
+<!--            </trans-unit>-->
+
+<!--            <trans-unit id="">-->
+<!--                <source></source>-->
+<!--                <target></target>-->
+<!--            </trans-unit>-->
+
+<!--            <trans-unit id="">-->
+<!--                <source></source>-->
+<!--                <target></target>-->
+<!--            </trans-unit>-->
+
+<!--            <trans-unit id="">-->
+<!--                <source></source>-->
+<!--                <target></target>-->
+<!--            </trans-unit>-->
+
+<!--            <trans-unit id="">-->
+<!--                <source></source>-->
+<!--                <target></target>-->
+<!--            </trans-unit>-->
+
 
         </body>
     </file>

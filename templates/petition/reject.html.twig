@@ -1,5 +1,5 @@
 {% include 'default/_form.html.twig' with {
-    page_title: 'title_petition_reject',
+    page_title: 'title_petition_reject'| trans,
     page_title_param: {'%id%': petition.id},
     attr: {
         method: 'DELETE',

@@ -41,7 +41,7 @@ class Petition
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PetitionKind::class)
+     * @ORM\ManyToOne(targetEntity=PetitionKind::class, inversedBy="petitions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $petition_kind;

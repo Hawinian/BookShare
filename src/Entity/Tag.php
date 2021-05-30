@@ -60,22 +60,23 @@ class Tag
         return $this->books;
     }
 
-    public function addBook(Book $book): self
-    {
-        if (!$this->books->contains($book)) {
-            $this->books[] = $book;
-            $book->addTag($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBook(Book $book): self
-    {
-        if ($this->books->removeElement($book)) {
-            $book->removeTag($this);
-        }
-
-        return $this;
-    }
+//
+//    public function addBook(Book $book): self
+//    {
+//        if (!$this->books->contains($book)) {
+//            $this->books[] = $book;
+//            $book->addTag($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeBook(Book $book): self
+//    {
+//        if ($this->books->removeElement($book)) {
+//            $book->removeTag($this);
+//        }
+//
+//        return $this;
+//    }
 }

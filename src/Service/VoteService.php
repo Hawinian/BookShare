@@ -5,9 +5,8 @@
 
 namespace App\Service;
 
-use App\Entity\Category;
+use App\Entity\Vote;
 use App\Repository\VoteRepository;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
@@ -53,68 +52,35 @@ class VoteService
     {
         $this->voteRepository = $voteRepository;
         $this->paginator = $paginator;
-        $this->categoryService = $categoryService;
-        $this->tagService = $tagService;
     }
 
     /**
-     * Prepare filters for the tasks list.
+     * Find vote by Id.
      *
-     * @param array $filters Raw filters from request
+     * @param int $id Vote Id
      *
-     * @return array Result array of filters
+     * @return \App\Entity\Vote|null Vote entity
      */
-    private function prepareFilters(array $filters): array
+    public function findOneById(int $id): ?Vote
     {
-        $resultFilters = [];
-        if (isset($filters['category_id']) && is_numeric($filters['category_id'])) {
-            $category = $this->categoryService->findOneById(
-                $filters['category_id']
-            );
-            if (null !== $category) {
-                $resultFilters['category'] = $category;
-            }
-        }
-        if (isset($filters['tag_id']) && is_numeric($filters['tag_id'])) {
-            $tag = $this->tagService->findOneById($filters['tag_id']);
-            if (null !== $tag) {
-                $resultFilters['tag'] = $tag;
-            }
-        }
-
-        return $resultFilters;
+        return $this->voteRepository->findOneById($id);
     }
 
     /**
-     * Create paginated list.
-     *
-     * @param int                                                 $page Page number
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user User entity
-     *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function createPaginatedList(int $page): PaginationInterface
+    public function save(Vote $vote): void
     {
-        return $this->paginator->paginate(
-            $this->voteRepository->queryAll(),
-            $page,
-            VoteRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $this->voteRepository->save($vote);
     }
 
     /**
-     * Create paginated list.
-     *
-     * @param int $page Page number
-     *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function createPaginatedListCategory(int $page, Category $category): PaginationInterface
+    public function delete(Vote $vote): void
     {
-        return $this->paginator->paginate(
-            $this->voteRepository->queryByCategory($category),
-            $page,
-            VoteRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $this->voteRepository->delete($vote);
     }
 }
