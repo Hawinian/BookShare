@@ -395,7 +395,7 @@ class BookController extends AbstractController
 //    }
 
     /**
-     * Index action.
+     * Ranking action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP petition
      * @param \App\Repository\BookRepository            $bookRepository Book repository

@@ -119,7 +119,7 @@ class PetitionController extends AbstractController
     }
 
     /**
-     * Create action.
+     * Accept action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request          HTTP rental
      * @param \App\Repository\RentalRepository          $rentalRepository Rental repository

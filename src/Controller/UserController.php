@@ -153,7 +153,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $userRepository->save($user);
 
             $this->addFlash('success', 'message_updated_successfully');
