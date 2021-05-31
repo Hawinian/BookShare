@@ -28,7 +28,6 @@
             {% for rental in pagination.items %}
                 <tr>
                     <td>{{ rental.id }}</td>
-                    {% dump(rental) %}
                     <td>{{ rental.DateOfRental|format_date('long') }}</td>
                     <td style="color:red">{{ rental.DateOfReturn|format_date('long') }}</td>
                     <td>{{ rental.book.id }}</td>
