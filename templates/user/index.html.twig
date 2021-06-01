@@ -20,7 +20,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_login'|trans, 'user.login') }}</th>
                 <th>{{ 'label_edit_data'|trans }}</th>
                 <th>{{ 'label_edit_password'|trans }}</th>
-                <th>{{ 'label_delete'|trans }}</th>
+{#                <th>{{ 'label_delete'|trans }}</th>#}
 
             </tr>
             </thead>
@@ -40,11 +40,11 @@
                             {{ 'action_edit_password'|trans }}
                         </a>
                     </td>
-                    <td>
-                        <a href="{{ url('user_delete', {id: user.id}) }}" title="{{ 'action_delete'|trans }}">
-                            {{ 'action_delete'|trans }}
-                        </a>
-                    </td>
+{#                    <td>#}
+{#                        <a href="{{ url('user_delete', {id: user.id}) }}" title="{{ 'action_delete'|trans }}">#}
+{#                            {{ 'action_delete'|trans }}#}
+{#                        </a>#}
+{#                    </td>#}
 
                 </tr>
             {% endfor %}

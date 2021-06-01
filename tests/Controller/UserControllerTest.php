@@ -202,22 +202,22 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
 
-    /**
-     * Test index route for anonymous user.
-     */
-    public function testDeleteRouteAnonymousUser(): void
-    {
-        // given
-        $expectedStatusCode = 302;
-        $adminUser = $this->createUser([User::ROLE_USER, User::ROLE_ADMIN]);
-
-        // when
-        $this->httpClient->request('GET', '/user/'.$adminUser->getId().'/delete');
-        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
-
-        // then
-        $this->assertEquals($expectedStatusCode, $resultStatusCode);
-    }
+//    /**
+//     * Test index route for anonymous user.
+//     */
+//    public function testDeleteRouteAnonymousUser(): void
+//    {
+//        // given
+//        $expectedStatusCode = 302;
+//        $adminUser = $this->createUser([User::ROLE_USER, User::ROLE_ADMIN]);
+//
+//        // when
+//        $this->httpClient->request('GET', '/user/'.$adminUser->getId().'/delete');
+//        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
+//
+//        // then
+//        $this->assertEquals($expectedStatusCode, $resultStatusCode);
+//    }
 
     /**
      * Test index route for anonymous user.
@@ -388,28 +388,28 @@ class UserControllerTest extends WebTestCase
         $this->assertStringContainsString('Aktualizacja powiodła się', $this->httpClient->getResponse()->getContent());
     }
 
-    /**
-     * Test create user for admin.
-     */
-    public function testDeleteAdmin(): void
-    {
-        // given
-        $expectedStatusCode = 200;
-        $adminUser = $this->createAdmin([User::ROLE_USER, User::ROLE_ADMIN]);
-        $this->logIn($adminUser);
-        $user = $this->createUser([User::ROLE_USER]);
-
-        // when
-        $crawler = $this->httpClient->request('GET', '/user/'.$user->getId().'/delete');
-        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
-        $form = $crawler->selectButton('usuń')->form();
-        $this->httpClient->submit($form);
-        $this->httpClient->followRedirect();
-
-        // then
-        $this->assertEquals($expectedStatusCode, $resultStatusCode);
-        $this->assertStringContainsString('Usuwanie powiodło się', $this->httpClient->getResponse()->getContent());
-    }
+//    /**
+//     * Test create user for admin.
+//     */
+//    public function testDeleteAdmin(): void
+//    {
+//        // given
+//        $expectedStatusCode = 200;
+//        $adminUser = $this->createAdmin([User::ROLE_USER, User::ROLE_ADMIN]);
+//        $this->logIn($adminUser);
+//        $user = $this->createUser([User::ROLE_USER]);
+//
+//        // when
+//        $crawler = $this->httpClient->request('GET', '/user/'.$user->getId().'/delete');
+//        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
+//        $form = $crawler->selectButton('usuń')->form();
+//        $this->httpClient->submit($form);
+//        $this->httpClient->followRedirect();
+//
+//        // then
+//        $this->assertEquals($expectedStatusCode, $resultStatusCode);
+//        $this->assertStringContainsString('Usuwanie powiodło się', $this->httpClient->getResponse()->getContent());
+//    }
 
     /**
      * Simulate user log in.

@@ -839,20 +839,20 @@
 
 
 
-<!--            <trans-unit id="">-->
-<!--                <source></source>-->
-<!--                <target></target>-->
-<!--            </trans-unit>-->
+            <trans-unit id="message_book_already_sent_petition">
+                <source>message_book_already_sent_petition</source>
+                <target>You already sent petition for this book</target>
+            </trans-unit>
 
-<!--            <trans-unit id="">-->
-<!--                <source></source>-->
-<!--                <target></target>-->
-<!--            </trans-unit>-->
+            <trans-unit id="label.rate">
+                <source>label.rate</source>
+                <target>rate</target>
+            </trans-unit>
 
-<!--            <trans-unit id="">-->
-<!--                <source></source>-->
-<!--                <target></target>-->
-<!--            </trans-unit>-->
+            <trans-unit id="you cant deprive yourself">
+                <source>you cant deprive yourself</source>
+                <target>You cannot deprive yourself</target>
+            </trans-unit>
 
 <!--            <trans-unit id="">-->
 <!--                <source></source>-->

@@ -152,7 +152,10 @@ class RentalController extends AbstractController
      *     name="rental_return",
      * )
      *
-     * @IsGranted("ROLE_USER")
+     * @IsGranted(
+     *     "RETURN",
+     *     subject="rental",
+     * )
      */
     public function return(Request $request, Rental $rental, GivebackRepository $givebackRepository, RentalRepository $rentalRepository): Response
     {

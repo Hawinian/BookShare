@@ -319,51 +319,51 @@ class UserController extends AbstractController
         );
     }
 
-    /**
-     * Delete action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
-     * @param \App\Entity\User                          $user       User entity
-     * @param \App\Repository\UserRepository            $repository User repository
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/delete",
-     *     methods={"GET", "DELETE"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="user_delete",
-     * )
-     *
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function delete(Request $request, User $user, UserRepository $repository): Response
-    {
-        $form = $this->createForm(UserType::class, $user, ['method' => 'DELETE']);
-        $form->handleRequest($request);
-
-        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
-            $form->submit($request->request->get($form->getName()));
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $repository->delete($user);
-            $this->addFlash('success', 'message_deleted_successfully');
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render(
-            'user/delete.html.twig',
-            [
-                'form' => $form->createView(),
-                'user' => $user,
-            ]
-        );
-    }
+//    /**
+//     * Delete action.
+//     *
+//     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP petition
+//     * @param \App\Entity\User                          $user       User entity
+//     * @param \App\Repository\UserRepository            $repository User repository
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+//     *
+//     * @throws \Doctrine\ORM\ORMException
+//     * @throws \Doctrine\ORM\OptimisticLockException
+//     *
+//     * @Route(
+//     *     "/{id}/delete",
+//     *     methods={"GET", "DELETE"},
+//     *     requirements={"id": "[1-9]\d*"},
+//     *     name="user_delete",
+//     * )
+//     *
+//     * @IsGranted("ROLE_ADMIN")
+//     */
+//    public function delete(Request $request, User $user, UserRepository $repository): Response
+//    {
+//        $form = $this->createForm(UserType::class, $user, ['method' => 'DELETE']);
+//        $form->handleRequest($request);
+//
+//        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+//            $form->submit($request->request->get($form->getName()));
+//        }
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $repository->delete($user);
+//            $this->addFlash('success', 'message_deleted_successfully');
+//
+//            return $this->redirectToRoute('user_index');
+//        }
+//
+//        return $this->render(
+//            'user/delete.html.twig',
+//            [
+//                'form' => $form->createView(),
+//                'user' => $user,
+//            ]
+//        );
+//    }
 
     /**
      * Index action.

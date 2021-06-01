@@ -196,7 +196,7 @@ class BookType extends AbstractType
             [
                 'mapped' => false,
                 'label' => 'label_image',
-                'required' => true,
+                'required' => false,
                 'constraints' => new Image(
                     [
                         'maxSize' => '1024k',

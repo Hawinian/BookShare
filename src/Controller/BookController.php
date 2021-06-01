@@ -122,21 +122,12 @@ class BookController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(UserInterface $userInterface, TokenStorageInterface $tokenStorage, Book $book): Response
+    public function show(TokenStorageInterface $tokenStorage, Book $book): Response
     {
-        //UserInterface $loggedUser,
         $user = $tokenStorage->getToken() ? $tokenStorage->getToken()->getUser() : null;
         if ('anon.' != $user) {
-//            $bookId = $book->getId();
-//            $userId = $user->getId();
-//            $repository = $this->getDoctrine()->getRepository(Vote::class);
             $existingRate = $book->getVotes();
-//            dump($existingVotes);
-            ////            $existingRate = $repository->findOneBy(['book' => $bookId, 'user' => $userId]);
-//            $existingRate = $existingVotes->findOneBy(['book' => $bookId, 'user' => $userId]);
-            $userId = $userInterface->getId();
-
-//           $keys= $existingRate->getValues();
+            $userId = $this->getUser()->getId();
             foreach ($existingRate as $value) {
                 $us = $value->getUser()->getId();
                 if ($us == $userId) {
@@ -183,10 +174,16 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFilename = $this->fileUploader->upload(
-                $form->get('image')->getData()
-            );
-            $book->setImage($imageFilename);
+            if ($form->get('image')->getData()) {
+                $imageFilename = $this->fileUploader->upload(
+                    $form->get('image')->getData()
+                );
+                $book->setImage($imageFilename);
+            }
+            else
+            {
+                $book->setImage('zdjecie');
+            }
             $this->bookService->save($book);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -227,13 +224,15 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->filesystem->remove(
-                $this->getParameter('images_directory').'/'.$book->getImage()
-            );
-            $imageFilename = $this->fileUploader->upload(
-                $form->get('image')->getData()
-            );
-            $book->setImage($imageFilename);
+            if ($form->get('image')->getData()) {
+                $this->filesystem->remove(
+                    $this->getParameter('images_directory').'/'.$book->getImage()
+                );
+                $imageFilename = $this->fileUploader->upload(
+                    $form->get('image')->getData()
+                );
+                $book->setImage($imageFilename);
+            }
             $this->bookService->save($book);
 
             $this->addFlash('success', 'message_updated_successfully');

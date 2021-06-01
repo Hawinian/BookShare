@@ -399,7 +399,7 @@
 
             <trans-unit id="action_tag_index">
                 <source>action_tag_index</source>
-                <target>Ideks tagów</target>
+                <target>Indeks tagów</target>
             </trans-unit>
 
             <trans-unit id="title_user_list">
@@ -835,6 +835,20 @@
                 <target>Zarejestruj się!</target>
             </trans-unit>
 
+            <trans-unit id="message_book_already_sent_petition">
+                <source>message_book_already_sent_petition</source>
+                <target>Wysłałeś już prośbę o tą książkę</target>
+            </trans-unit>
+
+            <trans-unit id="label.rate">
+                <source>label.rate</source>
+                <target>ocena</target>
+            </trans-unit>
+
+            <trans-unit id="you cant deprive yourself">
+                <source>you cant deprive yourself</source>
+                <target>Nie możesz sam sobie odebrać uprawnień administratora</target>
+            </trans-unit>
 
         </body>
     </file>

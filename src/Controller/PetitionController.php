@@ -80,7 +80,6 @@ class PetitionController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
      * @param \App\Repository\PetitionRepository        $petitionRepository Petition repository
-     * @param int                                       $id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -94,8 +93,17 @@ class PetitionController extends AbstractController
      *     name="petition_create",
      * )
      */
-    public function create(Request $request, Book $book, PetitionRepository $requestRepository, string $id): Response
+    public function create(Request $request, Book $book, PetitionRepository $requestRepository): Response
     {
+
+        if ($this->getUser()) {
+            $exisitingpetition = $requestRepository->findBy(['user' => $this->getUser()->getId(), 'book' => $book->getId()]);
+            if ($exisitingpetition) {
+                $this->addFlash('warning', 'message_book_already_sent_petition');
+
+                return $this->redirectToRoute('book_index');
+            }
+        }
         $petiton = new Petition();
         $form = $this->createForm(PetitionType::class, $petiton);
         $form->handleRequest($request);
