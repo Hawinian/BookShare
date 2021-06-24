@@ -137,39 +137,39 @@ class BookControllerTest extends WebTestCase
         $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
 
-    /**
-     * Test index route for anonymous user.
-     */
-    public function testSearchRouteAnonymousUser(): void
-    {
-        // given
-        $expectedStatusCode = 200;
+//    /**
+//     * Test index route for anonymous user.
+//     */
+//    public function testSearchRouteAnonymousUser(): void
+//    {
+//        // given
+//        $expectedStatusCode = 200;
+//
+//        // when
+//        $this->httpClient->request('GET', '/search');
+//        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
+//
+//        // then
+//        $this->assertEquals($expectedStatusCode, $resultStatusCode);
+//    }
 
-        // when
-        $this->httpClient->request('GET', '/search');
-        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
-
-        // then
-        $this->assertEquals($expectedStatusCode, $resultStatusCode);
-    }
-
-    /**
-     * Test index route for user.
-     */
-    public function testSearchRouteUser(): void
-    {
-        // given
-        $expectedStatusCode = 200;
-        $user = $this->createUser([User::ROLE_USER]);
-        $this->logIn($user);
-
-        // when
-        $this->httpClient->request('GET', '/search');
-        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
-
-        // then
-        $this->assertEquals($expectedStatusCode, $resultStatusCode);
-    }
+//    /**
+//     * Test index route for user.
+//     */
+//    public function testSearchRouteUser(): void
+//    {
+//        // given
+//        $expectedStatusCode = 200;
+//        $user = $this->createUser([User::ROLE_USER]);
+//        $this->logIn($user);
+//
+//        // when
+//        $this->httpClient->request('GET', '/search');
+//        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
+//
+//        // then
+//        $this->assertEquals($expectedStatusCode, $resultStatusCode);
+//    }
 
     /**
      * Test create book for user.

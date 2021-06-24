@@ -850,6 +850,31 @@
                 <target>Nie możesz sam sobie odebrać uprawnień administratora</target>
             </trans-unit>
 
+            <trans-unit id="Email">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
+
+            <trans-unit id="Password">
+                <source>Password</source>
+                <target>Hasło</target>
+            </trans-unit>
+
+            <trans-unit id="Please sign in">
+                <source>Please sign in</source>
+                <target>Zaloguj się poniżej</target>
+            </trans-unit>
+
+            <trans-unit id="Sign in">
+                <source>Sign in</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+
+            <trans-unit id="Repeat Password">
+                <source>Repeat Password</source>
+                <target>Powtórz hasło</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

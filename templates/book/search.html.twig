@@ -1,8 +1,8 @@
 {% include 'default/_form.html.twig' with {
-    page_title: 'title_search_index'| trans,
+    page_title: 'title_search_index',
     attr: {
-        method: 'POST',
-        action: url('book_search'),
+        method: 'GET',
+        action: url('book_index'),
     },
     form: form,
     submit_label: 'action_search'|trans,

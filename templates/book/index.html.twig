@@ -6,6 +6,15 @@
 
 {% block body %}
     <h1>{{ 'title_book_list'|trans }}</h1>
+    <div class="container">
+        {{ form_start(form, { method: 'GET', action: url('book_index') }) }}
+        {{ form_widget(form) }}
+        <div class="form-group">
+        <input type="submit" value="{{ 'action_search'|trans }}" class="btn btn-primary float-right">
+        {{ form_end(form) }}
+        </div>
+    </div>
+    <br>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">

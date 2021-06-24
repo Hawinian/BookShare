@@ -172,6 +172,11 @@ class BookRepository extends ServiceEntityRepository
                 ->setParameter('tag', $filters['tag']);
         }
 
+        if (isset($filters['title'])){
+            $queryBuilder->andWhere('book.title LIKE :title')
+                ->setParameter('title', '%'.$filters['title'].'%');
+        }
+
         return $queryBuilder;
     }
 }

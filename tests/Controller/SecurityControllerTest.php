@@ -44,7 +44,7 @@ class SecurityControllerTest extends WebTestCase
         // when
         $crawler = $this->httpClient->request('GET', '/login');
         $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
-        $form = $crawler->selectButton('Sign in')->form();
+        $form = $crawler->selectButton('Zaloguj się')->form();
         $form['email']->setValue('user@example.com');
         $form['password']->setValue('p@55w0rd');
         $this->httpClient->submit($form);

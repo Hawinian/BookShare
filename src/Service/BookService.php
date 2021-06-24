@@ -115,7 +115,9 @@ class BookService
                 $resultFilters['tag'] = $tag;
             }
         }
-
+        if (isset($filters['title'])) {
+            $resultFilters['title'] = $filters['title'];
+        }
         return $resultFilters;
     }
 

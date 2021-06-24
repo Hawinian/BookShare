@@ -91,12 +91,18 @@ class BookController extends AbstractController
      */
     public function index(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, BookService $bookService): Response
     {
+        $book = new Book();
         $filters = [];
         $filters['category_id'] = $request->query->getInt('filters_category_id');
         $filters['tag_id'] = $request->query->getInt('filters_tag_id');
         $filters['language_id'] = $request->query->getInt('filters_language_id');
         $filters['author_id'] = $request->query->getInt('filters_author_id');
 
+        $form = $this->createForm(SearchType::class, $book, ['method'=>'GET']);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filters['title'] = $form->getData()->getTitle();
+        }
         $pagination = $this->bookService->createPaginatedList(
             $request->query->getInt('page', 1),
             $filters
@@ -104,7 +110,7 @@ class BookController extends AbstractController
 
         return $this->render(
             'book/index.html.twig',
-            ['pagination' => $pagination]
+            ['pagination' => $pagination, 'form'=>$form->createView()]
         );
     }
 
@@ -179,9 +185,7 @@ class BookController extends AbstractController
                     $form->get('image')->getData()
                 );
                 $book->setImage($imageFilename);
-            }
-            else
-            {
+            } else {
                 $book->setImage('zdjecie');
             }
             $this->bookService->save($book);
@@ -303,46 +307,86 @@ class BookController extends AbstractController
         );
     }
 
-    /**
-     * Index action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/search",
-     *     methods={"GET", "POST"},
-     *     name="book_search",
-     * )
-     */
-    public function search(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator, BookService $bookService): Response
-    {
-        $form = $this->createForm(SearchType::class);
-        $form->handleRequest($request);
+//    /**
+//     * Index action.
+//     *
+//     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
+//     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+//     *
+//     * @Route(
+//     *      "/search",
+//     *      methods={"GET"},
+//     *      name="book_search",
+//     * )
+//     */
+//    public function search(Request $request): Response
+//    {
+//        $form = $this->createForm(SearchType::class);
+//        $form->handleRequest($request);
+//        $title = $request->query->get('title');
+//        if (null != $title) {
+//            $repository = $this->getDoctrine()->getRepository(Book::class);
+//            $existingBook = $repository->findOneBy(['title' => $title]);
+//            if ($existingBook) {
+//                $book_id = $existingBook->getId();
+//
+//                return $this->redirectToRoute('book_show', ['id' => $book_id]);
+//            } else {
+//                $this->addFlash('warning', 'cannot find this book');
+//
+//                return $this->redirectToRoute('book_search');
+//            }
+//        }
+//
+//        return $this->render(
+//            'book/search.html.twig',
+//            ['form' => $form->createView()]
+//        );
+//    }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $repository = $this->getDoctrine()->getRepository(Book::class);
-            $title = $form->getData();
-            $title = array_shift($title);
-            $existingBook = $repository->findOneBy(['title' => $title]);
-            if ($existingBook) {
-                $book_id = $existingBook->getId();
-
-                return $this->redirectToRoute('book_show', ['id' => $book_id]);
-            } else {
-                $this->addFlash('warning', 'cannot find this book');
-
-                return $this->redirectToRoute('book_search');
-            }
-        }
-
-        return $this->render(
-            'book/search.html.twig',
-            ['form' => $form->createView()]
-        );
-    }
+//    /**
+//     * Index action.
+//     *
+//     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
+//     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+//     *
+//     * @Route(
+//     *      "/search/{title}",
+//     *      methods={"GET"},
+//     *     defaults={"title":""},
+//     *      name="book_search",
+//     * )
+//     */
+//    public function search(Request $request): Response
+//    {
+//        $form = $this->createForm(SearchType::class);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $repository = $this->getDoctrine()->getRepository(Book::class);
+//            $title = $form->getData();
+//            $title = array_shift($title);
+//            $existingBook = $repository->findOneBy(['title' => $title]);
+//            if ($existingBook) {
+//                $book_id = $existingBook->getId();
+//
+//                return $this->redirectToRoute('book_show', ['id' => $book_id]);
+//            } else {
+//                $this->addFlash('warning', 'cannot find this book');
+//
+//                return $this->redirectToRoute('book_search');
+//            }
+//        }
+//
+//        return $this->render(
+//            'book/search.html.twig',
+//            ['form' => $form->createView()]
+//        );
+//    }
 
 //    /**
 //     * Index action.

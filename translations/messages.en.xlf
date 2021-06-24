@@ -834,7 +834,7 @@
 
             <trans-unit id="title_user_register">
                 <source>title_user_register</source>
-                <target>Register</target>
+                <target>Register!</target>
             </trans-unit>
 
 
@@ -854,25 +854,30 @@
                 <target>You cannot deprive yourself</target>
             </trans-unit>
 
-<!--            <trans-unit id="">-->
-<!--                <source></source>-->
-<!--                <target></target>-->
-<!--            </trans-unit>-->
+            <trans-unit id="Email">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
 
-<!--            <trans-unit id="">-->
-<!--                <source></source>-->
-<!--                <target></target>-->
-<!--            </trans-unit>-->
+            <trans-unit id="Password">
+                <source>Password</source>
+                <target>Password</target>
+            </trans-unit>
 
-<!--            <trans-unit id="">-->
-<!--                <source></source>-->
-<!--                <target></target>-->
-<!--            </trans-unit>-->
+            <trans-unit id="Please sign in">
+                <source>Please sign in</source>
+                <target>Please sign in</target>
+            </trans-unit>
 
-<!--            <trans-unit id="">-->
-<!--                <source></source>-->
-<!--                <target></target>-->
-<!--            </trans-unit>-->
+            <trans-unit id="Sign in">
+                <source>Sign in</source>
+                <target>Sign in</target>
+            </trans-unit>
+
+            <trans-unit id="Repeat Password">
+                <source>Repeat Password</source>
+                <target>Repeat Password</target>
+            </trans-unit>
 
 
         </body>
