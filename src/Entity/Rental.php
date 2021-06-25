@@ -1,9 +1,13 @@
 <?php
+/**
+ * Rental entity.
+ */
 
 namespace App\Entity;
 
 use App\Repository\RentalRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RentalRepository::class)
@@ -20,11 +24,15 @@ class Rental
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="\DateTimeInterface")
      */
     private $date_of_rental;
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="\DateTimeInterface")
      */
     private $date_of_return;
 
@@ -61,6 +69,9 @@ class Rental
         return $this->date_of_rental;
     }
 
+    /**
+     * @return $this
+     */
     public function setDateOfRental(\DateTimeInterface $date_of_rental): self
     {
         $this->date_of_rental = $date_of_rental;
@@ -73,6 +84,9 @@ class Rental
         return $this->date_of_return;
     }
 
+    /**
+     * @return $this
+     */
     public function setDateOfReturn(\DateTimeInterface $date_of_return): self
     {
         $this->date_of_return = $date_of_return;
@@ -97,6 +111,9 @@ class Rental
         return $this->user;
     }
 
+    /**
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -109,6 +126,9 @@ class Rental
         return $this->book;
     }
 
+    /**
+     * @return $this
+     */
     public function setBook(?Book $book): self
     {
         $this->book = $book;
@@ -121,6 +141,9 @@ class Rental
         return $this->giveback;
     }
 
+    /**
+     * @return $this
+     */
     public function setGiveback(Giveback $giveback): self
     {
         // set the owning side of the relation if necessary

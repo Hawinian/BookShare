@@ -2,6 +2,7 @@
 /**
  * Rental security voter.
  */
+
 namespace App\Security\Voter;
 
 use App\Entity\Rental;

@@ -7,6 +7,7 @@ namespace App\Service;
 
 use App\Entity\Vote;
 use App\Repository\VoteRepository;
+use Doctrine\Common\Collections\Collection;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
@@ -36,11 +37,11 @@ class VoteService
     private $categoryService;
 
     /**
-     * Tag service.
+     * Vote service.
      *
-     * @var \App\Service\TagService
+     * @var \App\Service\VoteService
      */
-    private $tagService;
+    private $voteService;
 
     /**
      * VoteService constructor.
@@ -82,5 +83,21 @@ class VoteService
     public function delete(Vote $vote): void
     {
         $this->voteRepository->delete($vote);
+    }
+
+    /**
+     * @param array $existingRates
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function deleteVotes(Collection $existingRates, int $userId): void
+    {
+        foreach ($existingRates as $value) {
+            $us = $value->getUser()->getId();
+            if ($us == $userId) {
+                $this->delete($value);
+            }
+        }
     }
 }

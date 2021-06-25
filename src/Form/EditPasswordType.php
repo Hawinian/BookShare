@@ -1,4 +1,7 @@
 <?php
+/**
+ * Edit password Type.
+ */
 
 namespace App\Form;
 
@@ -9,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class EditPasswordType.
+ */
 class EditPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

@@ -7,7 +7,6 @@ namespace App\Service;
 
 use App\Entity\Book;
 use App\Entity\Category;
-use App\Entity\User;
 use App\Repository\BookRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -75,6 +74,58 @@ class BookService
         $this->authorService = $authorService;
     }
 
+    public function createPaginatedList(int $page, array $filters = []): PaginationInterface
+    {
+        $filters = $this->prepareFilters($filters);
+
+        return $this->paginator->paginate(
+            $this->bookRepository->queryAll($filters),
+            $page,
+            BookRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
+
+    public function createPaginatedListForRanking(int $page, array $filters = []): PaginationInterface
+    {
+        $filters = $this->prepareFilters($filters);
+
+        return $this->paginator->paginate(
+            $this->bookRepository->queryAllRanking($filters),
+            $page,
+            BookRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Book $book): void
+    {
+        $this->bookRepository->save($book);
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Book $book): void
+    {
+        $this->bookRepository->delete($book);
+    }
+
+    /**
+     * Find book by Id.
+     *
+     * @param int $id Book Id
+     *
+     * @return \App\Entity\Book|null Book entity
+     */
+    public function findOneById(int $id): ?Book
+    {
+        return $this->bookRepository->findOneById($id);
+    }
+
     /**
      * Prepare filters for the tasks list.
      *
@@ -118,76 +169,7 @@ class BookService
         if (isset($filters['title'])) {
             $resultFilters['title'] = $filters['title'];
         }
+
         return $resultFilters;
-    }
-
-    /**
-     * Create paginated list.
-     *
-     * @param int                                                 $page    Page number
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user    User entity
-     * @param array                                               $filters Filters array
-     *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
-     */
-    public function createPaginatedList(int $page, array $filters = []): PaginationInterface
-    {
-        $filters = $this->prepareFilters($filters);
-
-        return $this->paginator->paginate(
-            $this->bookRepository->queryAll($filters),
-            $page,
-            BookRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-    }
-
-    /**
-     * Create paginated list.
-     *
-     * @param int                                                 $page    Page number
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user    User entity
-     * @param array                                               $filters Filters array
-     *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
-     */
-    public function createPaginatedListForRanking(int $page, array $filters = []): PaginationInterface
-    {
-        $filters = $this->prepareFilters($filters);
-
-        return $this->paginator->paginate(
-            $this->bookRepository->queryAllRanking($filters),
-            $page,
-            BookRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-    }
-
-    /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save(Book $book): void
-    {
-        $this->bookRepository->save($book);
-    }
-
-    /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function delete(Book $book): void
-    {
-        $this->bookRepository->delete($book);
-    }
-
-    /**
-     * Find book by Id.
-     *
-     * @param int $id Book Id
-     *
-     * @return \App\Entity\Book|null Book entity
-     */
-    public function findOneById(int $id): ?Book
-    {
-        return $this->bookRepository->findOneById($id);
     }
 }

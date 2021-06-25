@@ -1,9 +1,13 @@
 <?php
+/**
+ * Vote entity.
+ */
 
 namespace App\Entity;
 
 use App\Repository\VoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VoteRepository::class)
@@ -20,6 +24,8 @@ class Vote
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="integer")
      */
     private $rate;
 
@@ -35,12 +41,6 @@ class Vote
      */
     private $book;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity=Book::class)
-//     * @ORM\JoinColumn(nullable=false)
-//     */
-//    private $book;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +51,9 @@ class Vote
         return $this->rate;
     }
 
+    /**
+     * @return $this
+     */
     public function setRate(int $rate): self
     {
         $this->rate = $rate;
@@ -63,6 +66,9 @@ class Vote
         return $this->user;
     }
 
+    /**
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -70,23 +76,14 @@ class Vote
         return $this;
     }
 
-//    public function getBook(): ?Book
-//    {
-//        return $this->book;
-//    }
-//
-//    public function setBook(?Book $book): self
-//    {
-//        $this->book = $book;
-//
-//        return $this;
-//    }
-
     public function getBook(): ?Book
     {
         return $this->book;
     }
 
+    /**
+     * @return $this
+     */
     public function setBook(?Book $book): self
     {
         $this->book = $book;

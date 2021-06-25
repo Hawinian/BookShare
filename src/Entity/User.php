@@ -95,14 +95,27 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=64)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     allowEmptyString=false,
+     *     min="2",
+     *     max="64",
+     * )
      */
     private $login;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="integer")
      */
     private $status;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
@@ -128,11 +141,17 @@ class User implements UserInterface
         return $this->email;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
+    /**
+     * @param $password
+     */
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
@@ -245,6 +264,9 @@ class User implements UserInterface
         return $this->login;
     }
 
+    /**
+     * @return $this
+     */
     public function setLogin(string $login): self
     {
         $this->login = $login;
@@ -257,6 +279,9 @@ class User implements UserInterface
         return $this->status;
     }
 
+    /**
+     * @return $this
+     */
     public function setStatus(int $status): self
     {
         $this->status = $status;

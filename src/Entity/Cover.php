@@ -1,4 +1,7 @@
 <?php
+/**
+ * Cover entity.
+ */
 
 namespace App\Entity;
 
@@ -6,6 +9,7 @@ use App\Repository\CoverRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CoverRepository::class)
@@ -22,6 +26,14 @@ class Cover
 
     /**
      * @ORM\Column(type="string", length=64)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     allowEmptyString=false,
+     *     min="2",
+     *     max="64",
+     *     )
      */
     private $name;
 
@@ -30,6 +42,9 @@ class Cover
      */
     private $books;
 
+    /**
+     * Cover constructor.
+     */
     public function __construct()
     {
         $this->covers = new ArrayCollection();
@@ -46,6 +61,9 @@ class Cover
         return $this->name;
     }
 
+    /**
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;

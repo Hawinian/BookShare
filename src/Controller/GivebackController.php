@@ -75,7 +75,6 @@ class GivebackController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request          HTTP rental
      * @param \App\Repository\RentalRepository          $rentalRepository Rental repository
-     * @param int                                       $id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -116,9 +115,7 @@ class GivebackController extends AbstractController
     /**
      * Reject action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP rental
-     * @param \App\Repository\RentalRepository          $rentalRepository Rental repository
-     * @param int                                       $id
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP rental
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

@@ -42,6 +42,34 @@ class VoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Vote::class);
     }
 
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Vote $vote Vote entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Vote $vote): void
+    {
+        $this->_em->persist($vote);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Vote $vote Vote entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Vote $vote): void
+    {
+        $this->_em->remove($vote);
+        $this->_em->flush();
+    }
+
 //    /**
 //     * Query all records.
 //     *
@@ -71,34 +99,6 @@ class VoteRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('vote');
-    }
-
-    /**
-     * Save record.
-     *
-     * @param \App\Entity\Vote $vote Vote entity
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save(Vote $vote): void
-    {
-        $this->_em->persist($vote);
-        $this->_em->flush();
-    }
-
-    /**
-     * Delete record.
-     *
-     * @param \App\Entity\Vote $vote Vote entity
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function delete(Vote $vote): void
-    {
-        $this->_em->remove($vote);
-        $this->_em->flush();
     }
 
 //    /**

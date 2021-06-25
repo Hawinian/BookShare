@@ -1,9 +1,13 @@
 <?php
+/**
+ * Giveback entity.
+ */
 
 namespace App\Entity;
 
 use App\Repository\GivebackRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GivebackRepository::class)
@@ -26,11 +30,20 @@ class Giveback
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     allowEmptyString=false,
+     *     min="2",
+     *     )
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="\DateTimeInterface")
      */
     private $date;
 
@@ -62,6 +75,9 @@ class Giveback
         return $this->content;
     }
 
+    /**
+     * @return $this
+     */
     public function setContent(string $content): self
     {
         $this->content = $content;
@@ -74,6 +90,9 @@ class Giveback
         return $this->date;
     }
 
+    /**
+     * @return $this
+     */
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
@@ -86,6 +105,9 @@ class Giveback
         return $this->rental;
     }
 
+    /**
+     * @return $this
+     */
     public function setRental(Rental $rental): self
     {
         $this->rental = $rental;

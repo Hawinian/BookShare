@@ -1,9 +1,13 @@
 <?php
+/**
+ * Petition entity.
+ */
 
 namespace App\Entity;
 
 use App\Repository\PetitionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PetitionRepository::class)
@@ -20,11 +24,20 @@ class Petition
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="\DateTimeInterface")
      */
     private $date;
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     allowEmptyString=false,
+     *     min="3",
+     *     )
      */
     private $content;
 
@@ -62,6 +75,9 @@ class Petition
         return $this->date;
     }
 
+    /**
+     * @return $this
+     */
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
@@ -74,6 +90,9 @@ class Petition
         return $this->content;
     }
 
+    /**
+     * @return $this
+     */
     public function setContent(string $content): self
     {
         $this->content = $content;
@@ -98,6 +117,9 @@ class Petition
         return $this->user;
     }
 
+    /**
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -110,6 +132,9 @@ class Petition
         return $this->petition_kind;
     }
 
+    /**
+     * @return $this
+     */
     public function setPetitionKind(?PetitionKind $petition_kind): self
     {
         $this->petition_kind = $petition_kind;
@@ -122,6 +147,9 @@ class Petition
         return $this->book;
     }
 
+    /**
+     * @return $this
+     */
     public function setBook(?Book $book): self
     {
         $this->book = $book;

@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class UserController.
@@ -76,14 +75,9 @@ class UserController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
-     * @param \App\Repository\UserRepository            $userRepository User repository
-     * @param int                                       $id
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP user
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
      *     "/register",
@@ -128,7 +122,6 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
      * @param \App\Repository\UserRepository            $userRepository User repository
-     * @param int                                       $id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -174,7 +167,6 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
      * @param \App\Repository\UserRepository            $userRepository User repository
-     * @param int                                       $id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -220,7 +212,6 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param UserInterface                             $loggedUser
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
      * @param \App\Repository\UserRepository            $userRepository User repository
      *
@@ -279,7 +270,6 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP user
      * @param \App\Repository\UserRepository            $userRepository User repository
-     * @param int                                       $id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

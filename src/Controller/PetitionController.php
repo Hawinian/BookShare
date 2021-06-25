@@ -78,8 +78,7 @@ class PetitionController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP petition
-     * @param \App\Repository\PetitionRepository        $petitionRepository Petition repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP petition
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -95,7 +94,6 @@ class PetitionController extends AbstractController
      */
     public function create(Request $request, Book $book, PetitionRepository $requestRepository): Response
     {
-
         if ($this->getUser()) {
             $exisitingpetition = $requestRepository->findBy(['user' => $this->getUser()->getId(), 'book' => $book->getId()]);
             if ($exisitingpetition) {
@@ -131,7 +129,6 @@ class PetitionController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request          HTTP rental
      * @param \App\Repository\RentalRepository          $rentalRepository Rental repository
-     * @param int                                       $id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -188,9 +185,7 @@ class PetitionController extends AbstractController
     /**
      * Reject action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP rental
-     * @param \App\Repository\RentalRepository          $rentalRepository Rental repository
-     * @param int                                       $id
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP rental
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Book entity.
+ */
 
 namespace App\Entity;
 
@@ -7,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
@@ -23,6 +27,13 @@ class Book
 
     /**
      * @ORM\Column(type="string", length=64)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="2",
+     *     max="64",
+     *     )
      */
     private $title;
 
@@ -35,16 +46,28 @@ class Book
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="integer")
+     * @Assert\NotBlank
      */
     private $date;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="integer")
+     * @Assert\NotBlank
      */
     private $pages;
 
     /**
      * @ORM\Column(type="text")
+     *
+     * Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="2",
+     *     )
      */
     private $description;
 
@@ -115,6 +138,9 @@ class Book
      */
     private $petitions;
 
+    /**
+     * Book constructor.
+     */
     public function __construct()
     {
         $this->tag = new ArrayCollection();
@@ -133,6 +159,9 @@ class Book
         return $this->title;
     }
 
+    /**
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -145,6 +174,9 @@ class Book
         return $this->slug;
     }
 
+    /**
+     * @return $this
+     */
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
@@ -157,6 +189,9 @@ class Book
         return $this->date;
     }
 
+    /**
+     * @return $this
+     */
     public function setDate(int $date): self
     {
         $this->date = $date;
@@ -169,6 +204,9 @@ class Book
         return $this->pages;
     }
 
+    /**
+     * @return $this
+     */
     public function setPages(int $pages): self
     {
         $this->pages = $pages;
@@ -181,6 +219,9 @@ class Book
         return $this->description;
     }
 
+    /**
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -193,6 +234,9 @@ class Book
         return $this->image;
     }
 
+    /**
+     * @return $this
+     */
     public function setImage(string $image): self
     {
         $this->image = $image;
@@ -205,6 +249,9 @@ class Book
         return $this->category;
     }
 
+    /**
+     * @return $this
+     */
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
@@ -217,6 +264,9 @@ class Book
         return $this->author;
     }
 
+    /**
+     * @return $this
+     */
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
@@ -229,6 +279,9 @@ class Book
         return $this->cover;
     }
 
+    /**
+     * @return $this
+     */
     public function setCover(?Cover $cover): self
     {
         $this->cover = $cover;
@@ -241,6 +294,9 @@ class Book
         return $this->publisher;
     }
 
+    /**
+     * @return $this
+     */
     public function setPublisher(?Publisher $publisher): self
     {
         $this->publisher = $publisher;
@@ -253,6 +309,9 @@ class Book
         return $this->language;
     }
 
+    /**
+     * @return $this
+     */
     public function setLanguage(?Language $language): self
     {
         $this->language = $language;
@@ -265,6 +324,9 @@ class Book
         return $this->status;
     }
 
+    /**
+     * @return $this
+     */
     public function setStatus(?Status $status): self
     {
         $this->status = $status;
@@ -292,6 +354,9 @@ class Book
         return $this->tag;
     }
 
+    /**
+     * @return $this
+     */
     public function addTag(Tag $tag): self
     {
         if (!$this->tag->contains($tag)) {
@@ -301,6 +366,9 @@ class Book
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function removeTag(Tag $tag): self
     {
         $this->tag->removeElement($tag);
@@ -316,6 +384,9 @@ class Book
         return $this->votes;
     }
 
+    /**
+     * @return $this
+     */
     public function addVote(Vote $vote): self
     {
         if (!$this->votes->contains($vote)) {
@@ -326,6 +397,9 @@ class Book
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function removeVote(Vote $vote): self
     {
         if ($this->votes->removeElement($vote)) {
@@ -346,6 +420,9 @@ class Book
         return $this->rentals;
     }
 
+    /**
+     * @return $this
+     */
     public function addRental(Rental $rental): self
     {
         if (!$this->rentals->contains($rental)) {
@@ -356,6 +433,9 @@ class Book
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function removeRental(Rental $rental): self
     {
         if ($this->rentals->removeElement($rental)) {
@@ -386,6 +466,9 @@ class Book
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function removePetition(Petition $petition): self
     {
         if ($this->petitions->removeElement($petition)) {

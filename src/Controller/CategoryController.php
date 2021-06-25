@@ -5,7 +5,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -166,7 +165,6 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category, CategoryRepository $repository): Response
     {
-
         $existingBook = $category->getBooks();
 
         if (0 != count($existingBook)) {

@@ -44,10 +44,12 @@ class VoteController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP search
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP search
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
      *     "/{id}/vote",
@@ -68,13 +70,8 @@ class VoteController extends AbstractController
             $vote->setBook($book);
             $userId = $this->getUser()->getId();
             $existingRates = $book->getVotes();
-            foreach ($existingRates as $value) {
-                $us = $value->getUser()->getId();
-                if ($us == $userId) {
-                    $voteRepository->delete($value);
-                }
-            }
-            $voteRepository->save($vote);
+            $this->voteService->deleteVotes($existingRates, $userId);
+            $this->voteService->save($vote);
 
             $this->addFlash('success', 'message_created_successfully');
 

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Acces Denied Handler.
+ */
 
 namespace App\Security;
 
@@ -10,11 +13,17 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
 
+/**
+ * Class AccessDeniedHandler.
+ */
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
     private $urlGenerator;
     private $session;
 
+    /**
+     * AccessDeniedHandler constructor.
+     */
     public function __construct(UrlGeneratorInterface $urlGenerator, SessionInterface $session)
     {
         $this->urlGenerator = $urlGenerator;

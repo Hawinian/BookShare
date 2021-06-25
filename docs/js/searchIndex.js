@@ -71,11 +71,6 @@ Search.appendIndex(
             "summary": "Delete\u0020action.",
             "url": "classes/App-Controller-BookController.html#method_delete"
         },                {
-            "fqsen": "\\App\\Controller\\BookController\u003A\u003Asearch\u0028\u0029",
-            "name": "search",
-            "summary": "Index\u0020action.",
-            "url": "classes/App-Controller-BookController.html#method_search"
-        },                {
             "fqsen": "\\App\\Controller\\BookController\u003A\u003Aranking\u0028\u0029",
             "name": "ranking",
             "summary": "Ranking\u0020action.",
@@ -258,7 +253,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Controller\\PetitionController\u003A\u003Aaccept\u0028\u0029",
             "name": "accept",
-            "summary": "Create\u0020action.",
+            "summary": "Accept\u0020action.",
             "url": "classes/App-Controller-PetitionController.html#method_accept"
         },                {
             "fqsen": "\\App\\Controller\\PetitionController\u003A\u003Areject\u0028\u0029",
@@ -505,11 +500,6 @@ Search.appendIndex(
             "name": "admin_edit_password",
             "summary": "Edit\u0020action.",
             "url": "classes/App-Controller-UserController.html#method_admin_edit_password"
-        },                {
-            "fqsen": "\\App\\Controller\\UserController\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Delete\u0020action.",
-            "url": "classes/App-Controller-UserController.html#method_delete"
         },                {
             "fqsen": "\\App\\Controller\\UserController\u003A\u003Aadmin_index\u0028\u0029",
             "name": "admin_index",
@@ -778,7 +768,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\Author\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Author\u0020constructor.",
             "url": "classes/App-Entity-Author.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\Author\u003A\u003AgetId\u0028\u0029",
@@ -823,7 +813,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\Book\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Book\u0020constructor.",
             "url": "classes/App-Entity-Book.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\Book\u003A\u003AgetId\u0028\u0029",
@@ -1103,7 +1093,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\Category\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Category\u0020constructor.",
             "url": "classes/App-Entity-Category.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\Category\u003A\u003AgetId\u0028\u0029",
@@ -1148,7 +1138,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\Cover\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Cover\u0020constructor.",
             "url": "classes/App-Entity-Cover.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\Cover\u003A\u003AgetId\u0028\u0029",
@@ -1253,7 +1243,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\Language\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Language\u0020constructor.",
             "url": "classes/App-Entity-Language.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\Language\u003A\u003AgetId\u0028\u0029",
@@ -1388,7 +1378,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\PetitionKind\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "PetitionKind\u0020constructor.",
             "url": "classes/App-Entity-PetitionKind.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\PetitionKind\u003A\u003AgetId\u0028\u0029",
@@ -1433,7 +1423,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\Publisher\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Publisher\u0020constructor.",
             "url": "classes/App-Entity-Publisher.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\Publisher\u003A\u003AgetId\u0028\u0029",
@@ -1568,7 +1558,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\Status\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Status\u0020constructor.",
             "url": "classes/App-Entity-Status.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\Status\u003A\u003AgetId\u0028\u0029",
@@ -1613,7 +1603,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\Tag\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Tag\u0020constructor.",
             "url": "classes/App-Entity-Tag.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\Tag\u003A\u003AgetId\u0028\u0029",
@@ -1658,7 +1648,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Entity\\User\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "User\u0020constructor.",
             "url": "classes/App-Entity-User.html#method___construct"
         },                {
             "fqsen": "\\App\\Entity\\User\u003A\u003AgetId\u0028\u0029",
@@ -1968,7 +1958,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Form\\EditDataType",
             "name": "EditDataType",
-            "summary": "",
+            "summary": "Class\u0020EditDataType.",
             "url": "classes/App-Form-EditDataType.html"
         },                {
             "fqsen": "\\App\\Form\\EditDataType\u003A\u003AbuildForm\u0028\u0029",
@@ -1983,7 +1973,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Form\\EditPasswordType",
             "name": "EditPasswordType",
-            "summary": "",
+            "summary": "Class\u0020EditPasswordType.",
             "url": "classes/App-Form-EditPasswordType.html"
         },                {
             "fqsen": "\\App\\Form\\EditPasswordType\u003A\u003AbuildForm\u0028\u0029",
@@ -2126,6 +2116,11 @@ Search.appendIndex(
             "summary": "Builds\u0020the\u0020form.",
             "url": "classes/App-Form-SearchType.html#method_buildForm"
         },                {
+            "fqsen": "\\App\\Form\\SearchType\u003A\u003AconfigureOptions\u0028\u0029",
+            "name": "configureOptions",
+            "summary": "Configures\u0020the\u0020options\u0020for\u0020this\u0020type.",
+            "url": "classes/App-Form-SearchType.html#method_configureOptions"
+        },                {
             "fqsen": "\\App\\Form\\SearchType\u003A\u003AgetBlockPrefix\u0028\u0029",
             "name": "getBlockPrefix",
             "summary": "Returns\u0020the\u0020prefix\u0020of\u0020the\u0020template\u0020block\u0020name\u0020for\u0020this\u0020type.",
@@ -2188,7 +2183,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Form\\UserType",
             "name": "UserType",
-            "summary": "",
+            "summary": "Class\u0020UserType.",
             "url": "classes/App-Form-UserType.html"
         },                {
             "fqsen": "\\App\\Form\\UserType\u003A\u003AbuildForm\u0028\u0029",
@@ -2223,7 +2218,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Kernel",
             "name": "Kernel",
-            "summary": "",
+            "summary": "Class\u0020Kernel.",
             "url": "classes/App-Kernel.html"
         },                {
             "fqsen": "\\App\\Kernel\u003A\u003AregisterBundles\u0028\u0029",
@@ -2266,11 +2261,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-AuthorRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\AuthorRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-AuthorRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\AuthorRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2280,6 +2270,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-AuthorRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\AuthorRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-AuthorRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\AuthorRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2295,11 +2290,6 @@ Search.appendIndex(
             "name": "__construct",
             "summary": "BookRepository\u0020constructor.",
             "url": "classes/App-Repository-BookRepository.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Repository\\BookRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-BookRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\BookRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
@@ -2320,6 +2310,11 @@ Search.appendIndex(
             "name": "queryAllRanking",
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-BookRepository.html#method_queryAllRanking"
+        },                {
+            "fqsen": "\\App\\Repository\\BookRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-BookRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\BookRepository\u003A\u003AapplyFiltersToList\u0028\u0029",
             "name": "applyFiltersToList",
@@ -2346,11 +2341,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-CategoryRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\CategoryRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-CategoryRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\CategoryRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2360,6 +2350,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-CategoryRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\CategoryRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-CategoryRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\CategoryRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2381,11 +2376,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-CoverRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\CoverRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-CoverRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\CoverRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2395,6 +2385,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-CoverRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\CoverRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-CoverRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\CoverRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2416,11 +2411,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-GivebackRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\GivebackRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-GivebackRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\GivebackRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2430,6 +2420,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-GivebackRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\GivebackRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-GivebackRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\GivebackRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2451,11 +2446,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-LanguageRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\LanguageRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-LanguageRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\LanguageRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2465,6 +2455,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-LanguageRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\LanguageRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-LanguageRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\LanguageRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2486,11 +2481,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-PetitionKindRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\PetitionKindRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-PetitionKindRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\PetitionKindRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2500,6 +2490,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-PetitionKindRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\PetitionKindRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-PetitionKindRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\PetitionKindRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2521,11 +2516,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-PetitionRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\PetitionRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-PetitionRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\PetitionRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2535,6 +2525,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-PetitionRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\PetitionRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-PetitionRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\PetitionRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2556,11 +2551,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-PublisherRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\PublisherRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-PublisherRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\PublisherRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2570,6 +2560,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-PublisherRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\PublisherRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-PublisherRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\PublisherRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2601,11 +2596,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-RentalRepository.html#method_queryAllInTimeBooks"
         },                {
-            "fqsen": "\\App\\Repository\\RentalRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-RentalRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\RentalRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2620,6 +2610,11 @@ Search.appendIndex(
             "name": "queryByAuthor",
             "summary": "Query\u0020tasks\u0020by\u0020author.",
             "url": "classes/App-Repository-RentalRepository.html#method_queryByAuthor"
+        },                {
+            "fqsen": "\\App\\Repository\\RentalRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-RentalRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\RentalRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2641,11 +2636,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-StatusRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\StatusRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-StatusRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\StatusRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2655,6 +2645,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-StatusRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\StatusRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-StatusRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\StatusRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2676,11 +2671,6 @@ Search.appendIndex(
             "summary": "Query\u0020all\u0020records.",
             "url": "classes/App-Repository-TagRepository.html#method_queryAll"
         },                {
-            "fqsen": "\\App\\Repository\\TagRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-TagRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\TagRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2690,6 +2680,11 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-TagRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\TagRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-TagRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\TagRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2703,23 +2698,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Repository\\UserRepository\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "UserRepository\u0020constructor.",
             "url": "classes/App-Repository-UserRepository.html#method___construct"
         },                {
             "fqsen": "\\App\\Repository\\UserRepository\u003A\u003AupgradePassword\u0028\u0029",
             "name": "upgradePassword",
             "summary": "Used\u0020to\u0020upgrade\u0020\u0028rehash\u0029\u0020the\u0020user\u0027s\u0020password\u0020automatically\u0020over\u0020time.",
             "url": "classes/App-Repository-UserRepository.html#method_upgradePassword"
-        },                {
-            "fqsen": "\\App\\Repository\\UserRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-UserRepository.html#method_getOrCreateQueryBuilder"
-        },                {
-            "fqsen": "\\App\\Repository\\UserRepository\u003A\u003AqueryAll\u0028\u0029",
-            "name": "queryAll",
-            "summary": "Query\u0020all\u0020records.",
-            "url": "classes/App-Repository-UserRepository.html#method_queryAll"
         },                {
             "fqsen": "\\App\\Repository\\UserRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
@@ -2730,6 +2715,16 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-UserRepository.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Repository\\UserRepository\u003A\u003AqueryAll\u0028\u0029",
+            "name": "queryAll",
+            "summary": "Query\u0020all\u0020records.",
+            "url": "classes/App-Repository-UserRepository.html#method_queryAll"
+        },                {
+            "fqsen": "\\App\\Repository\\UserRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-UserRepository.html#method_getOrCreateQueryBuilder"
         },                {
             "fqsen": "\\App\\Repository\\UserRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
@@ -2746,11 +2741,6 @@ Search.appendIndex(
             "summary": "VoteRepository\u0020constructor.",
             "url": "classes/App-Repository-VoteRepository.html#method___construct"
         },                {
-            "fqsen": "\\App\\Repository\\VoteRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
-            "name": "getOrCreateQueryBuilder",
-            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
-            "url": "classes/App-Repository-VoteRepository.html#method_getOrCreateQueryBuilder"
-        },                {
             "fqsen": "\\App\\Repository\\VoteRepository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020record.",
@@ -2761,6 +2751,11 @@ Search.appendIndex(
             "summary": "Delete\u0020record.",
             "url": "classes/App-Repository-VoteRepository.html#method_delete"
         },                {
+            "fqsen": "\\App\\Repository\\VoteRepository\u003A\u003AgetOrCreateQueryBuilder\u0028\u0029",
+            "name": "getOrCreateQueryBuilder",
+            "summary": "Get\u0020or\u0020create\u0020new\u0020query\u0020builder.",
+            "url": "classes/App-Repository-VoteRepository.html#method_getOrCreateQueryBuilder"
+        },                {
             "fqsen": "\\App\\Repository\\VoteRepository\u003A\u003APAGINATOR_ITEMS_PER_PAGE",
             "name": "PAGINATOR_ITEMS_PER_PAGE",
             "summary": "Items\u0020per\u0020page.",
@@ -2768,12 +2763,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Security\\AccessDeniedHandler",
             "name": "AccessDeniedHandler",
-            "summary": "",
+            "summary": "Class\u0020AccessDeniedHandler.",
             "url": "classes/App-Security-AccessDeniedHandler.html"
         },                {
             "fqsen": "\\App\\Security\\AccessDeniedHandler\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "AccessDeniedHandler\u0020constructor.",
             "url": "classes/App-Security-AccessDeniedHandler.html#method___construct"
         },                {
             "fqsen": "\\App\\Security\\AccessDeniedHandler\u003A\u003Ahandle\u0028\u0029",
@@ -2931,19 +2926,14 @@ Search.appendIndex(
             "summary": "BookService\u0020constructor.",
             "url": "classes/App-Service-BookService.html#method___construct"
         },                {
-            "fqsen": "\\App\\Service\\BookService\u003A\u003AprepareFilters\u0028\u0029",
-            "name": "prepareFilters",
-            "summary": "Prepare\u0020filters\u0020for\u0020the\u0020tasks\u0020list.",
-            "url": "classes/App-Service-BookService.html#method_prepareFilters"
-        },                {
             "fqsen": "\\App\\Service\\BookService\u003A\u003AcreatePaginatedList\u0028\u0029",
             "name": "createPaginatedList",
-            "summary": "Create\u0020paginated\u0020list.",
+            "summary": "",
             "url": "classes/App-Service-BookService.html#method_createPaginatedList"
         },                {
             "fqsen": "\\App\\Service\\BookService\u003A\u003AcreatePaginatedListForRanking\u0028\u0029",
             "name": "createPaginatedListForRanking",
-            "summary": "Create\u0020paginated\u0020list.",
+            "summary": "",
             "url": "classes/App-Service-BookService.html#method_createPaginatedListForRanking"
         },                {
             "fqsen": "\\App\\Service\\BookService\u003A\u003Asave\u0028\u0029",
@@ -2960,6 +2950,11 @@ Search.appendIndex(
             "name": "findOneById",
             "summary": "Find\u0020book\u0020by\u0020Id.",
             "url": "classes/App-Service-BookService.html#method_findOneById"
+        },                {
+            "fqsen": "\\App\\Service\\BookService\u003A\u003AprepareFilters\u0028\u0029",
+            "name": "prepareFilters",
+            "summary": "Prepare\u0020filters\u0020for\u0020the\u0020tasks\u0020list.",
+            "url": "classes/App-Service-BookService.html#method_prepareFilters"
         },                {
             "fqsen": "\\App\\Service\\BookService\u003A\u003A\u0024bookRepository",
             "name": "bookRepository",
@@ -3496,6 +3491,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Service-VoteService.html#method_delete"
         },                {
+            "fqsen": "\\App\\Service\\VoteService\u003A\u003AdeleteVotes\u0028\u0029",
+            "name": "deleteVotes",
+            "summary": "",
+            "url": "classes/App-Service-VoteService.html#method_deleteVotes"
+        },                {
             "fqsen": "\\App\\Service\\VoteService\u003A\u003A\u0024voteRepository",
             "name": "voteRepository",
             "summary": "Vote\u0020repository.",
@@ -3511,10 +3511,35 @@ Search.appendIndex(
             "summary": "Category\u0020service.",
             "url": "classes/App-Service-VoteService.html#property_categoryService"
         },                {
-            "fqsen": "\\App\\Service\\VoteService\u003A\u003A\u0024tagService",
-            "name": "tagService",
-            "summary": "Tag\u0020service.",
-            "url": "classes/App-Service-VoteService.html#property_tagService"
+            "fqsen": "\\App\\Service\\VoteService\u003A\u003A\u0024voteService",
+            "name": "voteService",
+            "summary": "Vote\u0020service.",
+            "url": "classes/App-Service-VoteService.html#property_voteService"
+        },                {
+            "fqsen": "\\App\\Security\\Voter\\RentalVoter",
+            "name": "RentalVoter",
+            "summary": "Class\u0020RentalVoter.",
+            "url": "classes/App-Security-Voter-RentalVoter.html"
+        },                {
+            "fqsen": "\\App\\Security\\Voter\\RentalVoter\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "OrderVoter\u0020constructor.",
+            "url": "classes/App-Security-Voter-RentalVoter.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Security\\Voter\\RentalVoter\u003A\u003Asupports\u0028\u0029",
+            "name": "supports",
+            "summary": "Determines\u0020if\u0020the\u0020attribute\u0020and\u0020subject\u0020are\u0020supported\u0020by\u0020this\u0020voter.",
+            "url": "classes/App-Security-Voter-RentalVoter.html#method_supports"
+        },                {
+            "fqsen": "\\App\\Security\\Voter\\RentalVoter\u003A\u003AvoteOnAttribute\u0028\u0029",
+            "name": "voteOnAttribute",
+            "summary": "Perform\u0020a\u0020single\u0020access\u0020check\u0020operation\u0020on\u0020a\u0020given\u0020attribute,\u0020subject\u0020and\u0020token.",
+            "url": "classes/App-Security-Voter-RentalVoter.html#method_voteOnAttribute"
+        },                {
+            "fqsen": "\\App\\Security\\Voter\\RentalVoter\u003A\u003A\u0024security",
+            "name": "security",
+            "summary": "Security\u0020helper.",
+            "url": "classes/App-Security-Voter-RentalVoter.html#property_security"
         },                {
             "fqsen": "\\",
             "name": "\\",

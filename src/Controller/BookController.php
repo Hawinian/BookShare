@@ -98,7 +98,7 @@ class BookController extends AbstractController
         $filters['language_id'] = $request->query->getInt('filters_language_id');
         $filters['author_id'] = $request->query->getInt('filters_author_id');
 
-        $form = $this->createForm(SearchType::class, $book, ['method'=>'GET']);
+        $form = $this->createForm(SearchType::class, $book, ['method' => 'GET']);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $filters['title'] = $form->getData()->getTitle();
@@ -110,7 +110,7 @@ class BookController extends AbstractController
 
         return $this->render(
             'book/index.html.twig',
-            ['pagination' => $pagination, 'form'=>$form->createView()]
+            ['pagination' => $pagination, 'form' => $form->createView()]
         );
     }
 

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Security Controller.
+ */
 
 namespace App\Controller;
 

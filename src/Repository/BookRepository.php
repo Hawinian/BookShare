@@ -47,18 +47,6 @@ class BookRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('book');
-    }
-
-    /**
      * Save record.
      *
      * @param \App\Entity\Book $book Book entity
@@ -138,6 +126,18 @@ class BookRepository extends ServiceEntityRepository
     }
 
     /**
+     * Get or create new query builder.
+     *
+     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('book');
+    }
+
+    /**
      * Apply filters to paginated list.
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
@@ -172,7 +172,7 @@ class BookRepository extends ServiceEntityRepository
                 ->setParameter('tag', $filters['tag']);
         }
 
-        if (isset($filters['title'])){
+        if (isset($filters['title'])) {
             $queryBuilder->andWhere('book.title LIKE :title')
                 ->setParameter('title', '%'.$filters['title'].'%');
         }
