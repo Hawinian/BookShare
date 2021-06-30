@@ -29,8 +29,9 @@ class Book
      * @ORM\Column(type="string", length=64)
      *
      * @Assert\Type(type="string")
-     * @Assert\NotBlank
+     *
      * @Assert\Length(
+     *     allowEmptyString="false",
      *     min="2",
      *     max="64",
      *     )
@@ -48,7 +49,6 @@ class Book
      * @ORM\Column(type="integer")
      *
      * @Assert\Type(type="integer")
-     * @Assert\NotBlank
      */
     private $date;
 
@@ -56,7 +56,6 @@ class Book
      * @ORM\Column(type="integer")
      *
      * @Assert\Type(type="integer")
-     * @Assert\NotBlank
      */
     private $pages;
 
@@ -64,9 +63,10 @@ class Book
      * @ORM\Column(type="text")
      *
      * Assert\Type(type="string")
-     * @Assert\NotBlank
      * @Assert\Length(
+     *     allowEmptyString=false,
      *     min="2",
+     *     max="500"
      *     )
      */
     private $description;
